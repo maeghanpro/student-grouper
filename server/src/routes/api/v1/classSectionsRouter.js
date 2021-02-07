@@ -3,6 +3,7 @@ import { ValidationError } from 'objection'
 
 import { ClassSection, User } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
+import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
 
 const classSectionsRouter = new express.Router()
 
@@ -11,7 +12,10 @@ classSectionsRouter.get('/', async (req, res) => {
   try {
     const user = await User.query().findById(userId)
     const classSections = await user.$relatedQuery('classSections')
-    return res.status(200).json({classSections})
+    const serializedClassSections = classSections.map(classSection => {
+      return ClassSectionSerializer.getSummary(classSection)
+    })
+    return res.status(200).json({classSections: serializedClassSections})
   } catch (error) {
     return res.status(500).json({errors: error})
   }
