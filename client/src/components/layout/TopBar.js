@@ -17,17 +17,24 @@ const TopBar = ({ user }) => {
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
-    </li>,
+    </li>
   ];
+
+  const authenticatedLeftListItems = [
+    <li key="classes">
+      <Link className="top-bar-link" to="/classes">Classes</Link>
+    </li> 
+  ]
 
   return (
     <div className="top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li className="menu-text">App</li>
+          <li className="menu-text">Student Grouper</li>
           <li>
-            <Link to="/">Home</Link>
+            <Link className="top-bar-link" to="/">Home</Link>
           </li>
+          <>{user ? authenticatedLeftListItems : undefined} </>
         </ul>
       </div>
       <div className="top-bar-right">

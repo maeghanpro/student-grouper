@@ -81,7 +81,7 @@ const RegistrationForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/classes";
   }
 
   return (

@@ -12,3 +12,51 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
+// top-bar styles
+
+.top-bar-link {
+  color: #F3F3EE;
+}
+
+.top-bar-link:hover {
+  color: #C3AD75;
+}
+
+// classSectionIndex styles
+.add-class-fab {
+  float: right;
+  margin: 0px;
+  top: auto;
+  right: -20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}
+
+.MuiContainer-root.class-index-container {
+  margin: 40px;
+  padding-right: 100px;
+}
+
+.MuiFab-primary.add-class-fab {
+  background-color: #7E93A2;
+}
+.MuiFab-primary.add-class-fab:hover {
+  background-color: #C3AD75;
+}
+
+// classSectionTile styles
+.MuiButtonBase-root.class-card-button {
+  background-color: #F3F3EE;
+}
+
+.class-card {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.class-card-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
