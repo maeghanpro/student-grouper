@@ -9,7 +9,7 @@ class ClassSection extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      require: ['name'],
+      required: ['name'],
       properties: {
         name: {type: 'string'}
       }

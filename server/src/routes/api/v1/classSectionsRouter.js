@@ -26,8 +26,8 @@ classSectionsRouter.post('/new', async (req, res) => {
   const body = cleanUserInput(req.body)
   try {
     const classSection = await ClassSection.query().insertAndFetch({...body, userId})
-    console.log(classSection)
-    return res.status(201).json({classSection})
+    const serializedClassSection = ClassSectionSerializer.getSummary(classSection)
+    return res.status(201).json({classSection: serializedClassSection})
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({errors: error.data})

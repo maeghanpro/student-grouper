@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Card, CardContent, CardActions, Input, TextField, Button, Typography} from '@material-ui/core'
+import {Card, CardContent, CardActions, TextField, Button, Typography} from '@material-ui/core'
 
 import ErrorList from '../ErrorList'
 
@@ -14,7 +14,6 @@ const NewClassForm = ({addNewClassSection, errors}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    debugger
     addNewClassSection(newClassSection)
   }
   return (
@@ -23,7 +22,7 @@ const NewClassForm = ({addNewClassSection, errors}) => {
       <Typography className="new-class-form-header" variant='h4'>New Class</Typography>
       <ErrorList errors={errors} />
       <form className="new-class-form" autoComplete="off" onSubmit={handleSubmit} >
-          <TextField required={true} onChange={handleInputChange} value={newClassSection.name} className="new-class-form-field" label="Class Name" id="new-class-name" variant="outlined"/>
+          <TextField onChange={handleInputChange} value={newClassSection.name} className="new-class-form-field" label="Class Name*" id="new-class-name" variant="outlined"/>
       </form>
       </CardContent>
       <CardActions className="new-class-form-button">
