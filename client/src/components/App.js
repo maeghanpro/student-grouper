@@ -8,7 +8,7 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
-import ClassSectionIndex from "./ClassSectionIndex";
+import ClassSectionIndex from "./classPage/ClassSectionIndex";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
