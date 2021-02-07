@@ -22,6 +22,17 @@
   color: #C3AD75;
 }
 
+.top-bar-link:active {
+  color: #C3AD75;
+}
+.top-bar-link:visited {
+  color: #F3F3EE;
+}
+
+.top-bar-link:visited:hover {
+  color: #C3AD75;
+}
+
 // classSectionIndex styles
 .add-class-fab {
   float: right;
