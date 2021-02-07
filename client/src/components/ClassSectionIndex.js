@@ -49,7 +49,7 @@ const ClassSectionIndex = (props) => {
     <Container className="class-index-container" max-width="md">
       <Grid container alignContent="center" spacing={3}>
         <Grid item xs={12}>
-          <Typography className="text-center" variant="h1">Classes</Typography>
+          <Typography className="class-index-header text-center" variant="h1">Classes</Typography>
         </Grid>
         <Grid container justify="flex-start" alignItems="baseline" spacing={3}>
           {classSectionTiles}
