@@ -7,7 +7,7 @@ const ClassSectionTile = ({classSection}) => {
   const randomColor = colorOptions[randomIndex]
   const style = {
     background: randomColor,
-    color: 'white'
+    color: '#F3F3EE'
   }
   return (
     <Card className="class-card" style={style} raised>
@@ -15,8 +15,8 @@ const ClassSectionTile = ({classSection}) => {
         <Typography variant="h3">{classSection.name}</Typography>
       </CardContent>
       <CardActions className="class-card-buttons" >
-        <Button variant="contained" size="large">Students</Button>
-        <Button variant="contained" size="large">Groups</Button>
+        <Button className="class-card-button" variant="contained" size="large">Students</Button>
+        <Button className="class-card-button" variant="contained" size="large">Groups</Button>
       </CardActions>
     </Card>
   )

@@ -22,7 +22,7 @@ const TopBar = ({ user }) => {
 
   const authenticatedLeftListItems = [
     <li key="classes">
-      <Link to="/classes">Classes</Link>
+      <Link className="top-bar-link" to="/classes">Classes</Link>
     </li> 
   ]
 
@@ -32,7 +32,7 @@ const TopBar = ({ user }) => {
         <ul className="menu">
           <li className="menu-text">Student Grouper</li>
           <li>
-            <Link to="/">Home</Link>
+            <Link className="top-bar-link" to="/">Home</Link>
           </li>
           <>{user ? authenticatedLeftListItems : undefined} </>
         </ul>

@@ -297,7 +297,7 @@ $button-font-weight: null;
 $button-padding: 0.85em 1em;
 $button-margin: 0 0 $global-margin 0;
 $button-fill: solid;
-$button-background: $primary-color;
+$button-background: #7E93A2;
 $button-background-hover: scale-color($button-background, $lightness: -15%);
 $button-color: $white;
 $button-color-alt: $black;
@@ -872,7 +872,7 @@ $tooltip-radius: $global-radius;
 // -----------
 
 $topbar-padding: 0.5rem;
-$topbar-background: $light-gray;
+$topbar-background: #5C6361;
 $topbar-submenu-background: $topbar-background;
 $topbar-title-spacing: 0.5rem 1rem 0.5rem 0;
 $topbar-input-width: 200px;
