@@ -18,5 +18,9 @@
   },
   "engines": {
     "node": "^14.15"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2"
   }
 }
