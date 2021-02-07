@@ -95,11 +95,11 @@ body {
   color:#F3F3EE;
 }
 
-input.MuiInputBase-input {
-  background-color: #b4b4b4;
-  color:#271e27;
-  height: 15px;
-}
+// input.MuiInputBase-input {
+//   background-color: #b4b4b4;
+//   color:#271e27;
+//   height: 15px;
+// }
 
 label.MuiFormLabel-root{
   color:#271e27;
@@ -110,7 +110,7 @@ label.MuiFormLabel-root.Mui-focused{
 }
 
 input.MuiInputBase-input:focus {
-  background-color:#F3F3EE;
+  background-color:#7E93A2;
 }
 
 .new-class-form-button {
@@ -120,3 +120,12 @@ input.MuiInputBase-input:focus {
 .new-class-form-header {
   padding-bottom: 15px;
 }
+
+#new-class-name-label {
+  color: #F3F3EE;
+}
+
+#new-class-name {
+  color: #F3F3EE;
+}
+

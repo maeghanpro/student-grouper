@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Grid, Fab, Container} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@material-ui/icons/Close'
+import translateServerErrors from '../../services/translateServerErrors'
 
 import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
 
+
 const ClassSectionIndex = (props) => {
   const [classSections, setClassSections] = useState([])
   const [revealClassForm, setRevealClassForm] =useState(false)
+  const [errors, setErrors] = useState({})
+
   const getClassSections = async () => {
     try {
       const response = await fetch('/api/v1/classes')
@@ -20,6 +24,41 @@ const ClassSectionIndex = (props) => {
 
       const body = await response.json()
       setClassSections(body.classSections)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const addNewClassSection = async (newClassSection) => {
+    try {
+      const response = await fetch('/api/v1/classes/new', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-type': 'application/json'
+        }),
+        body: JSON.stringify(newClassSection)
+      })
+
+      if(!response.ok) {
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
+      } else {
+        const body = await response.json()
+        setClassSections([
+          ...classSections,
+          body.classSection
+        ])
+        setErrors({})
+        return true
+      }
 
     } catch (error) {
       console.error(error)
@@ -40,6 +79,7 @@ const ClassSectionIndex = (props) => {
     event.preventDefault()
     setRevealClassForm(false)
   }
+
   let newClassForm;
   let fab= (
     <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new class">
@@ -50,7 +90,10 @@ const ClassSectionIndex = (props) => {
   if (revealClassForm) {
     newClassForm = (
       <Grid item xs={6} md={4} lg={3}>
-        <NewClassForm/>
+        <NewClassForm 
+          addNewClassSection={addNewClassSection}
+          errors={errors}
+        />
       </Grid>
     )
     fab = (
