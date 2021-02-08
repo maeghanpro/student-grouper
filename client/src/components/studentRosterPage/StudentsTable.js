@@ -5,26 +5,24 @@ const StudentsTable = ({students}) => {
 
   const rows = students.map((student) => {
     return (
-      <TableRow key={student.id}>
+      <TableRow className= "students-table-row" key={student.id}>
         <TableCell component="th" scope="row">
-          {student.firstName}
+          {student.firstName} {student.lastInitial}
         </TableCell>
-        <TableCell>{student.lastInitial}</TableCell>
-        <TableCell align="right">{student.academicTier}</TableCell>
-        <TableCell align="right">{student.socialEmotionalTier}</TableCell>
+        <TableCell align="center">{student.academicTier}</TableCell>
+        <TableCell align="center">{student.socialEmotionalTier}</TableCell>
       </TableRow>
     )
   })
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className="students-table" component={Paper}>
       <Table stickyHeader aria-label="students table">
         <TableHead>
-          <TableRow>
+          <TableRow className='students-table-header-row'>
             <TableCell>Student Name</TableCell>
-            <TableCell>Last Initial</TableCell>
-            <TableCell align="right">Academic Tier</TableCell>
-            <TableCell align="right">Social-Emotional Tier</TableCell>
+            <TableCell align="center">Academic Tier</TableCell>
+            <TableCell align="center">Social-Emotional Tier</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

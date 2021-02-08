@@ -30,11 +30,13 @@ const StudentRosterPage = (props) => {
   }, [])
 
   return (
-    <div className="grid-container">
+    <div className="grid-container ">
       <Typography className="text-center" variant="h1">
         {classSection.name} Roster
       </Typography>
-      <StudentsTable students={students} />
+      <div className="students-table-container">
+        <StudentsTable students={students} />
+      </div>
     </div>
   )
 }
