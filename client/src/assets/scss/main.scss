@@ -12,6 +12,15 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
+
+body {
+  background-color: #F3F3EE;
+}
+
+#app {
+  height: 100vh;
+}
+
 // top-bar styles
 
 .top-bar-link {
@@ -22,41 +31,101 @@
   color: #C3AD75;
 }
 
+.top-bar-link:active {
+  color: #C3AD75;
+}
+.top-bar-link:visited {
+  color: #F3F3EE;
+}
+
+.top-bar-link:visited:hover {
+  color: #C3AD75;
+}
+
 // classSectionIndex styles
-.add-class-fab {
+.class-fab {
   float: right;
-  margin: 0px;
-  top: auto;
-  right: -20px;
-  bottom: 20px;
-  left: auto;
+  right: -10px;
+  bottom: -19px;
   position: fixed;
 }
 
-.MuiContainer-root.class-index-container {
-  margin: 40px;
-  padding-right: 100px;
-}
-
-.MuiFab-primary.add-class-fab {
+.MuiFab-primary.class-fab {
   background-color: #7E93A2;
 }
-.MuiFab-primary.add-class-fab:hover {
+.MuiFab-primary.class-fab:hover {
   background-color: #C3AD75;
 }
-
+.MuiTypography-h1.class-index-header {
+  color: #271e27;
+  margin-top: 10px;
+}
 // classSectionTile styles
 .MuiButtonBase-root.class-card-button {
   background-color: #F3F3EE;
+  color:#271e27;
 }
 
 .class-card {
   text-align: center;
-  padding-bottom: 15px;
+  min-height: 200px;
+  h3 {
+    margin-top: 15px;
+  }
 }
 
 .class-card-buttons {
-  display: flex;
-  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+// new class form styles
+.MuiButtonBase-root.new-class-form-button {
+  background-color: #F3F3EE;
+  color:#271e27;
+}
+
+.new-class-form-card {
+  text-align: center;
+  min-height: 200px;
+}
+
+.MuiPaper-root.new-class-form-card {
+  background-color:#7E93A2;
+  color:#F3F3EE;
+}
+
+// input.MuiInputBase-input {
+//   background-color: #b4b4b4;
+//   color:#271e27;
+//   height: 15px;
+// }
+
+label.MuiFormLabel-root{
+  color:#271e27;
+}
+
+label.MuiFormLabel-root.Mui-focused{
+  color:#271e27;
+}
+
+input.MuiInputBase-input:focus {
+  background-color:#7E93A2;
+}
+
+.new-class-form-button {
   justify-content: space-evenly;
 }
+
+.new-class-form-header {
+  padding-bottom: 15px;
+}
+
+#new-class-name-label {
+  color: #F3F3EE;
+}
+
+#new-class-name {
+  color: #F3F3EE;
+}
+
