@@ -17,7 +17,7 @@ class ClassSection extends Model {
   }
 
   static get relationMappings() {
-    const { User } = require('./index.js')
+    const { User, Student } = require('./index.js')
 
     return {
       user: {
@@ -26,6 +26,14 @@ class ClassSection extends Model {
         join: {
           from: 'classSections.userId',
           to: 'users.id'
+        }
+      },
+      students: {
+        relation: Model.HasManyRelation,
+        modelClass: Student,
+        join: {
+          from: 'classSections.id',
+          to: 'students.classSectionId'
         }
       }
     }

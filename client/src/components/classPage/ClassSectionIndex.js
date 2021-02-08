@@ -7,7 +7,6 @@ import translateServerErrors from '../../services/translateServerErrors'
 import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
 
-
 const ClassSectionIndex = (props) => {
   const [classSections, setClassSections] = useState([])
   const [revealClassForm, setRevealClassForm] =useState(false)
