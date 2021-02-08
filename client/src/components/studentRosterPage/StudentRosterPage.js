@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import {Typography} from '@material-ui/core'
 
+import StudentsTable from './StudentsTable'
+
 const StudentRosterPage = (props) => {
   const [classSection, setClassSection] = useState({})
   const [students, setStudents] = useState([])
@@ -22,20 +24,17 @@ const StudentRosterPage = (props) => {
       console.error(error)
     }
   }
-  const studentNames = students.map(student => {
-    return (
-      <h2 key={student.id}>{student.firstName}</h2>
-    )
-  })
+
   useEffect(() => {
     getStudents()
   }, [])
+
   return (
-    <div>
+    <div className="grid-container">
       <Typography className="text-center" variant="h1">
         {classSection.name} Roster
       </Typography>
-      {studentNames}
+      <StudentsTable students={students} />
     </div>
   )
 }
