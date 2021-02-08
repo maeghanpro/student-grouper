@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Card, CardContent, CardActions, Button, Typography } from '@material-ui/core'
 
 const ClassSectionTile = ({classSection}) => {
@@ -9,13 +10,16 @@ const ClassSectionTile = ({classSection}) => {
     background: randomColor,
     color: '#F3F3EE'
   }
+  
   return (
     <Card className="class-card" style={style} raised>
       <CardContent>
         <Typography variant="h3">{classSection.name}</Typography>
       </CardContent>
       <CardActions className="class-card-buttons" >
-        <Button className="class-card-button" variant="contained" size="large">Students</Button>
+        <Link to={`/classes/${classSection.id}`}>
+          <Button className="class-card-button" variant="contained" size="large">Students</Button>
+        </Link>
         <Button className="class-card-button" variant="contained" size="large">Groups</Button>
       </CardActions>
     </Card>

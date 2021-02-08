@@ -11,7 +11,7 @@ classSectionsRouter.get('/', async (req, res) => {
   const userId = req.user.id
   try {
     const user = await User.query().findById(userId)
-    const classSections = await user.$relatedQuery('classSections')
+    const classSections = await user.$relatedQuery('classSections').orderBy('name')
     const serializedClassSections = classSections.map(classSection => {
       return ClassSectionSerializer.getSummary(classSection)
     })
@@ -36,4 +36,15 @@ classSectionsRouter.post('/new', async (req, res) => {
   }
 })
 
+classSectionsRouter.get('/:id', async (req, res) => {
+  const {id} = req.params
+  try {
+    const classSection = await ClassSection.query().findById(id)
+    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
+    return res.status(200).json({classSection: serializedClassSection})
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
 export default classSectionsRouter
