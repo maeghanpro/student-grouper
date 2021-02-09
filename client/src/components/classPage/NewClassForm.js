@@ -3,7 +3,7 @@ import {Card, CardContent, CardActions, TextField, Button, Typography} from '@ma
 
 import ErrorList from '../ErrorList'
 
-const NewClassForm = ({addNewClassSection, errors}) => {
+const NewClassForm = ({addNewClassSection, errors, closeForm}) => {
   const [newClassSection, setNewClassSection] =useState({ name: ""})
 
   const handleInputChange = (event) => {
@@ -12,9 +12,11 @@ const NewClassForm = ({addNewClassSection, errors}) => {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    addNewClassSection(newClassSection)
+   if (await addNewClassSection(newClassSection)) {
+     closeForm()
+   }
   }
   return (
     <Card className="new-class-form-card">

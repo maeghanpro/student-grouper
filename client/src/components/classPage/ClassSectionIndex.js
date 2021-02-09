@@ -34,7 +34,7 @@ const ClassSectionIndex = (props) => {
 
   const addNewClassSection = async (newClassSection) => {
     try {
-      const response = await fetch('/api/v1/classes/new', {
+      const response = await fetch('/api/v1/classes', {
         method: 'POST',
         headers: new Headers({
           'Content-type': 'application/json'
@@ -67,18 +67,38 @@ const ClassSectionIndex = (props) => {
     }
   }
 
+  const patchClassSection = async (classSection) => {
+    try {
+      const response = await fetch('/api/v1/classes', {
+        method: 'PATCH',
+        headers: new Headers({
+          'content-type': 'application/json'
+        }),
+        body: JSON.stringify(classSection)
+      })
+      if(!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      } else {
+        const body = await response.json()
+        setClassSections(body.classSections)
+        return true
+      }
+    } catch (error) {
+      console.error(`Error in fetch ${error.message}`)
+    }
+  }
+
   useEffect(() => {
     getClassSections()
   }, [])
 
 
-  const handleOpenFormClick = (event) => {
-    event.preventDefault()
+  const handleOpenFormClick = () => {
     setRevealClassForm(true)        
   }
 
-  const handleCloseFormClick = (event) => {
-    event.preventDefault()
+  const handleCloseFormClick = () => {
     setRevealClassForm(false)
   }
 
@@ -95,6 +115,7 @@ const ClassSectionIndex = (props) => {
         <NewClassForm 
           addNewClassSection={addNewClassSection}
           errors={errors}
+          closeForm={handleCloseFormClick}
         />
       </Grid>
     )
@@ -104,13 +125,14 @@ const ClassSectionIndex = (props) => {
       </Fab>
     )
   }
-
-  
   
   const classSectionTiles = classSections.map((classSection, index) => {
     return (
       <Grid item xs={6} md={4} lg={3} key={classSection.id} >
-        <ClassSectionTile classSection={classSection}/>
+        <ClassSectionTile 
+          classSection={classSection}
+          patchClassSection={patchClassSection}
+        />
       </Grid>
     )
   })
