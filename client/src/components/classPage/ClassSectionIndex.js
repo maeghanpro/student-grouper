@@ -77,11 +77,19 @@ const ClassSectionIndex = (props) => {
         body: JSON.stringify(classSection)
       })
       if(!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
       } else {
         const body = await response.json()
         setClassSections(body.classSections)
+        setErrors({})
         return true
       }
     } catch (error) {
@@ -111,7 +119,7 @@ const ClassSectionIndex = (props) => {
 
   if (revealClassForm) {
     newClassForm = (
-      <Grid item xs={6} md={4} lg={3}>
+      <Grid item xs={12} sm={6} md={4}>
         <NewClassForm 
           addNewClassSection={addNewClassSection}
           errors={errors}
@@ -124,10 +132,11 @@ const ClassSectionIndex = (props) => {
   
   const classSectionTiles = classSections.map((classSection, index) => {
     return (
-      <Grid item xs={6} md={4} lg={3} key={classSection.id} >
+      <Grid item xs={12} sm={6} md={4} key={classSection.id} >
         <ClassSectionTile 
           classSection={classSection}
           patchClassSection={patchClassSection}
+          errors={errors}
         />
       </Grid>
     )

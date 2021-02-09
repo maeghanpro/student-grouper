@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import EditClassForm from './EditClassForm'
 
-const ClassSectionTile = ({classSection, patchClassSection}) => {
+const ClassSectionTile = ({classSection, patchClassSection, errors}) => {
   const colorOptions = ["#795061", "#212E49", "#39565A", "#315E78", "#7C6764", "#7B717C", "#2E3F5A", "#908C5A"]
   const randomIndex = Math.floor(Math.random() * colorOptions.length)
   const randomColor = colorOptions[randomIndex]
@@ -32,6 +32,7 @@ const ClassSectionTile = ({classSection, patchClassSection}) => {
         patchClassSection={patchClassSection}
         handleClose={handleClose}
         updateEditable={updateEditable}
+        errors={errors}
       />
   } else {
     return (

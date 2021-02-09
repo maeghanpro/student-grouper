@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import {Card, CardContent, CardActions, TextField, Button, Typography, IconButton} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-const EditClassForm = ({previousClassSection, patchClassSection, handleClose, updateEditable}) => {
+import ErrorList from '../ErrorList'
+
+const EditClassForm = ({previousClassSection, patchClassSection, handleClose, updateEditable, errors}) => {
   const [classSection, setClassSection] = useState({
     name: previousClassSection.name,
     id: previousClassSection.id
@@ -28,6 +30,7 @@ const EditClassForm = ({previousClassSection, patchClassSection, handleClose, up
       </IconButton>
       <CardContent>
       <Typography className="class-form-header" variant='h4'>Edit Class</Typography>
+      <ErrorList errors={errors} />
       <form className="edit-class-form" autoComplete="off" onSubmit={handleSave} >
           <TextField onChange={handleInputChange} value={classSection.name} className="class-form-field" label="Class Name*" id="edit-class-name" variant="outlined"/>
       </form>
