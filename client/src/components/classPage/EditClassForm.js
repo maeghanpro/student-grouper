@@ -22,17 +22,17 @@ const EditClassForm = ({previousClassSection, patchClassSection, handleClose, up
     }
   }
   return (
-    <Card className="edit-class-form-card">
-      <IconButton className="edit-class-form-close-button" size="small" aria-label="close" color="inherit" onClick={handleClose}>
+    <Card className="class-form-card">
+      <IconButton className="class-form-close-button" size="small" aria-label="close" color="inherit" onClick={handleClose}>
         <CloseIcon fontSize="small" />
       </IconButton>
       <CardContent>
-      <Typography className="edit-class-form-header" variant='h4'>Edit Class</Typography>
+      <Typography className="class-form-header" variant='h4'>Edit Class</Typography>
       <form className="edit-class-form" autoComplete="off" onSubmit={handleSave} >
-          <TextField onChange={handleInputChange} value={classSection.name} className="edit-class-form-field" label="Class Name*" id="edit-class-name" variant="outlined"/>
+          <TextField onChange={handleInputChange} value={classSection.name} className="class-form-field" label="Class Name*" id="edit-class-name" variant="outlined"/>
       </form>
       </CardContent>
-      <CardActions className="edit-class-form-button">
+      <CardActions className="class-form-button">
         <Button variant="contained" size="medium" onClick={handleSave} type='submit'>Save</Button>
       </CardActions>
     </Card>

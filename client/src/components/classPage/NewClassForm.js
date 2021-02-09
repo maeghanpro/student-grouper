@@ -21,7 +21,7 @@ const NewClassForm = ({addNewClassSection, errors, closeForm}) => {
   }
   return (
     <Card className="class-form-card">
-      <IconButton className="edit-class-form-close-button" size="small" aria-label="close" color="inherit" onClick={closeForm}>
+      <IconButton className="class-form-close-button" size="small" aria-label="close" color="inherit" onClick={closeForm}>
         <CloseIcon fontSize="small" />
       </IconButton>
       <CardContent>
