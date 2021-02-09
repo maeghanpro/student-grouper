@@ -1,8 +1,20 @@
 import React from 'react'
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core'
 
-const StudentsTable = ({students}) => {
+import AddStudentForm from './AddStudentForm'
 
+const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSectionId, closeForm}) => {
+  let firstRow
+  if (revealAddStudentForm) {
+    firstRow = (
+      <AddStudentForm 
+        addNewStudent={addNewStudent}
+        classSectionId={classSectionId}
+        closeForm={closeForm}
+      />
+    )
+  }
+  
   const rows = students.map((student) => {
     return (
       <TableRow className= "students-table-row" key={student.id}>
@@ -26,6 +38,7 @@ const StudentsTable = ({students}) => {
           </TableRow>
         </TableHead>
         <TableBody>
+        {firstRow}
         {rows}
         </TableBody>
       </Table>

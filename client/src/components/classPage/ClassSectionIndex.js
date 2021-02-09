@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Typography, Grid, Fab, Container} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
-import translateServerErrors from '../../services/translateServerErrors'
 
+import translateServerErrors from '../../services/translateServerErrors'
 import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
 
@@ -22,6 +22,9 @@ const ClassSectionIndex = (props) => {
       }
 
       const body = await response.json()
+      if(body.classSections.length === 0) {
+        setRevealClassForm(true)
+      }
       setClassSections(body.classSections)
 
     } catch (error) {
