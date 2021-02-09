@@ -83,17 +83,17 @@ body {
 }
 
 // new class form styles
-.MuiButtonBase-root.new-class-form-button {
+.MuiButtonBase-root.class-form-button {
   background-color: #F3F3EE;
   color:#271e27;
 }
 
-.new-class-form-card {
+.class-form-card {
   text-align: center;
   min-height: 200px;
 }
 
-.MuiPaper-root.new-class-form-card {
+.MuiPaper-root.class-form-card {
   background-color:#7E93A2;
   color:#F3F3EE;
 }
@@ -110,11 +110,11 @@ input.MuiInputBase-input:focus {
   background-color:#7E93A2;
 }
 
-.new-class-form-button {
+.class-form-button {
   justify-content: space-evenly;
 }
 
-.new-class-form-header {
+.class-form-header {
   padding-bottom: 15px;
 }
 

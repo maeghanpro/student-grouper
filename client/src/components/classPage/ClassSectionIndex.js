@@ -119,11 +119,7 @@ const ClassSectionIndex = (props) => {
         />
       </Grid>
     )
-    fab = (
-      <Fab onClick={handleCloseFormClick} className="class-fab" color="primary" aria-label="close form">
-        <CloseIcon />
-      </Fab>
-    )
+    fab = undefined
   }
   
   const classSectionTiles = classSections.map((classSection, index) => {
