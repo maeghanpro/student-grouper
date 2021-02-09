@@ -7,12 +7,15 @@ import CloseIcon from '@material-ui/icons/Close'
 import translateServerErrors from '../../services/translateServerErrors'
 
 import StudentsTable from './StudentsTable'
+import ErrorList from '../ErrorList'
+import SuccessAlert from '../SuccessAlert'
 
 const StudentRosterPage = (props) => {
   const [classSection, setClassSection] = useState({})
   const [students, setStudents] = useState([])
   const [revealAddStudentForm, setRevealAddStudentForm] = useState(false)
   const [errors, setErrors] = useState({})
+  const [success, setSuccess] = useState(false)
   const { id } = useParams() 
 
   const getStudents = async () => {
@@ -61,6 +64,7 @@ const StudentRosterPage = (props) => {
         const body = await response.json()
         setStudents(body.students)
         setErrors({})
+        setSuccess(true)
         return true
       }
     } catch (error) {
@@ -74,20 +78,26 @@ const StudentRosterPage = (props) => {
 
   const handleCloseFormClick = () => {
     setRevealAddStudentForm(false)
+    setErrors({})
   }
 
   let fab= (
-    <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new student">
+    <Fab onClick={handleOpenFormClick} className="student-fab" color="primary" aria-label="add new student">
       <AddIcon />
     </Fab>
   )
 
   if (revealAddStudentForm) {
     fab = (
-      <Fab onClick={handleCloseFormClick} className="class-fab" color="primary" aria-label="close form">
+      <Fab onClick={handleCloseFormClick} className="student-fab" color="primary" aria-label="close form">
         <CloseIcon />
       </Fab>
     )
+  }
+
+  let successAlert
+  if (success) {
+    successAlert = <SuccessAlert message="New student added!"/>
   }
 
   return (
@@ -95,6 +105,10 @@ const StudentRosterPage = (props) => {
       <Typography className="text-center" variant="h1">
         {classSection.name} Roster
       </Typography>
+      {successAlert}
+      <div className="new-student-form-errors">
+        <ErrorList errors={errors}/>
+      </div>
       <div className="students-table-container">
         <StudentsTable 
           students={students}
@@ -102,9 +116,10 @@ const StudentRosterPage = (props) => {
           addNewStudent={addNewStudent}
           classSectionId={classSection.id} 
           closeForm={handleCloseFormClick}
+          errors={errors}
         />
-        {fab}
       </div>
+      {fab}
     </div>
   )
 }

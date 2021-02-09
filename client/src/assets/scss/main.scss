@@ -131,6 +131,18 @@ input.MuiInputBase-input:focus {
   margin-top: 20px;
 }
 
+.student-fab {
+  float: right;
+  right: -10px;
+  bottom: 70vh;
+  position: fixed;
+}
+.MuiFab-primary.student-fab {
+  background-color: #7E93A2;
+}
+.MuiFab-primary.student-fab:hover {
+  background-color: #C3AD75;
+}
 // roster table styles
 .students-table {
   max-width: 80%;
@@ -176,4 +188,9 @@ tr:nth-child(odd) {
 #submit-new-student-button {
   margin-left: 20px;
   margin-top: 10px;
+}
+
+.new-student-form-errors {
+  width: 80%;
+  margin-left: 115px;
 }

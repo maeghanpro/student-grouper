@@ -8,7 +8,7 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
     academicTier: "",
     socialEmotionalTier: ""
   })
-  
+
   const handleInputChange = (event) => {
     setNewStudent({
       ...newStudent,
@@ -26,7 +26,7 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
         socialEmotionalTier: ""
       })
       closeForm()
-    }
+    } 
   }
 
   return (

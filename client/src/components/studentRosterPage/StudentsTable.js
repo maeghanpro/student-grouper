@@ -14,7 +14,7 @@ const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSect
       />
     )
   }
-  
+
   const rows = students.map((student) => {
     return (
       <TableRow className= "students-table-row" key={student.id}>
