@@ -82,7 +82,7 @@ classSectionsRouter.delete('/:id', async (req, res) => {
     const serializedClassSections = classSections.map(classSection => {
       return ClassSectionSerializer.getSummary(classSection)
     })
-    return res.status(200).json ({classSections: serializedClassSections})
+    return res.status(200).json({classSections: serializedClassSections})
   } catch (error) {
     console.error(error)
     return res.status(500).json({errors: error})
