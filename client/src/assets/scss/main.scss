@@ -66,6 +66,9 @@ body {
   color:#271e27;
 }
 
+.edit-class-icon {
+  float: right;
+}
 .class-card {
   text-align: center;
   min-height: 200px;
@@ -79,18 +82,18 @@ body {
   margin-top: 20px;
 }
 
-// new class form styles
-.MuiButtonBase-root.new-class-form-button {
+// class form styles
+.MuiButtonBase-root.class-form-button {
   background-color: #F3F3EE;
   color:#271e27;
 }
 
-.new-class-form-card {
+.class-form-card {
   text-align: center;
   min-height: 200px;
 }
 
-.MuiPaper-root.new-class-form-card {
+.MuiPaper-root.class-form-card {
   background-color:#7E93A2;
   color:#F3F3EE;
 }
@@ -107,20 +110,34 @@ input.MuiInputBase-input:focus {
   background-color:#7E93A2;
 }
 
-.new-class-form-button {
+.class-form-button {
   justify-content: space-evenly;
 }
 
-.new-class-form-header {
+.class-form-header {
   padding-bottom: 15px;
 }
 
+// class form styles specific to the NEW class form
 #new-class-name-label {
   color: #F3F3EE;
+  font-size: x-large;
 }
 
 #new-class-name {
   color: #F3F3EE;
+  font-size: x-large;
+}
+
+// class form styles specific to the EDIT class form
+#edit-class-name-label {
+  color: #F3F3EE;
+  font-size: x-large;
+}
+
+#edit-class-name {
+  color: #F3F3EE;
+  font-size: x-large;
 }
 
 // roster page styles
@@ -133,8 +150,6 @@ input.MuiInputBase-input:focus {
 
 .student-fab {
   float: right;
-  right: -10px;
-  bottom: 70vh;
   position: fixed;
 }
 .MuiFab-primary.student-fab {
@@ -193,4 +208,9 @@ tr:nth-child(odd) {
 .new-student-form-errors {
   width: 80%;
   margin-left: 115px;
+}
+
+// edit class form styles
+.class-form-close-button {
+  float: right;
 }

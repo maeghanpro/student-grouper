@@ -21,7 +21,7 @@ classSectionsRouter.get('/', async (req, res) => {
   }
 })
 
-classSectionsRouter.post('/new', async (req, res) => {
+classSectionsRouter.post('/', async (req, res) => {
   const userId = req.user.id
   const body = cleanUserInput(req.body)
   try {
@@ -45,6 +45,25 @@ classSectionsRouter.get('/:id', async (req, res) => {
   } catch (error) {
     console.error(error)
     return res.status(500).json({errors: error})
+  }
+})
+
+classSectionsRouter.patch('/', async (req, res) => {
+  const body = cleanUserInput(req.body)
+  try {
+    const classSection = await ClassSection.query().patchAndFetchById(body.id, body)
+    const user = await classSection.$relatedQuery('user')
+    const classSections = await user.$relatedQuery('classSections').orderBy('name')
+    const serializedClassSections = classSections.map(classSection => {
+      return ClassSectionSerializer.getSummary(classSection)
+    })
+    return res.status(200).json({classSections: serializedClassSections})
+  } catch (error) {
+    if (error instanceof ValidationError){
+      return res.status(422).json({ errors: error.data })
+    }
+    console.error(error)
+    return res.status(500).json({ errors: error })
   }
 })
 export default classSectionsRouter

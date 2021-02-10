@@ -109,6 +109,7 @@ const StudentRosterPage = (props) => {
       <div className="new-student-form-errors">
         <ErrorList errors={errors}/>
       </div>
+      {fab}
       <div className="students-table-container">
         <StudentsTable 
           students={students}
@@ -119,7 +120,6 @@ const StudentRosterPage = (props) => {
           errors={errors}
         />
       </div>
-      {fab}
     </div>
   )
 }

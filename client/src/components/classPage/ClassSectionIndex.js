@@ -34,7 +34,7 @@ const ClassSectionIndex = (props) => {
 
   const addNewClassSection = async (newClassSection) => {
     try {
-      const response = await fetch('/api/v1/classes/new', {
+      const response = await fetch('/api/v1/classes', {
         method: 'POST',
         headers: new Headers({
           'Content-type': 'application/json'
@@ -67,18 +67,46 @@ const ClassSectionIndex = (props) => {
     }
   }
 
+  const patchClassSection = async (classSection) => {
+    try {
+      const response = await fetch('/api/v1/classes', {
+        method: 'PATCH',
+        headers: new Headers({
+          'content-type': 'application/json'
+        }),
+        body: JSON.stringify(classSection)
+      })
+      if(!response.ok) {
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
+      } else {
+        const body = await response.json()
+        setClassSections(body.classSections)
+        setErrors({})
+        return true
+      }
+    } catch (error) {
+      console.error(`Error in fetch ${error.message}`)
+    }
+  }
+
   useEffect(() => {
     getClassSections()
   }, [])
 
 
-  const handleOpenFormClick = (event) => {
-    event.preventDefault()
+  const handleOpenFormClick = () => {
     setRevealClassForm(true)        
   }
 
-  const handleCloseFormClick = (event) => {
-    event.preventDefault()
+  const handleCloseFormClick = () => {
     setRevealClassForm(false)
   }
 
@@ -91,26 +119,25 @@ const ClassSectionIndex = (props) => {
 
   if (revealClassForm) {
     newClassForm = (
-      <Grid item xs={6} md={4} lg={3}>
+      <Grid item xs={12} sm={6} md={4}>
         <NewClassForm 
           addNewClassSection={addNewClassSection}
           errors={errors}
+          closeForm={handleCloseFormClick}
         />
       </Grid>
     )
-    fab = (
-      <Fab onClick={handleCloseFormClick} className="class-fab" color="primary" aria-label="close form">
-        <CloseIcon />
-      </Fab>
-    )
+    fab = undefined
   }
-
-  
   
   const classSectionTiles = classSections.map((classSection, index) => {
     return (
-      <Grid item xs={6} md={4} lg={3} key={classSection.id} >
-        <ClassSectionTile classSection={classSection}/>
+      <Grid item xs={12} sm={6} md={4} key={classSection.id} >
+        <ClassSectionTile 
+          classSection={classSection}
+          patchClassSection={patchClassSection}
+          errors={errors}
+        />
       </Grid>
     )
   })
