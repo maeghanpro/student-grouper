@@ -88,20 +88,25 @@ body {
   color:#271e27;
 }
 
+.delete-class-icon {
+  float: right;
+}
+
 .edit-class-icon {
   float: right;
 }
+
 .class-card {
   text-align: center;
-  min-height: 200px;
+  min-height: 220px;
   h3 {
-    margin-top: 15px;
+    margin-top: 40px;
   }
 }
 
 .class-card-buttons {
   justify-content: space-evenly;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 // class form styles
@@ -112,7 +117,7 @@ body {
 
 .class-form-card {
   text-align: center;
-  min-height: 200px;
+  min-height: 220px;
 }
 
 .MuiPaper-root.class-form-card {
@@ -160,6 +165,10 @@ input.MuiInputBase-input:focus {
 #edit-class-name {
   color: #F3F3EE;
   font-size: x-large;
+}
+
+.edit-class-form {
+  margin-top: 40px;
 }
 
 // roster page styles
@@ -239,4 +248,36 @@ tr:nth-child(odd) {
 // edit class form styles
 .class-form-close-button {
   float: right;
+}
+
+// delete class alert dialog
+.MuiPaper-root.MuiDialog-paper {
+  background-color: #F3F3EE;
+  color: #271e27;
+}
+
+
+
+.dialog-cancel-button.MuiButton-root {
+  background-color: #516573;
+  color:#F3F3EE;
+}
+
+.dialog-cancel-button.MuiButton-root:hover {
+  background-color: #7E93A2;
+  color:#F3F3EE;
+}
+
+.dialog-proceed-button.MuiButton-root {
+  background-color: #516573;
+  color:#F3F3EE;
+}
+
+.dialog-proceed-button.MuiButton-root:hover {
+  background-color: #7E93A2;
+  color:#F3F3EE;
+}
+
+#delete-alert-dialog-description {
+  color: #4f454f;
 }

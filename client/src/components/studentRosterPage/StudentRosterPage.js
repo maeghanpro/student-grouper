@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
-import {Typography, Fab} from '@material-ui/core'
+import {Typography, Fab, Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 
@@ -82,16 +82,20 @@ const StudentRosterPage = (props) => {
   }
 
   let fab= (
-    <Fab onClick={handleOpenFormClick} className="student-fab" color="primary" aria-label="add new student">
-      <AddIcon />
-    </Fab>
+    <Tooltip title="Add Student">
+      <Fab onClick={handleOpenFormClick} className="student-fab" color="primary" aria-label="add new student">
+        <AddIcon />
+      </Fab>
+    </Tooltip>
   )
 
   if (revealAddStudentForm) {
     fab = (
-      <Fab onClick={handleCloseFormClick} className="student-fab" color="primary" aria-label="close form">
-        <CloseIcon />
-      </Fab>
+      <Tooltip title="Close Form">
+        <Fab onClick={handleCloseFormClick} className="student-fab" color="primary" aria-label="close form">
+          <CloseIcon />
+        </Fab>
+      </Tooltip>
     )
   }
 
