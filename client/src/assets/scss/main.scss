@@ -30,39 +30,34 @@ body {
 
 .top-bar-link {
   color: #F3F3EE;
-  font-size: x-large;
-  margin: 34px 0px;
+  font-size: 22px;
+  margin: 5.7vh 0px 0px 15px;
+  background-color: #ae9133;
 }
 
 .top-bar-link:hover {
-  color: #C3AD75;
-}
-
-.top-bar-link:active {
-  color: #C3AD75;
-}
-.top-bar-link:visited {
-  color: #F3F3EE;
-}
-
-.top-bar-link:visited:hover {
-  color: #C3AD75;
+ background-color: #7b6400;
 }
 
 .signOut {
   margin-right: 15px;
-  font-size: large;
+  font-size: 20px;
 }
 
 .signIn {
-  font-size: large;
+  font-size: 20px;
   margin-right: 15px;
 }
 
 .signUp {
-  font-size: large;
+  font-size: 20px;
   margin-right: 15px;
+  background-color: #ae9133;
 }
+.signUp:hover {
+  background-color: #7b6400;
+}
+
 // classSectionIndex styles
 .class-fab {
   float: right;
@@ -71,10 +66,10 @@ body {
 }
 
 .MuiFab-primary.class-fab {
-  background-color: #7E93A2;
+  background-color: #ae9133;
 }
 .MuiFab-primary.class-fab:hover {
-  background-color: #C3AD75;
+  background-color: #7b6400;
 }
 .MuiTypography-h1.class-index-header {
   color: #271e27;
@@ -173,10 +168,10 @@ input.MuiInputBase-input:focus {
   position: fixed;
 }
 .MuiFab-primary.student-fab {
-  background-color: #7E93A2;
+  background-color: #ae9133;
 }
 .MuiFab-primary.student-fab:hover {
-  background-color: #C3AD75;
+  background-color: #7b6400;
 }
 // roster table styles
 .students-table {

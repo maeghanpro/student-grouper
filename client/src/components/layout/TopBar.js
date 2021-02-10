@@ -25,18 +25,17 @@ const TopBar = ({ user }) => {
 
   const authenticatedLeftListItems = [
     <li key="classes">
-      <Link className="top-bar-link" to="/classes">Classes</Link>
+      <Link className="button top-bar-link" to="/classes">Classes</Link>
     </li> 
   ]
 
   return (
     <div className="top-bar">
       <div className="top-bar-left">
-        <img className="logo" src={logo} alt="Logo"/>
+        <Link to="/">
+         <img className="logo" src={logo} alt="Logo"/>
+        </Link>
         <ul className="menu">
-          <li>
-            <Link className="top-bar-link" to="/">Home</Link>
-          </li>
           <>{user ? authenticatedLeftListItems : undefined} </>
         </ul>
       </div>
