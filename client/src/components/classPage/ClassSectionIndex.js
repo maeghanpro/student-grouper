@@ -143,18 +143,16 @@ const ClassSectionIndex = (props) => {
   })
 
   return (
-    <Container className="class-index-container" max-width="md">
+    <div className="grid-container class-index-container">
+      <Typography className="class-index-header text-center" variant="h1">Classes</Typography>
+      {fab}
       <Grid container alignContent="center" spacing={3}>
-        <Grid item xs={12}>
-          <Typography className="class-index-header text-center" variant="h1">Classes</Typography>
-        </Grid>
         <Grid container justify="space-evenly" spacing={3}>
           {classSectionTiles}
           {newClassForm}
         </Grid>
       </Grid>
-      {fab}
-    </Container>
+    </div>
   )
 }
 

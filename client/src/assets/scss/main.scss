@@ -45,8 +45,7 @@ body {
 // classSectionIndex styles
 .class-fab {
   float: right;
-  right: -10px;
-  bottom: -19px;
+  bottom: 10px;
   position: fixed;
 }
 
@@ -58,7 +57,7 @@ body {
 }
 .MuiTypography-h1.class-index-header {
   color: #271e27;
-  margin-top: 10px;
+  margin: 10px 0px;
 }
 // classSectionTile styles
 .MuiButtonBase-root.class-card-button {
@@ -185,7 +184,11 @@ tr:nth-child(odd) {
 
 // add student form styles
 .lastInitial-field.MuiFormControl-root {
-  margin-left: 10px;
+  margin: 5px 10px;
+}
+
+.firstName-field.MuiFormControl-root {
+  margin: 5px 0px;
 }
 
 #new-student-lastInitial {

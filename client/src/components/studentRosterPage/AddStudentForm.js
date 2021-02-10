@@ -32,7 +32,7 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
   return (
     <TableRow>
       <TableCell>
-          <TextField onChange={handleInputChange} name="firstName" value={newStudent.firstName} placeholder="First Name" label="First Name*" id="new-student-firstName" variant="outlined"/>
+          <TextField className="firstName-field" onChange={handleInputChange} name="firstName" value={newStudent.firstName} placeholder="First Name" label="First Name*" id="new-student-firstName" variant="outlined"/>
           <TextField className="lastInitial-field" onChange={handleInputChange} name="lastInitial" value={newStudent.lastInitial} placeholder="Last Initial" label="Last Initial*" id="new-student-lastInitial" variant="outlined"/>
       </TableCell>
       <TableCell align="center">
