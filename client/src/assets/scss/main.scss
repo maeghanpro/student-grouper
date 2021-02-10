@@ -23,8 +23,15 @@ body {
 
 // top-bar styles
 
+.logo {
+  float: left;
+  height: 15vh;
+}
+
 .top-bar-link {
   color: #F3F3EE;
+  font-size: x-large;
+  margin: 34px 0px;
 }
 
 .top-bar-link:hover {
@@ -42,6 +49,20 @@ body {
   color: #C3AD75;
 }
 
+.signOut {
+  margin-right: 15px;
+  font-size: large;
+}
+
+.signIn {
+  font-size: large;
+  margin-right: 15px;
+}
+
+.signUp {
+  font-size: large;
+  margin-right: 15px;
+}
 // classSectionIndex styles
 .class-fab {
   float: right;
@@ -57,7 +78,7 @@ body {
 }
 .MuiTypography-h1.class-index-header {
   color: #271e27;
-  margin: 10px 0px;
+  margin: 20px 0px 10px 0px;
 }
 // classSectionTile styles
 .MuiButtonBase-root.class-card-button {

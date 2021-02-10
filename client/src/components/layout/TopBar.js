@@ -1,14 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
+import logo from "../../../public/logo.png"
 
 const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
     <li key="sign-in">
-      <Link className="top-bar-link" to="/user-sessions/new">Sign In</Link>
+      <Link to="/user-sessions/new" className= "button signIn">
+        Sign In
+      </Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button">
+      <Link to="/users/new" className="button signUp">
         Sign Up
       </Link>
     </li>,
@@ -29,8 +32,8 @@ const TopBar = ({ user }) => {
   return (
     <div className="top-bar">
       <div className="top-bar-left">
+        <img className="logo" src={logo} alt="Logo"/>
         <ul className="menu">
-          <li className="menu-text">Student Grouper</li>
           <li>
             <Link className="top-bar-link" to="/">Home</Link>
           </li>
