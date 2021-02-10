@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Card, CardContent, CardActions, Button, Typography, IconButton } from '@material-ui/core'
+import { Card, CardContent, CardActions, Button, Typography, IconButton, Tooltip } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import EditClassForm from './EditClassForm'
+import DeleteAlertDialog from './DeleteAlertDialog'
 
-const ClassSectionTile = ({classSection, patchClassSection, errors}) => {
-  const colorOptions = ["#795061", "#212E49", "#39565A", "#315E78", "#7C6764", "#7B717C", "#2E3F5A", "#908C5A"]
+const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}) => {
+  const colorOptions = ["#795061", "#212E49", "#39565A", "#315E78", "#7C6764", "#7B717C", "#2E3F5A", "#908C5A", "#93995F", "#B56D5F", "#6D9885", "#E48B6B"]
   const randomIndex = Math.floor(Math.random() * colorOptions.length)
   const randomColor = colorOptions[randomIndex]
   const style = {
@@ -14,6 +16,8 @@ const ClassSectionTile = ({classSection, patchClassSection, errors}) => {
     color: '#F3F3EE'
   }
   const [editable, setEditable] = useState(false)
+  const [deleteAlert, setDeleteAlert] = useState(null)
+  const [shouldDelete, setShouldDelete] = useState(false)
 
   const handleEdit = () => {
     setEditable(true)
@@ -24,6 +28,22 @@ const ClassSectionTile = ({classSection, patchClassSection, errors}) => {
 
   const updateEditable = () => {
     return setEditable(false)
+  }
+
+  const confirmDelete = () => {
+    setDeleteAlert(
+      <DeleteAlertDialog 
+        handleDelete={(confirmation) => {
+          setShouldDelete(confirmation)
+          setDeleteAlert(null)
+        }}
+        classSectionName={classSection.name}
+      />
+    ) 
+  }
+
+  if (shouldDelete) {
+    deleteClass(classSection.id)
   }
 
   if (editable) {
@@ -37,9 +57,17 @@ const ClassSectionTile = ({classSection, patchClassSection, errors}) => {
   } else {
     return (
       <Card className="class-card" style={style} raised>
-        <IconButton className="edit-class-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
+        {deleteAlert}
+        <Tooltip title="Delete">
+          <IconButton className="delete-class-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Edit">
+          <IconButton className="edit-class-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
         <CardContent>
           <Typography variant="h3">{classSection.name}</Typography>
         </CardContent>

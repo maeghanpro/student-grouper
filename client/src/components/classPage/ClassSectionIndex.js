@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, Grid, Fab, Container} from '@material-ui/core'
+import { Typography, Grid, Fab, Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close'
 
 import translateServerErrors from '../../services/translateServerErrors'
 import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
+import SuccessAlert from '../SuccessAlert'
 
 const ClassSectionIndex = (props) => {
   const [classSections, setClassSections] = useState([])
   const [revealClassForm, setRevealClassForm] =useState(false)
   const [errors, setErrors] = useState({})
+  const [success, setSuccess] = useState(null)
+
+  const displaySuccess = (message) => {
+    setSuccess(null)
+    setSuccess(<SuccessAlert message={message}/>)
+  }
 
   const getClassSections = async () => {
     try {
@@ -54,10 +60,8 @@ const ClassSectionIndex = (props) => {
         }
       } else {
         const body = await response.json()
-        setClassSections([
-          ...classSections,
-          body.classSection
-        ])
+        setClassSections(body.classSections)
+        displaySuccess('New class created!')
         setErrors({})
         return true
       }
@@ -89,11 +93,33 @@ const ClassSectionIndex = (props) => {
       } else {
         const body = await response.json()
         setClassSections(body.classSections)
+        displaySuccess('Class updated!')
         setErrors({})
         return true
       }
     } catch (error) {
       console.error(`Error in fetch ${error.message}`)
+    }
+  }
+
+  const deleteClass = async (classSectionId) => {
+    try {
+      const response = await fetch(`/api/v1/classes/${classSectionId}`, {
+        method: 'DELETE',
+        headers: new Headers ({
+          "Content-Type": "application/json"
+        })
+      })
+      if(!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      }
+
+      const body = await response.json()
+      setClassSections(body.classSections)
+      displaySuccess('Class deleted!')
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -112,9 +138,11 @@ const ClassSectionIndex = (props) => {
 
   let newClassForm;
   let fab= (
-    <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new class">
-      <AddIcon />
-    </Fab>
+    <Tooltip title="Add Class">
+      <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new class">
+        <AddIcon />
+      </Fab>
+    </Tooltip>
   )
 
   if (revealClassForm) {
@@ -137,15 +165,17 @@ const ClassSectionIndex = (props) => {
           classSection={classSection}
           patchClassSection={patchClassSection}
           errors={errors}
+          deleteClass={deleteClass}
         />
       </Grid>
     )
   })
-
+  
   return (
     <div className="grid-container class-index-container">
       <Typography className="class-index-header text-center" variant="h1">Classes</Typography>
       {fab}
+      {success}
       <Grid container alignContent="center" spacing={3}>
         <Grid container justify="space-evenly" spacing={3}>
           {classSectionTiles}
