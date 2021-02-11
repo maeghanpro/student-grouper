@@ -28,4 +28,25 @@ studentsRouter.post('/', async (req, res) => {
     return res.status(500).json({errors: error})
   }
 })
+
+studentsRouter.patch('/', async (req, res) => {
+  const body = cleanUserInput(req.body)
+  try {
+    const student = await Student.query().patchAndFetchById(body.id, body)
+    const classSection = await student.$relatedQuery('classSection')
+    const students = await classSection.$relatedQuery('students')
+      .where('isActive', true)
+      .orderBy('firstName')
+    const serializedStudents = students.map(student => {
+      return StudentSerializer.getSummary(student)
+    })
+    return res.status(200).json({students: serializedStudents})
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({errors: error.data})
+    }
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
 export default studentsRouter

@@ -136,7 +136,6 @@ const ClassSectionIndex = (props) => {
     setRevealClassForm(false)
   }
 
-  let newClassForm;
   let fab= (
     <Tooltip title="Add Class">
       <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new class">
@@ -144,7 +143,8 @@ const ClassSectionIndex = (props) => {
       </Fab>
     </Tooltip>
   )
-
+  
+  let newClassForm;
   if (revealClassForm) {
     newClassForm = (
       <Grid item xs={12} sm={6} md={4}>

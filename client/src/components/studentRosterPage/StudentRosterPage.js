@@ -15,8 +15,13 @@ const StudentRosterPage = (props) => {
   const [students, setStudents] = useState([])
   const [revealAddStudentForm, setRevealAddStudentForm] = useState(false)
   const [errors, setErrors] = useState({})
-  const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(null)
   const { id } = useParams() 
+
+  const displaySuccess = (message) => {
+    setSuccess(null)
+    setSuccess(<SuccessAlert message={message}/>)
+  }
 
   const getStudents = async () => {
     try {
@@ -63,12 +68,42 @@ const StudentRosterPage = (props) => {
       } else {
         const body = await response.json()
         setStudents(body.students)
+        displaySuccess('New student added!')
         setErrors({})
-        setSuccess(true)
         return true
       }
     } catch (error) {
       console.error(error)
+    }
+  }
+  const patchStudent = async (student) => {
+    try {
+      const response = await fetch('/api/v1/students', {
+        method: 'PATCH',
+        headers: new Headers({
+          'content-type': 'application/json'
+        }),
+        body: JSON.stringify(student)
+      })
+      if(!response.ok) {
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
+      } else {
+        const body = await response.json()
+        setStudents(body.students)
+        displaySuccess('Student updated!')
+        setErrors({})
+        return true
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -81,7 +116,11 @@ const StudentRosterPage = (props) => {
     setErrors({})
   }
 
-  let fab= (
+  const clearErrors = () => {
+    setErrors({})
+  }
+
+  let fab = (
     <Tooltip title="Add Student">
       <Fab onClick={handleOpenFormClick} className="student-fab" color="primary" aria-label="add new student">
         <AddIcon />
@@ -89,19 +128,8 @@ const StudentRosterPage = (props) => {
     </Tooltip>
   )
 
-  if (revealAddStudentForm) {
-    fab = (
-      <Tooltip title="Close Form">
-        <Fab onClick={handleCloseFormClick} className="student-fab" color="primary" aria-label="close form">
-          <CloseIcon />
-        </Fab>
-      </Tooltip>
-    )
-  }
-
-  let successAlert
-  if (success) {
-    successAlert = <SuccessAlert message="New student added!"/>
+  if(revealAddStudentForm) {
+    fab = undefined
   }
 
   return (
@@ -109,7 +137,7 @@ const StudentRosterPage = (props) => {
       <Typography className="text-center" variant="h1">
         {classSection.name} Roster
       </Typography>
-      {successAlert}
+      {success}
       <div className="new-student-form-errors">
         <ErrorList errors={errors}/>
       </div>
@@ -121,7 +149,8 @@ const StudentRosterPage = (props) => {
           addNewStudent={addNewStudent}
           classSectionId={classSection.id} 
           closeForm={handleCloseFormClick}
-          errors={errors}
+          patchStudent={patchStudent}
+          clearErrors={clearErrors}
         />
       </div>
     </div>

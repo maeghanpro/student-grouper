@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {TableCell, TableRow, TextField, Button, MenuItem, FormControl, Select, InputLabel} from '@material-ui/core'
+import {TableCell, TableRow, TextField, Button, MenuItem, FormControl, Select, InputLabel, IconButton, Tooltip} from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 
 const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
   const [newStudent, setNewStudent] = useState({
@@ -78,6 +79,13 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
             <MenuItem value={3}>3 - High support</MenuItem>
           </Select>
         </FormControl>
+      </TableCell>
+      <TableCell>
+        <Tooltip title="Close">
+          <IconButton className="student-form-close-button" size="medium" aria-label="close" color="inherit" onClick={closeForm}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
         <Button id="submit-new-student-button" variant="contained" size="medium" onClick={handleSubmit} type='submit'>Submit</Button>
       </TableCell>
     </TableRow>
