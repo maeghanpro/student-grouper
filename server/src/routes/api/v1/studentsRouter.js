@@ -49,4 +49,23 @@ studentsRouter.patch('/', async (req, res) => {
     return res.status(500).json({errors: error})
   }
 })
+
+studentsRouter.delete('/:id', async (req, res) => {
+  const {id} = req.params
+  try {
+    const student = await Student.query().findById(id)
+    const classSection = await student.$relatedQuery('classSection')
+    await Student.query().deleteById(id)
+    const students = await classSection.$relatedQuery('students')
+      .where('isActive', true)
+      .orderBy('firstName')
+    const serializedStudents = students.map(student => {
+      return StudentSerializer.getSummary(student)
+    })
+    return res.status(200).json({students: serializedStudents})
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
 export default studentsRouter

@@ -254,7 +254,7 @@ tr:nth-child(odd) {
   float: right;
 }
 
-// delete class alert dialog
+// delete alert dialog
 .MuiPaper-root.MuiDialog-paper {
   background-color: #F3F3EE;
   color: #271e27;
@@ -280,6 +280,10 @@ tr:nth-child(odd) {
   color:#F3F3EE;
 }
 
-#delete-alert-dialog-description {
+#delete-class-alert-dialog-description {
+  color: #4f454f;
+}
+
+#delete-student-alert-dialog-description {
   color: #4f454f;
 }

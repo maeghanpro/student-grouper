@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add'
 import translateServerErrors from '../../services/translateServerErrors'
 import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
-import SuccessAlert from '../SuccessAlert'
+import SuccessAlert from '../Alerts/SuccessAlert'
 
 const ClassSectionIndex = (props) => {
   const [classSections, setClassSections] = useState([])

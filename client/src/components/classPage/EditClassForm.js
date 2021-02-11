@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Card, CardContent, CardActions, TextField, Button, IconButton, Tooltip} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-import ErrorList from '../ErrorList'
+import ErrorList from '../Alerts/ErrorList'
 
 const EditClassForm = ({previousClassSection, patchClassSection, handleClose, updateEditable, errors}) => {
   const [classSection, setClassSection] = useState({

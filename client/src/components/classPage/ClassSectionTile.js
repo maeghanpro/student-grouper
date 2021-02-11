@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import EditClassForm from './EditClassForm'
-import DeleteAlertDialog from './DeleteAlertDialog'
+import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 
 const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}) => {
   const colorOptions = ["#795061", "#212E49", "#39565A", "#315E78", "#7C6764", "#7B717C", "#2E3F5A", "#908C5A", "#93995F", "#B56D5F", "#6D9885", "#E48B6B"]
@@ -37,7 +37,9 @@ const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}
           setShouldDelete(confirmation)
           setDeleteAlert(null)
         }}
-        classSectionName={classSection.name}
+        alertTitle={`Delete Class '${classSection.name}'?`}
+        alertBody={`Deleting this class will also delete all of the associated students and groups.\nThis action cannot be undone`}
+        alertReason='delete-class'
       />
     ) 
   }
