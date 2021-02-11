@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Card, CardContent, CardActions, TextField, Button, Typography, IconButton, Tooltip} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-import ErrorList from '../ErrorList'
+import ErrorList from '../Alerts/ErrorList'
 
 const NewClassForm = ({addNewClassSection, errors, closeForm}) => {
   const [newClassSection, setNewClassSection] =useState({ name: ""})
