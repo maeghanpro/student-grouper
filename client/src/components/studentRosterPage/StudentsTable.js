@@ -4,7 +4,6 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper}
 import AddStudentForm from './AddStudentForm'
 import StudentTableRow from './StudentTableRow'
 
-
 const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSectionId, closeForm, patchStudent, clearErrors}) => {
 
   let firstRow
