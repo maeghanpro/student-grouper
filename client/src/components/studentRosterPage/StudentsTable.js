@@ -2,8 +2,11 @@ import React from 'react'
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core'
 
 import AddStudentForm from './AddStudentForm'
+import StudentTableRow from './StudentTableRow'
 
-const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSectionId, closeForm}) => {
+
+const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSectionId, closeForm, patchStudent, clearErrors}) => {
+
   let firstRow
   if (revealAddStudentForm) {
     firstRow = (
@@ -14,16 +17,15 @@ const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSect
       />
     )
   }
-
+ 
   const rows = students.map((student) => {
     return (
-      <TableRow className= "students-table-row" key={student.id}>
-        <TableCell component="th" scope="row">
-          {student.firstName} {student.lastInitial}
-        </TableCell>
-        <TableCell align="center">{student.academicTier}</TableCell>
-        <TableCell align="center">{student.socialEmotionalTier}</TableCell>
-      </TableRow>
+      <StudentTableRow 
+        key={student.id} 
+        student={student} 
+        patchStudent={patchStudent}
+        clearErrors={clearErrors}
+      />
     )
   })
 
@@ -35,6 +37,7 @@ const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSect
             <TableCell>Student Name</TableCell>
             <TableCell align="center">Academic Tier</TableCell>
             <TableCell align="center">Social-Emotional Tier</TableCell>
+            <TableCell/>
           </TableRow>
         </TableHead>
         <TableBody>

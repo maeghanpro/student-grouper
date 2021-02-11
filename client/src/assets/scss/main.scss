@@ -224,7 +224,7 @@ tr:nth-child(odd) {
 }
 
 #new-student-lastInitial {
-  width: 80px;
+  max-width: 80px;
 }
 
 #new-student-socialEmotionalTier {
@@ -235,15 +235,19 @@ tr:nth-child(odd) {
   width: 130px;
 }
 
-#submit-new-student-button {
-  margin-left: 20px;
-  margin-top: 10px;
+.new-student-form-errors {
+  width: 85%;
+  margin-left: 60px;
 }
 
-.new-student-form-errors {
-  width: 80%;
-  margin-left: 115px;
+.student-form-close-button {
+  float: right;
 }
+
+// edit student form styles
+ #edit-student-lastInitial {
+   max-width: 80px;
+ }
 
 // edit class form styles
 .class-form-close-button {
@@ -255,8 +259,6 @@ tr:nth-child(odd) {
   background-color: #F3F3EE;
   color: #271e27;
 }
-
-
 
 .dialog-cancel-button.MuiButton-root {
   background-color: #516573;
