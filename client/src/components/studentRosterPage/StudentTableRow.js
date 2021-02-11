@@ -4,13 +4,25 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import EditStudentForm from './EditStudentForm'
+import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 
-const StudentTableRow = ({student, patchStudent, clearErrors}) => {
+const StudentTableRow = ({student, patchStudent, clearErrors, deleteStudent}) => {
   const [editable, setEditable] = useState(false)
-
+  const [deleteAlert, setDeleteAlert] = useState(null)
+  const [shouldDelete, setShouldDelete] = useState(false)
 
   const confirmDelete = () => {
-
+    setDeleteAlert(
+      <DeleteAlertDialog 
+        handleDelete={(confirmation) => {
+          setShouldDelete(confirmation)
+          setDeleteAlert(null)
+        }}
+        alertTitle={`Delete Student '${student.firstName} ${student.lastInitial}'?`}
+        alertBody={`Deleting this student will also delete them from their groups.\nThis action cannot be undone`}
+        alertReason='delete-student'
+      />
+    ) 
   }
   
   const handleEdit = () => {
@@ -26,6 +38,10 @@ const StudentTableRow = ({student, patchStudent, clearErrors}) => {
     return setEditable(false)
   }
 
+  if (shouldDelete) {
+    deleteStudent(student.id)
+  }
+
   if (editable) {
     return (
       <EditStudentForm 
@@ -38,24 +54,25 @@ const StudentTableRow = ({student, patchStudent, clearErrors}) => {
   } else{
     return (
       <TableRow className= "students-table-row" key={student.id}>
-      <TableCell component="th" scope="row">
-        {student.firstName} {student.lastInitial}
-      </TableCell>
-      <TableCell align="center">{student.academicTier}</TableCell>
-      <TableCell align="center">{student.socialEmotionalTier}</TableCell>
-      <TableCell align="center">
-      <Tooltip title="Edit">
-        <IconButton className="edit-student-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Delete">
-        <IconButton className="delete-student-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
-      </TableCell>
-    </TableRow>
+        {deleteAlert}
+        <TableCell component="th" scope="row">
+          {student.firstName} {student.lastInitial}
+        </TableCell>
+        <TableCell align="center">{student.academicTier}</TableCell>
+        <TableCell align="center">{student.socialEmotionalTier}</TableCell>
+        <TableCell align="center">
+          <Tooltip title="Edit">
+            <IconButton className="edit-student-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton className="delete-student-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
     )
   }
 }

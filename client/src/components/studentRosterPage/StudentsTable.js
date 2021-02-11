@@ -4,7 +4,16 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper}
 import AddStudentForm from './AddStudentForm'
 import StudentTableRow from './StudentTableRow'
 
-const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSectionId, closeForm, patchStudent, clearErrors}) => {
+const StudentsTable = ({
+  students, 
+  revealAddStudentForm, 
+  addNewStudent, 
+  classSectionId, 
+  closeForm, 
+  patchStudent, 
+  clearErrors,
+  deleteStudent
+}) => {
 
   let firstRow
   if (revealAddStudentForm) {
@@ -24,6 +33,7 @@ const StudentsTable = ({students, revealAddStudentForm, addNewStudent, classSect
         student={student} 
         patchStudent={patchStudent}
         clearErrors={clearErrors}
+        deleteStudent={deleteStudent}
       />
     )
   })

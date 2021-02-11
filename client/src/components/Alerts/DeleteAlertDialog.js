@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const DeleteAlertDialog = ({handleDelete, classSectionName}) => {
+const DeleteAlertDialog = ({handleDelete, alertTitle, alertBody, alertReason}) => {
   const [open, setOpen] = useState(true)
 
   const handleCancel = () => {
@@ -21,15 +21,14 @@ const DeleteAlertDialog = ({handleDelete, classSectionName}) => {
       <Dialog
         open={open}
         onClose={handleCancel}
-        aria-labelledby="delete-alert-dialog-title"
-        aria-describedby="delete-alert-dialog-description"
+        aria-labelledby={`${alertReason}-alert-dialog-title`}
+        aria-describedby={`${alertReason}-alert-dialog-description`}
         className="delete-alert-dialog"
       >
-        <DialogTitle id="delete-alert-dialog-title">{`Delete Class '${classSectionName}'?`}</DialogTitle>
+        <DialogTitle id={`${alertReason}-alert-dialog-title`}>{alertTitle}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="delete-alert-dialog-description">
-            Deleting this class will also delete all of the associated students and groups. 
-            This action cannot be undone.
+          <DialogContentText id={`${alertReason}-alert-dialog-description`}>
+            {alertBody}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

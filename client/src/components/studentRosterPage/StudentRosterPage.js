@@ -7,8 +7,8 @@ import CloseIcon from '@material-ui/icons/Close'
 import translateServerErrors from '../../services/translateServerErrors'
 
 import StudentsTable from './StudentsTable'
-import ErrorList from '../ErrorList'
-import SuccessAlert from '../SuccessAlert'
+import ErrorList from '../Alerts/ErrorList'
+import SuccessAlert from '../Alerts/SuccessAlert'
 
 const StudentRosterPage = (props) => {
   const [classSection, setClassSection] = useState({})
@@ -107,6 +107,27 @@ const StudentRosterPage = (props) => {
     }
   }
 
+  const deleteStudent = async (studentId) => {
+    try {
+      const response = await fetch(`/api/v1/students/${studentId}`, {
+        method: 'DELETE',
+        headers: new Headers ({
+          "Content-Type": "application/json"
+        })
+      })
+      if(!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      }
+
+      const body = await response.json()
+      setStudents(body.students)
+      displaySuccess('Student deleted!')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleOpenFormClick = () => {
     setRevealAddStudentForm(true)        
   }
@@ -151,6 +172,7 @@ const StudentRosterPage = (props) => {
           closeForm={handleCloseFormClick}
           patchStudent={patchStudent}
           clearErrors={clearErrors}
+          deleteStudent={deleteStudent}
         />
       </div>
     </div>

@@ -37,7 +37,9 @@ const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}
           setShouldDelete(confirmation)
           setDeleteAlert(null)
         }}
-        classSectionName={classSection.name}
+        alertTitle={`Delete Class '${classSection.name}'?`}
+        alertBody={`Deleting this class will also delete all of the associated students and groups.\nThis action cannot be undone`}
+        alertReason='delete-class'
       />
     ) 
   }
