@@ -6,6 +6,7 @@ import classSectionsRouter from "./api/v1/classSectionsRouter.js";
 import studentsRouter from "./api/v1/studentsRouter.js";
 
 const rootRouter = new express.Router();
+
 rootRouter.use("/", clientRouter);
 
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter);

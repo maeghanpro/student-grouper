@@ -74,10 +74,12 @@ const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}
           <Typography variant="h3">{classSection.name}</Typography>
         </CardContent>
         <CardActions className="class-card-buttons" >
-          <Link to={`/classes/${classSection.id}`}>
+          <Link to={`/classes/${classSection.id}/students`}>
             <Button className="class-card-button" variant="contained" size="large">Students</Button>
           </Link>
-          <Button className="class-card-button" variant="contained" size="large">Groups</Button>
+          <Link to={`/classes/${classSection.id}/groups`}>
+            <Button className="class-card-button" variant="contained" size="large">Groups</Button>
+          </Link>
         </CardActions>
       </Card>
     )

@@ -53,7 +53,7 @@ const StudentTableRow = ({student, patchStudent, clearErrors, deleteStudent}) =>
     )
   } else{
     return (
-      <TableRow className= "students-table-row" key={student.id}>
+      <TableRow className= "table-row" key={student.id}>
         {deleteAlert}
         <TableCell component="th" scope="row">
           {student.firstName} {student.lastInitial}

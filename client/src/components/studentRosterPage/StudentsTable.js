@@ -39,10 +39,10 @@ const StudentsTable = ({
   })
 
   return (
-    <TableContainer className="students-table" component={Paper}>
+    <TableContainer className="table" component={Paper}>
       <Table stickyHeader aria-label="students table">
         <TableHead>
-          <TableRow className='students-table-header-row'>
+          <TableRow className='table-header-row'>
             <TableCell>Student Name</TableCell>
             <TableCell align="center">Academic Tier</TableCell>
             <TableCell align="center">Social-Emotional Tier</TableCell>
