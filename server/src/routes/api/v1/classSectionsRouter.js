@@ -66,7 +66,7 @@ classSectionsRouter.get('/:id', async (req, res) => {
   const {id} = req.params
   try {
     const classSection = await ClassSection.query().findById(id)
-    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
+    const serializedClassSection = await ClassSectionSerializer.getStudentDetails(classSection)
     return res.status(200).json({classSection: serializedClassSection})
   } catch (error) {
     console.error(error)

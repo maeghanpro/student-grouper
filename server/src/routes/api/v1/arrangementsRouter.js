@@ -9,7 +9,7 @@ arrangementsRouter.get('/', async (req, res) => {
   const {id} = req.params
   try {
     const classSection = await ClassSection.query().findById(id)
-    const serializedClassSection = await ClassSectionSerializer.getArrangementDetails(classSection)
+    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
     return res.status(200).json({classSection: serializedClassSection})
   } catch (error) {
     console.error(error)

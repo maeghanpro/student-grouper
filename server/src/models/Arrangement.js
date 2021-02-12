@@ -1,9 +1,6 @@
 const Model = require('./Model.js')
 const _ = require('lodash')
 
-const getEvenGroups = require('./services/getEventGroups.js')
-const shuffleAndOrderStudents = require('./services/shuffleAndOrderStudents')
-
 class Arrangement extends Model {
   static get tableName() {
     return 'arrangements'
@@ -43,43 +40,6 @@ class Arrangement extends Model {
         }
       }
     }
-  }
-
-  generateRandomGroups (students) {
-    const shuffledStudents = _.shuffle(students)
-    return getEvenGroups(this.groupSize, shuffledStudents)
-  }
-
-  generateSimilarGroups (students) {
-    const ratingType = this.type.split(' ')[1]
-    const shuffledStudents = _.shuffle(students)
-    const orderedStudents = shuffledStudents.sort((studentA, studentB) => {
-      return studentA[ratingType] - studentB[ratingType]
-    })
-    return getEvenGroups(this.groupSize, orderedStudents)
-  }
-
-  generateVariedGroups (students) {
-    const ratingType = this.type.split(' ')[1]
-    const orderedStudents = shuffleAndOrderStudents(students, ratingType)
-    const numberOfGroups = Math.ceil(students.length / this.groupSize)
-    const groups = []
-  
-    for (let i = 0; i < numberOfGroups; i++) {
-      groups.push([])
-    }
-  
-    for (let i = 0; i < orderedStudents.length;) {
-      for (let j = 0; j < groups.length; j++) {
-        if (orderedStudents[i]) {
-          groups[j].push(orderedStudents[i])
-          i++
-        } else {
-          break;
-        }
-      }
-    }
-    return groups
   }
 }
 

@@ -11,6 +11,7 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import ClassSectionIndex from "./classPage/ClassSectionIndex";
 import StudentRosterPage from "./studentRosterPage/StudentRosterPage";
 import ArrangementIndex from "./arrangementIndexPage/ArrangementIndex";
+import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -33,7 +34,7 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <AuthenticatedRoute path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
-        <AuthenticatedRoute path="/classes/:id/groups" component={ArrangementIndex} user={currentUser}/>
+        <AuthenticatedRoute path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
         <AuthenticatedRoute path="/classes" component={ClassSectionIndex} user={currentUser}/>
       </Switch>
     </Router>

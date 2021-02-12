@@ -1,3 +1,4 @@
+import getGroupSizeOptions from '../services/getGroupSizeOptions.js'
 import StudentSerializer from './StudentSerializer.js'
 
 class ClassSectionSerializer {
@@ -12,7 +13,7 @@ class ClassSectionSerializer {
     return serializedClassSection
   } 
 
-  static async getDetails(classSection) {
+  static async getStudentDetails(classSection) {
     const serializedClassSection = this.getSummary(classSection)
     serializedClassSection.students = await classSection.$relatedQuery('students')
       .where('isActive', true)
@@ -25,10 +26,12 @@ class ClassSectionSerializer {
     return serializedClassSection
   }
 
-  static async getArrangementDetails(classSection) {
-    const serializedClassSection = this.getSummary(classSection)
+  static async getDetails(classSection) {
+    const serializedClassSection = await this.getStudentDetails(classSection)
     serializedClassSection.arrangements = await classSection.$relatedQuery('arrangements')
       .orderBy('createdAt')
+    
+    serializedClassSection.groupSizeOptions = getGroupSizeOptions(serializedClassSection.students.length)
 
     return serializedClassSection
   }
