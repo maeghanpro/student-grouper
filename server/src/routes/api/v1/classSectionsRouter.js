@@ -4,11 +4,11 @@ import { ValidationError } from 'objection'
 import { ClassSection, User, Student } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
-import arrangementsRouter from './arrangementsRouter.js'
+import classSectionArrangementsRouter from './classSectionArrangementsRouter.js'
 
 const classSectionsRouter = new express.Router()
 
-classSectionsRouter.use('/:id/arrangements', arrangementsRouter)
+classSectionsRouter.use('/:id/arrangements', classSectionArrangementsRouter)
 
 classSectionsRouter.get('/', async (req, res) => {
   const userId = req.user.id

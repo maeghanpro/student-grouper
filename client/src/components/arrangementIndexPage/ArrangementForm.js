@@ -1,12 +1,15 @@
 import React, {useState} from 'react'
 import { TextField, Button, Typography, FormControl, Select, MenuItem, InputLabel, Card, CardContent, CardActions} from '@material-ui/core'
+import { Redirect } from 'react-router-dom'
+import {useParams} from 'react-router'
 
-const ArrangementForm = ({groupSizeOptions}) => {
+const ArrangementForm = ({groupSizeOptions, addArrangement}) => {
   const [newArrangement, setNewArrangement] = useState({
     name: "",
     type: "",
     groupSize: ""
   })
+  const [shouldRedirect, setShouldRedirect] = useState(false)
 
   const handleInputChange = (event) => {
     setNewArrangement({
@@ -15,9 +18,12 @@ const ArrangementForm = ({groupSizeOptions}) => {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-
+    if (await addArrangement(newArrangement)) {
+      setShouldRedirect(true)
+    }
+    
   }
   
   const groupSizeMenuItems = groupSizeOptions.map( size => {
@@ -25,7 +31,11 @@ const ArrangementForm = ({groupSizeOptions}) => {
       <MenuItem key={size} value={size}>{size}</MenuItem>
     )
   })
-
+  
+  const {id} = useParams()
+  if (shouldRedirect) {
+    <Redirect to={`/classes/${id}/groups`}/>
+  }
   return (
     <Card>
       <CardContent>

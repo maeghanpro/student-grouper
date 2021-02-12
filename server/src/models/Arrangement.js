@@ -1,5 +1,4 @@
 const Model = require('./Model.js')
-const _ = require('lodash')
 
 class Arrangement extends Model {
   static get tableName() {
@@ -28,7 +27,7 @@ class Arrangement extends Model {
   }
 
   static get relationMappings() {
-    const { ClassSection } = require('./index.js')
+    const { ClassSection, Group } = require('./index.js')
 
     return {
       classSection: {
@@ -37,6 +36,14 @@ class Arrangement extends Model {
         join: {
           from: 'arrangements.classSectionId',
           to: 'classSections.id'
+        }
+      },
+      groups: {
+        relation: Model.HasManyRelation,
+        modelClass: Group,
+        join: {
+          from: 'arrangements.id',
+          to: 'groups.arrangementId'
         }
       }
     }

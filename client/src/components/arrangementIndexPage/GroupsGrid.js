@@ -9,7 +9,6 @@ const GroupsGrid = ({arrangement}) => {
     const splitDate = arrangement.createdAt.slice(0, 10).split('-')
     date = [splitDate[1], splitDate[2], splitDate[0]].join('-')
   }
-
   const groupTiles = arrangement.groups.map(group => {
     return (
       <GroupTile 

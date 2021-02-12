@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
-import {Typography, Fab, Button, Tooltip, CircularProgress} from '@material-ui/core'
+import {Fab, Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
+import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
 import ArrangementForm from './ArrangementForm'
 
@@ -12,6 +13,7 @@ const ArrangementShow = (props) => {
   const [featuredArrangement, setFeaturedArrangement] = useState({groups: []})
   const [students, setStudents] = useState([])
   const [revealArrangementForm, setRevealArrangementForm] = useState(false)
+  const [errors, setErrors] = useState({})
   const { id } = useParams()
 
   const getClassSectionData = async () => {
@@ -39,22 +41,31 @@ const ArrangementShow = (props) => {
     getClassSectionData()
   }, [])
 
-  const makeArrangement = async (arrangementData) => {
+  const addArrangement = async (arrangement) => {
     try {
-      const response = await fetch(`api/v1/classes/${id}/arrangements/new`, {
-        method: 'GET',
+      const response = await fetch('api/v1/arrangements', {
+        method: 'POST',
         headers: new Headers({
           'content-type': 'application/json'
         }),
-        body: JSON.stringify(arrangementData)
+        body: JSON.stringify({...arrangement, classSectionId: classSection.id})
       })
 
-      if (!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
-      }
+      if(!response.ok) {
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
+      } else {
       const body = await response.json()
       setFeaturedArrangement(body.arrangement)
+      setErrors({})
+      }
     } catch (error) {
       
     }
@@ -74,7 +85,11 @@ const ArrangementShow = (props) => {
 
   if (revealArrangementForm) {
     return (
-      <ArrangementForm groupSizeOptions={classSection.groupSizeOptions}/>
+      <ArrangementForm 
+        groupSizeOptions={classSection.groupSizeOptions}
+        addArrangement={addArrangement}
+        errors={errors}
+      />
     )
   } 
 

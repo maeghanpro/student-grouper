@@ -1,13 +1,13 @@
 const getEvenGroups = require('./getEventGroups.js')
 const shuffleAndOrderStudents = require('./shuffleAndOrderStudents')
 
-class GenerateGroups {
-  static randomGroups (students, size) {
+class Grouping {
+  static random (students, size) {
     const shuffledStudents = _.shuffle(students)
     return getEvenGroups(size, shuffledStudents)
   }
 
-  static similarGroups (students, size, ratingType) {
+  static similar (students, size, ratingType) {
     const shuffledStudents = _.shuffle(students)
     const orderedStudents = shuffledStudents.sort((studentA, studentB) => {
       return studentA[ratingType] - studentB[ratingType]
@@ -15,7 +15,7 @@ class GenerateGroups {
     return getEvenGroups(size, orderedStudents)
   }
 
-  variedGroups (students, size, ratingType) {
+  static varied (students, size, ratingType) {
     const orderedStudents = shuffleAndOrderStudents(students, ratingType)
     const numberOfGroups = Math.ceil(students.length / size)
     const groups = []
@@ -36,6 +36,22 @@ class GenerateGroups {
     }
     return groups
   }
+
+  static generate (students, arrangement) {
+    const typeValues = arrangement.type.split(' ')
+    const method = typeValues[0]
+
+    if (method === 'random') {
+      return this.random(students, arrangement.groupSize)
+    } else {
+      const ratingType = typeValues[1]
+      if (method === 'similar') {
+        return this.similar(students, arrangement.groupSize, ratingType)
+      } else {
+        return this.varied(students, arrangement.groupSize, ratingType)
+      }
+    }
+  }
 }
 
-export default GenerateGroups
+export default Grouping
