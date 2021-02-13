@@ -35,7 +35,7 @@ class Student extends Model {
   }
 
   static get relationMappings() {
-    const { ClassSection } = require('./index')
+    const { ClassSection, Assignment, Group } = require('./index')
 
     return {
       classSection: {
@@ -44,6 +44,26 @@ class Student extends Model {
         join: {
           from: 'students.classSectionId',
           to: 'classSections.id'
+        }
+      },
+      assignments: {
+        relation: Model.HasManyRelation,
+        modelClass: Assignment,
+        join: {
+          from: 'students.id',
+          to: 'assignments.studentId'
+        }
+      },
+      groups: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Group,
+        join: {
+          from: 'students.id',
+          through: {
+            from: 'assignments.studentId',
+            to: 'assignments.groupId'
+          },
+          to: 'groups.id'
         }
       }
     }

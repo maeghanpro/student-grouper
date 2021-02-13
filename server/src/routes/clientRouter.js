@@ -10,7 +10,8 @@ const clientRoutes = [
   "/classes",
   "/classes/:id",
   "/classes/:id/students",
-  "/classes/:id/groups"
+  "/classes/:id/groups",
+  "/groups/:id"
 ];
 
 router.get(clientRoutes, (req, res) => {

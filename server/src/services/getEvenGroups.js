@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const getEvenGroups = (size, students) => {
   const groups = _.chunk(students, size);
@@ -11,7 +11,9 @@ const getEvenGroups = (size, students) => {
 
     lastEvenGroup.push(lastGroup.pop())
     evenGroups.push(lastEvenGroup)
+
     return evenGroups
+
   } else if(remainder < size - 1 && remainder > 0) {
     const redistributionIndex = groups.length - (size - remainder);
     const evenGroups = groups.slice(0, redistributionIndex);
@@ -22,10 +24,12 @@ const getEvenGroups = (size, students) => {
       evenGroups.push(redistributionGroups[i])
     }
     evenGroups.push(lastGroup)
+
     return evenGroups
+
   } else {
     return groups
   }
 }
 
-module.exports = getEvenGroups
+export default getEvenGroups

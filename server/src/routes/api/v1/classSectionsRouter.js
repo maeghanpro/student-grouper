@@ -4,11 +4,11 @@ import { ValidationError } from 'objection'
 import { ClassSection, User, Student } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
-import arrangementsRouter from './arrangementsRouter.js'
+import classSectionArrangementsRouter from './classSectionArrangementsRouter.js'
 
 const classSectionsRouter = new express.Router()
 
-classSectionsRouter.use('/:id/arrangements', arrangementsRouter)
+classSectionsRouter.use('/:id/arrangements', classSectionArrangementsRouter)
 
 classSectionsRouter.get('/', async (req, res) => {
   const userId = req.user.id
@@ -66,7 +66,7 @@ classSectionsRouter.get('/:id', async (req, res) => {
   const {id} = req.params
   try {
     const classSection = await ClassSection.query().findById(id)
-    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
+    const serializedClassSection = await ClassSectionSerializer.getStudentDetails(classSection)
     return res.status(200).json({classSection: serializedClassSection})
   } catch (error) {
     console.error(error)
