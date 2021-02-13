@@ -23,8 +23,6 @@ arrangementsRouter.post('/', async (req, res) => {
     serializedArrangement.groups = await Promise.all(groups.map( async (group, index) => {
       const name = `Group ${index + 1}`
       const persistedGroup = await Group.query().insertAndFetch({name, arrangementId: arrangement.id})
-      
-      console.log('group', group)
 
       for (const student of group) {
         await Assignment.query().insert({groupId: persistedGroup.id, studentId: student.id})
