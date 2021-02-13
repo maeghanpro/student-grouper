@@ -4,8 +4,11 @@ import { ValidationError } from 'objection'
 import { ClassSection, User, Student } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
+import arrangementsRouter from './arrangementsRouter.js'
 
 const classSectionsRouter = new express.Router()
+
+classSectionsRouter.use('/:id/arrangements', arrangementsRouter)
 
 classSectionsRouter.get('/', async (req, res) => {
   const userId = req.user.id
@@ -88,4 +91,5 @@ classSectionsRouter.delete('/:id', async (req, res) => {
     return res.status(500).json({errors: error})
   }
 })
+
 export default classSectionsRouter

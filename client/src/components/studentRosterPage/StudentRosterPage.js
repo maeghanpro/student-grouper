@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import {Typography, Fab, Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close'
 
 import translateServerErrors from '../../services/translateServerErrors'
 
@@ -163,7 +162,7 @@ const StudentRosterPage = (props) => {
         <ErrorList errors={errors}/>
       </div>
       {fab}
-      <div className="students-table-container">
+      <div className="table-container">
         <StudentsTable 
           students={students}
           revealAddStudentForm={revealAddStudentForm}

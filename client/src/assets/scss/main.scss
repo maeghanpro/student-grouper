@@ -172,12 +172,6 @@ input.MuiInputBase-input:focus {
 }
 
 // roster page styles
-.students-table-container {
-  display: flex;
-  align-content: center;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
 
 .student-fab {
   float: right;
@@ -189,13 +183,20 @@ input.MuiInputBase-input:focus {
 .MuiFab-primary.student-fab:hover {
   background-color: #7b6400;
 }
-// roster table styles
-.students-table {
+//table styles
+.table-container {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.table {
   max-width: 90%;
   max-height: 75vh;
 }
 
-.students-table-header-row {
+.table-header-row {
   .MuiTableCell-stickyHeader  {
     background-color: #516573;
     font-size: larger;
@@ -203,7 +204,7 @@ input.MuiInputBase-input:focus {
   }
 }
 
-.students-table-row {
+.table-row {
   .MuiTableCell-root {
     font-size: large;
   }

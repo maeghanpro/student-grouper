@@ -2,5 +2,6 @@
 const User = require('./User.js')
 const ClassSection = require('./ClassSection.js')
 const Student = require('./Student.js')
+const Arrangement = require('./Arrangement.js')
 
-module.exports = { User, ClassSection, Student };
+module.exports = { User, ClassSection, Student, Arrangement };

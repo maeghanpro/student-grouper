@@ -1,4 +1,3 @@
-const { BelongsToOneRelation } = require('./Model.js')
 const Model = require('./Model.js')
 
 class ClassSection extends Model {
@@ -21,7 +20,7 @@ class ClassSection extends Model {
   }
 
   static get relationMappings() {
-    const { User, Student } = require('./index.js')
+    const { User, Student, Arrangement} = require('./index.js')
 
     return {
       user: {
@@ -38,6 +37,14 @@ class ClassSection extends Model {
         join: {
           from: 'classSections.id',
           to: 'students.classSectionId'
+        }
+      },
+      arrangements: {
+        relation: Model.HasManyRelation,
+        modelClass: Arrangement,
+        join: {
+          from: 'classSections.id',
+          to: 'arrangements.classSectionId'
         }
       }
     }

@@ -24,6 +24,14 @@ class ClassSectionSerializer {
 
     return serializedClassSection
   }
+
+  static async getArrangementDetails(classSection) {
+    const serializedClassSection = this.getSummary(classSection)
+    serializedClassSection.arrangements = await classSection.$relatedQuery('arrangements')
+      .orderBy('createdAt')
+
+    return serializedClassSection
+  }
 }
 
 export default ClassSectionSerializer
