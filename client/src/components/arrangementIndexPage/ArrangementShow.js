@@ -43,7 +43,7 @@ const ArrangementShow = (props) => {
 
   const addArrangement = async (arrangement) => {
     try {
-      const response = await fetch('api/v1/arrangements', {
+      const response = await fetch('/api/v1/arrangements', {
         method: 'POST',
         headers: new Headers({
           'content-type': 'application/json'
@@ -63,8 +63,10 @@ const ArrangementShow = (props) => {
         }
       } else {
       const body = await response.json()
+      debugger
       setFeaturedArrangement(body.arrangement)
       setErrors({})
+      return true
       }
     } catch (error) {
       

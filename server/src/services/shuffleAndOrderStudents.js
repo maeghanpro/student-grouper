@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const shuffleAndOrderStudents = (students, ratingType) => {
   const tierThree = _.shuffle(
@@ -13,4 +13,4 @@ const shuffleAndOrderStudents = (students, ratingType) => {
   return [...tierThree, ...tierOne, ...tierTwo]
 }
 
-module.exports = shuffleAndOrderStudents
+export default shuffleAndOrderStudents

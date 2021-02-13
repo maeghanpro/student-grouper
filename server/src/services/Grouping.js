@@ -1,5 +1,7 @@
-const getEvenGroups = require('./getEventGroups.js')
-const shuffleAndOrderStudents = require('./shuffleAndOrderStudents')
+import _ from 'lodash'
+
+import getEvenGroups from './getEvenGroups.js'
+import shuffleAndOrderStudents from './shuffleAndOrderStudents.js'
 
 class Grouping {
   static random (students, size) {
@@ -12,6 +14,7 @@ class Grouping {
     const orderedStudents = shuffledStudents.sort((studentA, studentB) => {
       return studentA[ratingType] - studentB[ratingType]
     })
+
     return getEvenGroups(size, orderedStudents)
   }
 
