@@ -12,7 +12,7 @@ const ArrangementShow = (props) => {
   const [arrangements, setArrangements] = useState([])
   const [featuredArrangement, setFeaturedArrangement] = useState({groups: []})
   const [students, setStudents] = useState([])
-  const [revealArrangementForm, setRevealArrangementForm] = useState(false)
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState({})
   const { id } = useParams()
 
@@ -28,7 +28,7 @@ const ArrangementShow = (props) => {
       setArrangements(body.classSection.arrangements)
       setStudents(body.classSection.students)
       if(body.classSection.arrangements.length === 0) {
-        setRevealArrangementForm(true)
+        setShouldRedirect(true)
       } else {
         setFeaturedArrangement(body.classSection.arrangements[0])
       }
@@ -63,10 +63,9 @@ const ArrangementShow = (props) => {
         }
       } else {
       const body = await response.json()
-      debugger
       setFeaturedArrangement(body.arrangement)
       setErrors({})
-      return true
+      setShouldRedirect(false)
       }
     } catch (error) {
       
@@ -74,10 +73,10 @@ const ArrangementShow = (props) => {
   }
 
   const handleOpenFormClick = () => {
-    setRevealArrangementForm(true)        
+    setShouldRedirect(true)        
   }
 
-  let fab= (
+  let fab = (
     <Tooltip title="Create Groups">
       <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="create groups">
         <AddIcon />
@@ -85,7 +84,7 @@ const ArrangementShow = (props) => {
     </Tooltip>
   )
 
-  if (revealArrangementForm) {
+  if (shouldRedirect) {
     return (
       <ArrangementForm 
         groupSizeOptions={classSection.groupSizeOptions}

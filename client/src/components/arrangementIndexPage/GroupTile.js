@@ -10,7 +10,7 @@ const GroupTile = ({group}) => {
   }
   const students = group.students.map( student => {
     return (
-      <Typography variant='body1'>{student.firstName} {student.lastInitial}</Typography>
+      <Typography key={student.id} variant='body1'>{student.firstName} {student.lastInitial}</Typography>
     )
   })
   return (

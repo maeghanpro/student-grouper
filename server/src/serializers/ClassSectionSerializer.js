@@ -1,5 +1,6 @@
 import getGroupSizeOptions from '../services/getGroupSizeOptions.js'
 import StudentSerializer from './StudentSerializer.js'
+import ArrangementSerializer from './ArrangementSerializer.js'
 
 class ClassSectionSerializer {
   static getSummary(classSection) {
@@ -29,7 +30,11 @@ class ClassSectionSerializer {
   static async getDetails(classSection) {
     const serializedClassSection = await this.getStudentDetails(classSection)
     serializedClassSection.arrangements = await classSection.$relatedQuery('arrangements')
-      .orderBy('createdAt')
+      .orderBy('createdAt', 'desc')
+    
+    serializedClassSection.arrangements = await Promise.all(serializedClassSection.arrangements.map(arrangement => {
+      return ArrangementSerializer.getDetails(arrangement)
+    }))
     
     serializedClassSection.groupSizeOptions = getGroupSizeOptions(serializedClassSection.students.length)
 
