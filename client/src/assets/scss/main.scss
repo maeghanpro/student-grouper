@@ -22,7 +22,9 @@ body {
 }
 
 // top-bar styles
-
+.top-bar {
+  z-index: 2000;
+}
 .logo {
   float: left;
   height: 15vh;
@@ -133,7 +135,7 @@ label.MuiFormLabel-root.Mui-focused{
   color:#271e27;
 }
 
-input.MuiInputBase-input:focus {
+.input.MuiInputBase-input:focus {
   background-color:#7E93A2;
 }
 
@@ -287,4 +289,52 @@ tr:nth-child(odd) {
 
 #delete-student-alert-dialog-description {
   color: #4f454f;
+}
+
+// arrangement show page
+.arrangement-header.MuiTypography-root {
+  margin-top: 20px;
+}
+
+// New arrangement form
+.arrangement-form-close-button.MuiButtonBase-root {
+  width:45px;
+}
+
+.arrangement-form-size.MuiFormControl-root {
+  margin: 10px;
+  width: 130px;
+  display: flex;
+}
+
+#new-arrangement-name:focus {
+  background-color: #F3F3EE;
+}
+
+.arrangement-form-type.MuiFormControl-root {
+  margin: 10px;
+  min-width: 200px;
+}
+
+.arrangement-submit-button.MuiButton-root {
+  background-color: #516573;
+  color:#F3F3EE;
+}
+
+.arrangement-submit-button.MuiButton-root:hover {
+  background-color: #7E93A2;
+  color:#F3F3EE;
+}
+
+.arrangement-form-dialog.MuiDialog-paperScrollPaper {
+  align-content: center;
+  justify-content: center;
+}
+
+#create-new-groups-form { 
+  text-align: center;
+}
+
+.arrangement-name.MuiFormControl-root {
+  margin: 10px;
 }
