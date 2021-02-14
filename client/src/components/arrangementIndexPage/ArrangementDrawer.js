@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Drawer, List, ListItemText, ListItem, IconButton, Toolbar, Typography, Divider} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import {Drawer, List, ListItemText, ListItem, Typography, Divider, Hidden} from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 const drawerWidth = 240
 
@@ -10,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    }
   },
   drawerPaper: {
     width: drawerWidth,
@@ -20,33 +20,36 @@ const useStyles = makeStyles((theme) => ({
     color: '#F3F3EE',
     backgroundColor: '#7b7b79',
     position:'relative',
-    height: '100%',
+    height: '100vh',
   },
   drawerContainer: {
     overflow: 'auto',
   }
 }))
  
-const ArrangementDrawer = ({arrangements, handleArrangementClick}) => {
+const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangementClick}) => {
   const classes = useStyles()
-  const [open, setOpen] = useState(true);
+  const theme = useTheme();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
   const arrangementListItems = arrangements.map(arrangement => {
+    let focusStyle
+    if (arrangement.id == featuredArrangementId) {
+      focusStyle = {
+        backgroundColor: '#4e4e4c'
+      }
+    }
     return (
-      <div key={arrangement.id}>
-        <Divider/>
         <ListItem 
-          button 
-
+          divider
+          key={arrangement.id}
           button
+          style={focusStyle}
         >
           <ListItemText onClick={handleArrangementClick} className={arrangement.id}>
             <Typography variant='h6'>{arrangement.name}</Typography>
@@ -54,32 +57,47 @@ const ArrangementDrawer = ({arrangements, handleArrangementClick}) => {
             <Typography variant='body2'>{arrangement.createdAt}</Typography>
           </ListItemText>
         </ListItem>
-      </div>
     )
   })
 
   return (
-    <Drawer
-      className={classes.drawer}
-      variant="persistent"
-      anchor="right"
-      open={open}
-      classes={{
+    <nav className={classes.drawer} aria-label="mailbox folders">
+    <Hidden smUp implementation="css">
+      <Drawer
+        variant="temporary"
+        anchor='right'
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        classes={{
           paper: classes.drawerPaper,
         }}
-    >
-      <Toolbar > 
-        <IconButton onClick={handleDrawerClose}>
-          <ChevronRightIcon /> 
-        </IconButton>
-      </Toolbar>
-      <div className={classes.drawerContainer}>
-
-        <List>
-          {arrangementListItems}
-        </List>
-      </div>
-    </Drawer>
+        ModalProps={{
+          keepMounted: true,
+        }}
+      >
+        <div className={classes.drawerContainer}>
+          <List>
+            {arrangementListItems}
+          </List>
+        </div>
+      </Drawer>
+    </Hidden>
+    <Hidden xsDown implementation="css">
+      <Drawer
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        variant="permanent"
+        open
+      >
+        <div className={classes.drawerContainer}>
+          <List>
+            {arrangementListItems}
+          </List>
+        </div>
+      </Drawer>
+    </Hidden>
+  </nav>
   )
 }
 

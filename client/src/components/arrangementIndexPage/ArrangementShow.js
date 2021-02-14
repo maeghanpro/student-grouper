@@ -101,6 +101,7 @@ const ArrangementShow = (props) => {
       <ArrangementDrawer 
         arrangements={arrangements}
         handleArrangementClick={handleArrangementClick}
+        featuredArrangementId={featuredArrangement.id}
       />
     </div>
   )
