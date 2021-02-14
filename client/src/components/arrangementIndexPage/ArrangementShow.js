@@ -1,20 +1,32 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
-import {Fab, Tooltip} from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@material-ui/core/styles'
 
 import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
-import ArrangementForm from './ArrangementForm'
+import ArrangementDrawer from './ArrangementDrawer'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex'
+  }
+}))
 const ArrangementShow = (props) => {
-  const [classSection, setClassSection] = useState({})
+  const classes = useStyles()
+  const [classSection, setClassSection] = useState({
+    groupSizeOptions: []
+  })
   const [arrangements, setArrangements] = useState([])
-  const [featuredArrangement, setFeaturedArrangement] = useState({groups: []})
+  const [featuredArrangement, setFeaturedArrangement] = useState({
+    groups: []
+  })
   const [students, setStudents] = useState([])
-  const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState({})
   const { id } = useParams()
+  
+  const clearErrors = () => {
+    setErrors({})
+  }
 
   const getClassSectionData = async () => {
     try {
@@ -27,9 +39,7 @@ const ArrangementShow = (props) => {
       setClassSection(body.classSection)
       setArrangements(body.classSection.arrangements)
       setStudents(body.classSection.students)
-      if(body.classSection.arrangements.length === 0) {
-        setShouldRedirect(true)
-      } else {
+      if(body.classSection.arrangements.length > 0) {
         setFeaturedArrangement(body.classSection.arrangements[0])
       }
     } catch (error) {
@@ -65,39 +75,34 @@ const ArrangementShow = (props) => {
       const body = await response.json()
       setFeaturedArrangement(body.arrangement)
       setErrors({})
-      setShouldRedirect(false)
+      return true
       }
     } catch (error) {
       
     }
   }
-
-  const handleOpenFormClick = () => {
-    setShouldRedirect(true)        
+  const handleArrangementClick = (event) => {
+    let id = event.currentTarget.className.split(' ')[1]
+    id = parseInt(id)
+    const arrangement = arrangements.find( arrangement => arrangement.id == id)
+    setFeaturedArrangement(arrangement)
   }
-
-  let fab = (
-    <Tooltip title="Create Groups">
-      <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="create groups">
-        <AddIcon />
-      </Fab>
-    </Tooltip>
-  )
-
-  if (shouldRedirect) {
-    return (
-      <ArrangementForm 
-        groupSizeOptions={classSection.groupSizeOptions}
-        addArrangement={addArrangement}
-        errors={errors}
-      />
-    )
-  } 
-
   return (
-    <div className="grid-container text-center">
-      <GroupsGrid arrangement={featuredArrangement}/>
-      {fab}
+    <div className={classes.root}>
+      <div className="grid-container text-center">
+        <GroupsGrid 
+          arrangement={featuredArrangement}
+          groupSizeOptions={classSection.groupSizeOptions}
+          addArrangement={addArrangement}
+          errors={errors}
+          clearErrors={clearErrors}
+        />
+      </div>
+      <ArrangementDrawer 
+        arrangements={arrangements}
+        handleArrangementClick={handleArrangementClick}
+        featuredArrangementId={featuredArrangement.id}
+      />
     </div>
   )
 }

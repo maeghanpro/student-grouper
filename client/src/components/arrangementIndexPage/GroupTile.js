@@ -1,23 +1,100 @@
 import React from 'react'
-import { Card, CardContent, Typography} from '@material-ui/core'
+import { Card, CardContent, Typography, List, ListItem, ListItemIcon, ListItemText, Tooltip} from '@material-ui/core'
+import { withStyles} from '@material-ui/core/styles';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
+
 const GroupTile = ({group}) => {
-  const colorOptions = ["#795061", "#212E49", "#39565A", "#315E78", "#7C6764", "#7B717C", "#2E3F5A", "#908C5A", "#93995F", "#B56D5F", "#6D9885", "#E48B6B"]
-  const randomIndex = Math.floor(Math.random() * colorOptions.length)
-  const randomColor = colorOptions[randomIndex]
+  
+  const LightTooltip = withStyles(() => ({
+    tooltip: {
+      backgroundColor: '#f3f3ee',
+      color: 'rgba(0, 0, 0, 0.87)',
+      fontSize: 15,
+      maxWidth: 180
+    },
+  }))(Tooltip);
+
   const style = {
-    background: randomColor,
-    color: '#F3F3EE'
+    background: '#5c6361',
+    color: '#f3f3ee',
+    margin: '10px',
   }
+  const green = '#a8d093'
+  const yellow = '#e1c061'
+  const red = '#cd685c'
+
   const students = group.students.map( student => {
+    const toolTipMessage = 
+      <>
+        <Typography variant='body2'>Academic Tier: {student.academicTier}</Typography>
+        <Typography variant='body2'>Social-Emotional Tier: {student.socialEmotionalTier}</Typography>
+      </>
+
+    let academicColor
+    let socialColor
+
+    if (student.academicTier == 1) {
+      academicColor = {
+        color: green,
+      }
+    } 
+    if (student.socialEmotionalTier == 1) {
+      socialColor = {
+        color: green
+      }
+    }
+    if (student.academicTier == 2) {
+      academicColor = {
+        color: yellow
+      }
+    }
+    if (student.socialEmotionalTier == 2) {
+      socialColor = {
+        color: yellow
+      }
+    }
+    if (student.academicTier == 3) {
+      academicColor = {
+        color: red
+      }
+    }
+    if (student.socialEmotionalTier == 3) {
+      socialColor = {
+        color: red
+      }
+    }
+
     return (
-      <Typography key={student.id} variant='body1'>{student.firstName} {student.lastInitial}</Typography>
+      <LightTooltip
+        key={student.id} 
+        disableFocusListener
+        disableTouchListener 
+        title={toolTipMessage} 
+        placement='right' 
+        style={{
+          fontSize: '40px'
+        }}
+        arrow>
+      <ListItem >
+        <ListItemIcon>
+          <EmojiObjectsIcon style={academicColor}/>
+          <PriorityHighIcon style={socialColor}/>
+        </ListItemIcon>
+        <ListItemText>
+          {student.firstName} {student.lastInitial}
+        </ListItemText>
+      </ListItem>
+      </LightTooltip>
     )
   })
   return (
-    <Card className="group-card" style={style} raised>
+    <Card xs={12} md={'auto'} className="group-card" style={style} raised>
         <CardContent>
-          <Typography variant="h3">{group.name}</Typography>
+          <Typography variant="h4">{group.name}</Typography>
+          <List>
           {students}
+          </List>
         </CardContent>
       </Card>
   )

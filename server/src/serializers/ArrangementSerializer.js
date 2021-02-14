@@ -24,8 +24,7 @@ class ArrangementSerializer {
   static async getDetails(arrangement) {
     const serializedArrangement = this.formatValues(arrangement)
 
-    serializedArrangement.groups = await arrangement.$relatedQuery('groups')
-      .orderBy('name')
+    serializedArrangement.groups = await arrangement.$relatedQuery('groups').orderBy('name')
     serializedArrangement.groups = await Promise.all(serializedArrangement.groups.map(group => {
       return GroupSerializer.getDetails(group)
     }))
