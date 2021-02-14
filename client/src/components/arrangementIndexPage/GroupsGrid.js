@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Typography } from '@material-ui/core'
 
 import ArrangementForm from './ArrangementForm'
+import ArrangementFormDialog from './ArrangementFormDialog'
 import GroupTile from './GroupTile'
 
 const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clearErrors}) => {
@@ -13,7 +14,16 @@ const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clea
       />
     )
   })
-
+  if (arrangement.groups.length === 0) {
+    return (
+      <ArrangementForm 
+        groupSizeOptions={groupSizeOptions}
+        addArrangement={addArrangement}
+        errors={errors}
+        clearErrors={clearErrors}
+      />
+    )
+  }
   return (
     <Grid container alignContent="center" justify="center" spacing={3}>
 
@@ -33,7 +43,7 @@ const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clea
       </Typography>
       </Grid>
       <Grid item xs={12}>
-        <ArrangementForm 
+        <ArrangementFormDialog 
           groupSizeOptions={groupSizeOptions}
           addArrangement={addArrangement}
           errors={errors}

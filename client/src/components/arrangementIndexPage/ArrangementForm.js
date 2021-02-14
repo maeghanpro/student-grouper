@@ -1,25 +1,54 @@
 import React, {useState} from 'react'
-import { TextField, Button, IconButton, FormControl, Select, MenuItem, InputLabel, Dialog, DialogActions, DialogTitle, DialogContent, Fab, Tooltip} from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close'
-
+import { TextField, Button, FormControl, Select, MenuItem, InputLabel, Card, CardContent, Typography} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
 import ErrorList from '../Alerts/ErrorList'
-const ArrangementForm = ({groupSizeOptions, addArrangement, errors, clearErrors}) => {
+import { DonutLarge } from '@material-ui/icons'
+
+const primary = '#7E93A2'
+const secondary = '#F3F3EE'
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: primary,
+    color: secondary,
+    marginTop: 40
+  },
+  header: {
+    margin: 10
+  },
+  form: {
+    alignContent: 'center',
+    '& .MuiTextField-root': {
+      margin: 10,
+      width: 200
+    },
+    '& .MuiInputBase-input:focus': {
+      backgroundColor: primary,
+      color: secondary
+    },
+    '& .MuiInputBase-input': {
+      backgroundColor: primary,
+      color: secondary,
+      fontSize: 'large'
+    },
+    '& .MuiInputLabel-root': {
+      color: secondary
+    }
+  },
+  formControl: {
+    minWidth: 180,
+    margin: 10
+  }
+
+}))
+
+const ArrangementForm = ({groupSizeOptions, addArrangement, errors}) => {
+  const classes = useStyles()
   const [newArrangement, setNewArrangement] = useState({
     name: "",
     type: "",
     groupSize: ""
-  })
-  const [open, setOpen] = useState(false)
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
-
-  const handleClose = () => {
-    clearErrors()
-    setOpen(false);
-  };
+  })                 
 
   const handleInputChange = (event) => {
     setNewArrangement({
@@ -28,11 +57,9 @@ const ArrangementForm = ({groupSizeOptions, addArrangement, errors, clearErrors}
     })
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    if ( await addArrangement(newArrangement)) {
-      handleClose()
-    }
+    addArrangement(newArrangement)
   }
   
   const groupSizeMenuItems = groupSizeOptions.map( size => {
@@ -43,27 +70,17 @@ const ArrangementForm = ({groupSizeOptions, addArrangement, errors, clearErrors}
 
   return (
     <div>
-    <Tooltip title="Create Groups">
-      <Fab onClick={handleClickOpen} className="class-fab" color="primary" aria-label="create groups">
-        <AddIcon />
-      </Fab>
-    </Tooltip>
-      <Dialog maxWidth='lg' className="arrangement-form-dialog" open={open} onClose={handleClose} aria-labelledby="create-new-groups-form" disableBackdropClick>
-        <Tooltip title="Close">
-          <IconButton className="arrangement-form-close-button" size="medium" aria-label="close" color="inherit" onClick={handleClose}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-        <DialogTitle id="create-new-groups-form" variant='h4'>Create New Groups</DialogTitle>
-        <DialogContent className="arrangement-form-content">
+      <Card className={classes.card} raised>
+        <CardContent>
+          <Typography className={classes.header}variant='h3'>Create New Groups</Typography>
           <ErrorList errors={errors}/>
-          <form onSubmit={handleSubmit} className="arrangement-form">
-            <TextField className="arrangement-name" onChange={handleInputChange} name="name" value={newArrangement.name} label="Name*" id="new-arrangement-name" variant="outlined"/>
-            <FormControl variant="outlined" className="arrangement-form-type" >
-              <InputLabel id="new-arrangement-type-label">Type*</InputLabel>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <TextField className={classes.textField} onChange={handleInputChange} name="name" value={newArrangement.name} label="Name*" id="first-arrangement-name" variant="outlined"/>
+            <FormControl variant="outlined" className={classes.formControl} >
+              <InputLabel id="first-arrangement-type-label">Type*</InputLabel>
               <Select
-                labelId="new-arrangement-type-label"
-                id="new-arrangement-type"
+                labelId="first-arrangement-type-label"
+                id="first-arrangement-type"
                 value={newArrangement.type}
                 onChange={handleInputChange}
                 label="Type*"
@@ -81,11 +98,11 @@ const ArrangementForm = ({groupSizeOptions, addArrangement, errors, clearErrors}
                 <MenuItem value={"varied socialEmotionalTier"}>Varied Socially</MenuItem>
               </Select>
             </FormControl>
-            <FormControl className="arrangement-form-size" variant="outlined">
-              <InputLabel id="new-arrangement-groupSize-label">Group Size*</InputLabel>
+            <FormControl className={classes.formControl}variant="outlined">
+              <InputLabel id="first-arrangement-groupSize-label">Group Size*</InputLabel>
               <Select
-                labelId="new-arrangement-groupSize-label"
-                id="new-arrangement-groupSize"
+                labelId="first-arrangement-groupSize-label"
+                id="first-arrangement-groupSize"
                 value={newArrangement.groupSize}
                 onChange={handleInputChange}
                 label="Group Size*"
@@ -100,18 +117,15 @@ const ArrangementForm = ({groupSizeOptions, addArrangement, errors, clearErrors}
               </Select>
             </FormControl>
           </form>
-        </DialogContent>
-        <DialogActions>
-        <Button
-          variant="contained"
-          size="medium"
-          onClick={handleSubmit}
-          type="submit"
-          className="arrangement-submit-button"
-        >
-        Submit</Button>
-        </DialogActions>
-      </Dialog>
+          <Button
+              variant="contained"
+              size="medium"
+              onClick={handleSubmit}
+              type="submit"
+            >
+            Submit</Button>
+        </CardContent>
+      </Card>
     </div>
   )
 }

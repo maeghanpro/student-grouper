@@ -44,6 +44,17 @@ const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}
     ) 
   }
 
+  let groupsButton = (
+    <Link to={`/classes/${classSection.id}/groups`}>
+      <Button className="class-card-button" variant="contained" size="large">Groups</Button>
+  </Link>
+  )
+  if (classSection.students.length < 2) {
+    groupsButton = (
+        <Button disabled className="class-card-button" variant="contained" size="large">Groups</Button>
+    )
+  }
+
   if (shouldDelete) {
     deleteClass(classSection.id)
   }
@@ -77,9 +88,7 @@ const ClassSectionTile = ({classSection, patchClassSection, errors, deleteClass}
           <Link to={`/classes/${classSection.id}/students`}>
             <Button className="class-card-button" variant="contained" size="large">Students</Button>
           </Link>
-          <Link to={`/classes/${classSection.id}/groups`}>
-            <Button className="class-card-button" variant="contained" size="large">Groups</Button>
-          </Link>
+          {groupsButton}
         </CardActions>
       </Card>
     )

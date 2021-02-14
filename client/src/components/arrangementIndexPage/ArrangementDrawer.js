@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Drawer, List, ListItemText, ListItem, Typography, Divider, Hidden} from '@material-ui/core'
+import {Drawer, List, ListItemText, ListItem, Typography, Hidden} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 const drawerWidth = 240

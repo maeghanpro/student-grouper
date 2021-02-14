@@ -1,7 +1,7 @@
 import express from 'express'
 import { ValidationError } from 'objection'
 
-import { ClassSection, User, Student } from '../../../models/index.js'
+import { ClassSection, User, Student, Arrangement } from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
 import classSectionArrangementsRouter from './classSectionArrangementsRouter.js'
@@ -15,9 +15,9 @@ classSectionsRouter.get('/', async (req, res) => {
   try {
     const user = await User.query().findById(userId)
     const classSections = await user.$relatedQuery('classSections').orderBy('name')
-    const serializedClassSections = classSections.map(classSection => {
-      return ClassSectionSerializer.getSummary(classSection)
-    })
+    const serializedClassSections = await Promise.all(classSections.map(classSection => {
+      return ClassSectionSerializer.getStudentDetails(classSection)
+    }))
     return res.status(200).json({classSections: serializedClassSections})
   } catch (error) {
     return res.status(500).json({errors: error})
@@ -31,9 +31,9 @@ classSectionsRouter.post('/', async (req, res) => {
     const classSection = await ClassSection.query().insertAndFetch({...body, userId})
     const user = await classSection.$relatedQuery('user')
     const classSections = await user.$relatedQuery('classSections').orderBy('name')
-    const serializedClassSections = classSections.map(classSection => {
-      return ClassSectionSerializer.getSummary(classSection)
-    })
+    const serializedClassSections = await Promise.all(classSections.map(classSection => {
+      return ClassSectionSerializer.getStudentDetails(classSection)
+    }))
     return res.status(201).json({classSections: serializedClassSections})
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -49,9 +49,9 @@ classSectionsRouter.patch('/', async (req, res) => {
     const classSection = await ClassSection.query().patchAndFetchById(body.id, body)
     const user = await classSection.$relatedQuery('user')
     const classSections = await user.$relatedQuery('classSections').orderBy('name')
-    const serializedClassSections = classSections.map(classSection => {
-      return ClassSectionSerializer.getSummary(classSection)
-    })
+    const serializedClassSections = await Promise.all(classSections.map(classSection => {
+      return ClassSectionSerializer.getStudentDetails(classSection)
+    }))
     return res.status(200).json({classSections: serializedClassSections})
   } catch (error) {
     if (error instanceof ValidationError){
@@ -78,13 +78,22 @@ classSectionsRouter.delete('/:id', async (req, res) => {
   const {id} = req.params
   const userId = req.user.id
   try {
+    const relatedArrangements = await Arrangement.query().where('classSectionId', id)
+    await Promise.all(relatedArrangements.map(async arrangement => {
+      const groups = await arrangement.$relatedQuery('groups')
+      await Promise.all(groups.map(group => {
+        return group.$relatedQuery('assignments').delete()
+      }))
+      return arrangement.$relatedQuery('groups').delete()
+    }))
+    await Arrangement.query().delete().where('classSectionId', id)
     await Student.query().delete().where('classSectionId', id)
     await ClassSection.query().deleteById(id)
     const user = await User.query().findById(userId)
     const classSections = await user.$relatedQuery('classSections').orderBy('name')
-    const serializedClassSections = classSections.map(classSection => {
-      return ClassSectionSerializer.getSummary(classSection)
-    })
+    const serializedClassSections = await Promise.all(classSections.map(classSection => {
+      return ClassSectionSerializer.getStudentDetails(classSection)
+    }))
     return res.status(200).json({classSections: serializedClassSections})
   } catch (error) {
     console.error(error)
