@@ -1,10 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
+import { makeStyles } from '@material-ui/core/styles'
 
 import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
+import ArrangementDrawer from './ArrangementDrawer'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex'
+  }
+}))
 const ArrangementShow = (props) => {
+  const classes = useStyles()
   const [classSection, setClassSection] = useState({
     groupSizeOptions: []
   })
@@ -73,15 +81,26 @@ const ArrangementShow = (props) => {
       
     }
   }
-
+  const handleArrangementClick = (event) => {
+    let id = event.currentTarget.className.split(' ')[1]
+    id = parseInt(id)
+    const arrangement = arrangements.find( arrangement => arrangement.id == id)
+    setFeaturedArrangement(arrangement)
+  }
   return (
-    <div className="grid-container text-center">
-      <GroupsGrid 
-        arrangement={featuredArrangement}
-        groupSizeOptions={classSection.groupSizeOptions}
-        addArrangement={addArrangement}
-        errors={errors}
-        clearErrors={clearErrors}
+    <div className={classes.root}>
+      <div className="grid-container text-center">
+        <GroupsGrid 
+          arrangement={featuredArrangement}
+          groupSizeOptions={classSection.groupSizeOptions}
+          addArrangement={addArrangement}
+          errors={errors}
+          clearErrors={clearErrors}
+        />
+      </div>
+      <ArrangementDrawer 
+        arrangements={arrangements}
+        handleArrangementClick={handleArrangementClick}
       />
     </div>
   )

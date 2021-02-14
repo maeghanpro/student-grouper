@@ -22,7 +22,9 @@ body {
 }
 
 // top-bar styles
-
+.top-bar {
+  z-index: 2000;
+}
 .logo {
   float: left;
   height: 15vh;
