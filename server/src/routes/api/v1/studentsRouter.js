@@ -55,6 +55,7 @@ studentsRouter.delete('/:id', async (req, res) => {
   try {
     const student = await Student.query().findById(id)
     const classSection = await student.$relatedQuery('classSection')
+    await student.$relatedQuery('assignments').delete()
     await Student.query().deleteById(id)
     const students = await classSection.$relatedQuery('students')
       .where('isActive', true)
