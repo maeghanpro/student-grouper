@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SignOutButton from "../authentication/SignOutButton";
-import logo from "../../../public/logo.png"
+import logo from "../../../public/logo.png";
 
-const TopBar = ({ user }) => {
+import NavMenu from "./NavMenu"
+
+const TopBar = ({ user, topBarClassSections }) => {
+
   const unauthenticatedListItems = [
     <li key="sign-in">
       <Link to="/user-sessions/new" className= "button signIn">
@@ -17,30 +19,16 @@ const TopBar = ({ user }) => {
     </li>,
   ];
 
-  const authenticatedListItems = [
-    <li key="sign-out">
-      <SignOutButton />
-    </li>
-  ];
-
-  const authenticatedLeftListItems = [
-    <li key="classes">
-      <Link className="button top-bar-link" to="/classes">Classes</Link>
-    </li> 
-  ]
-
   return (
     <div className="top-bar">
       <div className="top-bar-left">
         <Link to="/">
          <img className="logo" src={logo} alt="Logo"/>
         </Link>
-        <ul className="menu">
-          <>{user ? authenticatedLeftListItems : undefined} </>
-        </ul>
       </div>
       <div className="top-bar-right">
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+        <ul className="menu">
+        {user ? <NavMenu topBarClassSections={topBarClassSections}/>: unauthenticatedListItems}</ul>
       </div>
     </div>
   );

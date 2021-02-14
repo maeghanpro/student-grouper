@@ -7,7 +7,7 @@ import ClassSectionTile from './ClassSectionTile'
 import NewClassForm from './NewClassForm'
 import SuccessAlert from '../Alerts/SuccessAlert'
 
-const ClassSectionIndex = (props) => {
+const ClassSectionIndex = ({updateTopBarClassSections}) => {
   const [classSections, setClassSections] = useState([])
   const [revealClassForm, setRevealClassForm] =useState(false)
   const [errors, setErrors] = useState({})
@@ -32,7 +32,7 @@ const ClassSectionIndex = (props) => {
         setRevealClassForm(true)
       }
       setClassSections(body.classSections)
-
+      updateTopBarClassSections(body.classSections)
     } catch (error) {
       console.error(error)
     }
@@ -61,6 +61,7 @@ const ClassSectionIndex = (props) => {
       } else {
         const body = await response.json()
         setClassSections(body.classSections)
+        updateTopBarClassSections(body.classSections)
         displaySuccess('New class created!')
         setErrors({})
         return true
@@ -93,6 +94,7 @@ const ClassSectionIndex = (props) => {
       } else {
         const body = await response.json()
         setClassSections(body.classSections)
+        updateTopBarClassSections(body.classSections)
         displaySuccess('Class updated!')
         setErrors({})
         return true
@@ -117,6 +119,7 @@ const ClassSectionIndex = (props) => {
 
       const body = await response.json()
       setClassSections(body.classSections)
+      updateTopBarClassSections(body.classSections)
       displaySuccess('Class deleted!')
     } catch (error) {
       console.error(error)

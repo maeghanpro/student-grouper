@@ -15,6 +15,11 @@ import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [topBarClassSections, setTopBarClassSections] = useState([])
+
+  const updateTopBarClassSections = (classSections) => {
+    setTopBarClassSections(classSections)
+  }
   useEffect(() => {
     getCurrentUser()
       .then((user) => {
@@ -26,16 +31,26 @@ const App = (props) => {
   }, []);
   return (
     <Router>
-      <TopBar user={currentUser} />
+      <TopBar user={currentUser} topBarClassSections={topBarClassSections}/>
       <Switch>
         <Route exact path="/">
           <h2>Hello from react</h2>
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
-        <AuthenticatedRoute path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
-        <AuthenticatedRoute path="/classes" component={ClassSectionIndex} user={currentUser}/>
+        <AuthenticatedRoute exact path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
+        <AuthenticatedRoute exact path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
+        <Route exact path="/classes" render={
+          (props) => {
+            if (currentUser !== null) {
+              return <ClassSectionIndex 
+                {...props}   
+                updateTopBarClassSections={updateTopBarClassSections}
+             />
+            }
+            return <Redirect to="/user-sessions/new" />
+          }
+        }/>
       </Switch>
     </Router>
   );
