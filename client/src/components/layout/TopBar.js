@@ -4,7 +4,7 @@ import logo from "../../../public/logo.png";
 
 import NavMenu from "./NavMenu"
 
-const TopBar = ({ user, topBarClassSections }) => {
+const TopBar = ({ user}) => {
 
   const unauthenticatedListItems = [
     <li key="sign-in">

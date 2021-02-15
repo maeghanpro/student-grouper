@@ -15,11 +15,7 @@ import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [topBarClassSections, setTopBarClassSections] = useState([])
 
-  const updateTopBarClassSections = (classSections) => {
-    setTopBarClassSections(classSections)
-  }
   useEffect(() => {
     getCurrentUser()
       .then((user) => {
@@ -40,17 +36,7 @@ const App = (props) => {
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <AuthenticatedRoute exact path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
         <AuthenticatedRoute exact path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
-        <Route exact path="/classes" render={
-          (props) => {
-            if (currentUser !== null) {
-              return <ClassSectionIndex 
-                {...props}   
-                updateTopBarClassSections={updateTopBarClassSections}
-             />
-            }
-            return <Redirect to="/user-sessions/new" />
-          }
-        }/>
+        <AuthenticatedRoute exact path="/classes" component={ClassSectionIndex} user={currentUser}/>
       </Switch>
     </Router>
   );
