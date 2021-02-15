@@ -4,7 +4,7 @@ import ArrangementSerializer from './ArrangementSerializer.js'
 
 class ClassSectionSerializer {
   static getSummary(classSection) {
-    const allowedAttributes = ['id', 'name']
+    const allowedAttributes = ['id', 'name', 'color']
     const serializedClassSection = {}
 
     for (const attribute of allowedAttributes) {

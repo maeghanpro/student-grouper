@@ -5,6 +5,7 @@ import { ClassSection, User, Student, Arrangement } from '../../../models/index.
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
 import classSectionArrangementsRouter from './classSectionArrangementsRouter.js'
+import getClassSectionColor from '../../../services/getClassSectionColor.js'
 
 const classSectionsRouter = new express.Router()
 
@@ -28,6 +29,7 @@ classSectionsRouter.post('/', async (req, res) => {
   const userId = req.user.id
   const body = cleanUserInput(req.body)
   try {
+    body.color = await getClassSectionColor(userId)
     const classSection = await ClassSection.query().insertAndFetch({...body, userId})
     const user = await classSection.$relatedQuery('user')
     const classSections = await user.$relatedQuery('classSections').orderBy('name')
@@ -39,6 +41,7 @@ classSectionsRouter.post('/', async (req, res) => {
     if (error instanceof ValidationError) {
       return res.status(422).json({errors: error.data})
     }
+    console.error(error)
     return res.status(500).json({errors: error})
   }
 })
