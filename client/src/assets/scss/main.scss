@@ -34,6 +34,24 @@ body {
   height: 100vh;
 }
 
+// landing page styles
+.background-logo {
+  display: flex;
+  z-index: -1;
+  background-color: $background;
+  opacity: 30%;
+}
+
+.landing-header {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 35% 0;
+  .MuiTypography-root {
+    color: $font;
+  }
+}
 // top-bar styles
 .top-bar {
   z-index: 2000;
