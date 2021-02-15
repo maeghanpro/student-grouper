@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex'
   }
 }))
+
 const ArrangementShow = (props) => {
   const classes = useStyles()
   const [classSection, setClassSection] = useState({
@@ -20,7 +21,6 @@ const ArrangementShow = (props) => {
   const [featuredArrangement, setFeaturedArrangement] = useState({
     groups: []
   })
-  const [students, setStudents] = useState([])
   const [errors, setErrors] = useState({})
   const { id } = useParams()
   
@@ -38,7 +38,6 @@ const ArrangementShow = (props) => {
       const body = await response.json()
       setClassSection(body.classSection)
       setArrangements(body.classSection.arrangements)
-      setStudents(body.classSection.students)
       if(body.classSection.arrangements.length > 0) {
         setFeaturedArrangement(body.classSection.arrangements[0])
       }
@@ -73,20 +72,51 @@ const ArrangementShow = (props) => {
         }
       } else {
       const body = await response.json()
-      setFeaturedArrangement(body.arrangement)
+      setClassSection(body.classSection)
+      setArrangements(body.classSection.arrangements)
+      setFeaturedArrangement(body.featuredArrangement)
       setErrors({})
       return true
       }
     } catch (error) {
-      
+      console.error(error)
     }
   }
+
+  const deleteArrangement = async (arrangementId) => {
+    try {
+      const response = await fetch(`/api/v1/arrangements/${arrangementId}`, {
+        method: 'DELETE',
+        headers: new Headers ({
+          "Content-Type": "application/json"
+        })
+      })
+
+      if(!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      }
+
+      const body = await response.json()
+      setClassSection(body.classSection)
+      setArrangements(body.classSection.arrangements)
+      if(body.classSection.arrangements.length > 0) {
+        setFeaturedArrangement(body.classSection.arrangements[0])
+      } else {
+        setFeaturedArrangement({ groups: []})
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleArrangementClick = (event) => {
     let id = event.currentTarget.className.split(' ')[1]
     id = parseInt(id)
     const arrangement = arrangements.find( arrangement => arrangement.id == id)
     setFeaturedArrangement(arrangement)
   }
+  
   return (
     <div className={classes.root}>
       <div className="grid-container text-center">
@@ -96,6 +126,7 @@ const ArrangementShow = (props) => {
           addArrangement={addArrangement}
           errors={errors}
           clearErrors={clearErrors}
+          deleteArrangement={deleteArrangement}
         />
       </div>
       <ArrangementDrawer 
