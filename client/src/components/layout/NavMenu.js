@@ -6,6 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import SignOutButton from "../authentication/SignOutButton"
 
+
 const NavMenu = (props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [classSections, setClassSections] = useState([])
@@ -38,7 +39,7 @@ const NavMenu = (props) => {
   const menuItems = classSections.map(classSection => {
     let groupsLink
     if (classSection.students.length >= 2) {
-      groupsLink = <Link className="top-bar-link" to={`/classes/${classSection.id}/groups`}>Groups</Link>
+      groupsLink = <Link to={`/classes/${classSection.id}/groups`}>Groups</Link>
     }
 
     return (
@@ -54,7 +55,7 @@ const NavMenu = (props) => {
         </AccordionSummary>
         <AccordionDetails>
           <MenuItem>
-            <Link className="top-bar-link" to={`/classes/${classSection.id}/students`}> Students</Link>
+            <Link to={`/classes/${classSection.id}/students`}> Students</Link>
           </MenuItem>
           <MenuItem>
             {groupsLink}
@@ -80,6 +81,15 @@ const NavMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         className="top-bar-link"
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
       > 
         <MenuItem>
           <Link to="/classes">
