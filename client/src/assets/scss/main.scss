@@ -1,7 +1,20 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-// place global css here
+
+// colors
+$primary: #7E93A2;
+$primary-dark: #516573;
+$primary-light: #aec3d3;
+$secondary: #ae9133;
+$secondary-dark:#7b6400;
+$secondary-light: #e2c162;
+$tertiary: #5c6361;
+$tertiary-dark: #333937;
+$tertiary-light:#89908e;
+$background: #F3F3EE;
+$background-dark: #c0c0bc;
+$font: #271e27;
 *,
 *::before,
 *::after {
@@ -14,7 +27,7 @@
 }
 
 body {
-  background-color: #F3F3EE;
+  background-color: $background;
 }
 
 #app {
@@ -26,31 +39,9 @@ body {
   z-index: 2000;
 }
 .logo {
+  display: inline-flex;
   float: left;
-  height: 15vh;
-}
-
-// .top-bar-link {
-//   color: #F3F3EE;
-//   font-size: 22px;
-//   margin: 5.7vh 0px 0px 15px;
-//   background-color: #ae9133;
-// }
-
-// .top-bar-link:hover {
-//  background-color: #7b6400;
-// }
-// .top-bar-link:visited {
-//   background-color: #ae9133;
-// }
-
-// .top-bar-link:visited:hover {
-//   background-color: #7b6400;
-//  }
- 
-.signOut {
-  margin-right: 15px;
-  font-size: 20px;
+  height: 5rem;
 }
 
 .signIn {
@@ -61,12 +52,79 @@ body {
 .signUp {
   font-size: 20px;
   margin-right: 15px;
-  background-color: #ae9133;
+  background-color: $secondary;
 }
 .signUp:hover {
-  background-color: #7b6400;
+  background-color: $secondary-dark;
+}
+// nav menu styles
+
+.menu-button.MuiIconButton-root {
+  color: $background;
+  margin-right: 10px;
+  .MuiSvgIcon-root {
+    margin-left: 10px;
+  }
 }
 
+.nav-menu { 
+  margin: 20px;
+  @media screen 
+    and (max-width: 639px){
+      margin-left: -30px;
+      margin-top: 0px;
+    }
+  
+
+  .MuiPaper-root {
+    background-color: $tertiary-dark;
+    color: $background;
+  }
+
+  a {
+    color: $background;
+    font-size: 18px;
+  }
+  
+  a:hover {
+   color: $secondary-light;
+  }
+  a:visited {
+    color: $background;
+  }
+  
+  a:visited:hover {
+    color: $secondary-light;
+   }
+
+  .signOut {
+    margin: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+    font-size: 18px;
+    color: $background;
+    background: none;
+  }
+
+  .signOut:hover {
+    color: $secondary-light;
+  }
+
+  .MuiAccordionSummary-content {
+    margin: 0px;
+    padding: 0px;
+  }
+  .MuiAccordionDetails-root {
+    margin: 0px;
+    padding: 0px;
+
+  }
+  .MuiAccordionSummary-expandIcon {
+    color: $background;
+  }
+
+ 
+}
 // classSectionIndex styles
 .class-fab {
   float: right;
@@ -75,19 +133,19 @@ body {
 }
 
 .MuiFab-primary.class-fab {
-  background-color: #ae9133;
+  background-color: $secondary;
 }
 .MuiFab-primary.class-fab:hover {
-  background-color: #7b6400;
+  background-color: $secondary-dark;
 }
 .MuiTypography-h1.class-index-header {
-  color: #271e27;
+  color: $font;
   margin: 20px 0px 10px 0px;
 }
 // classSectionTile styles
 .MuiButtonBase-root.class-card-button {
-  background-color: #F3F3EE;
-  color:#271e27;
+  background-color: $background;
+  color:$font;
 }
 
 .delete-class-icon {
@@ -113,8 +171,8 @@ body {
 
 // class form styles
 .MuiButtonBase-root.class-form-button {
-  background-color: #F3F3EE;
-  color:#271e27;
+  background-color: $background;
+  color:$font;
 }
 
 .class-form-card {
@@ -123,20 +181,20 @@ body {
 }
 
 .MuiPaper-root.class-form-card {
-  background-color:#7E93A2;
-  color:#F3F3EE;
+  background-color: $primary;
+  color: $background;
 }
 
 label.MuiFormLabel-root{
-  color:#271e27;
+  color: $font;
 }
 
 label.MuiFormLabel-root.Mui-focused{
-  color:#271e27;
+  color: $font;
 }
 
 #new-class-name:focus {
-  background-color:#7E93A2;
+  background-color: $primary;
 }
 
 .class-form-button {
@@ -149,28 +207,28 @@ label.MuiFormLabel-root.Mui-focused{
 
 // class form styles specific to the NEW class form
 #new-class-name-label {
-  color: #F3F3EE;
+  color: $background;
   font-size: x-large;
 }
 
 #new-class-name {
-  color: #F3F3EE;
+  color: $background;
   font-size: x-large;
 }
 
 // class form styles specific to the EDIT class form
 #edit-class-name-label {
-  color: #F3F3EE;
+  color: $background;
   font-size: x-large;
 }
 
 #edit-class-name {
-  color: #F3F3EE;
+  color: $background;
   font-size: x-large;
 }
 
 #edit-class-name:focus {
-  background-color:#7E93A2;
+  background-color: $primary;
 }
 .edit-class-form {
   margin-top: 40px;
@@ -183,10 +241,10 @@ label.MuiFormLabel-root.Mui-focused{
   position: fixed;
 }
 .MuiFab-primary.student-fab {
-  background-color: #ae9133;
+  background-color: $secondary;
 }
 .MuiFab-primary.student-fab:hover {
-  background-color: #7b6400;
+  background-color: $secondary-dark;
 }
 //table styles
 .table-container {
@@ -203,9 +261,9 @@ label.MuiFormLabel-root.Mui-focused{
 
 .table-header-row {
   .MuiTableCell-stickyHeader  {
-    background-color: #516573;
+    background-color: $primary-dark;
     font-size: larger;
-    color:#F3F3EE;
+    color: $background;
   }
 }
 
@@ -216,7 +274,7 @@ label.MuiFormLabel-root.Mui-focused{
 }
 
 tr:nth-child(odd) {
-  background-color: #aec3d3;
+  background-color: $primary-light;
 }
 
 

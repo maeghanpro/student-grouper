@@ -71,7 +71,7 @@ const NavMenu = (props) => {
 
   return (
     <div>
-      <IconButton aria-haspopup="true"
+      <IconButton className="menu-button" aria-haspopup="true"
       onClick={handleClick}>
         Menu <MenuIcon />
       </IconButton>
@@ -80,11 +80,11 @@ const NavMenu = (props) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        className="top-bar-link"
+        className="nav-menu"
         getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
