@@ -18,6 +18,11 @@ const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearE
 
   const handleClose = () => {
     clearErrors()
+    setNewArrangement({
+      name: "",
+      type: "",
+      groupSize: ""
+    })
     setOpen(false);
   };
 

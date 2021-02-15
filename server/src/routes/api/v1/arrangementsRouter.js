@@ -1,11 +1,12 @@
 import express from 'express'
 import {ValidationError} from 'objection'
 
-import {Arrangement, Group, Assignment, Student} from '../../../models/index.js'
+import {Arrangement, Group, Assignment, Student, ClassSection} from '../../../models/index.js'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 import Grouping from '../../../services/Grouping.js'
 import ArrangementSerializer from '../../../serializers/ArrangementSerializer.js'
 import GroupSerializer from '../../../serializers/GroupSerializer.js'
+import ClassSectionSerializer from '../../../serializers/ClassSectionSerializer.js'
 
 const arrangementsRouter = new express.Router()
 
@@ -33,11 +34,37 @@ arrangementsRouter.post('/', async (req, res) => {
       return serializedGroup
     }))
 
-    return res.status(201).json({arrangement: serializedArrangement})
+    const classSection = await ClassSection.query().findById(body.classSectionId)
+    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
+
+    return res.status(201).json({featuredArrangement: serializedArrangement, classSection: serializedClassSection})
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({errors: error.data})
     }
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
+
+arrangementsRouter.delete('/:id', async (req, res) => {
+  const {id} = req.params
+  try {
+    const arrangement = await Arrangement.query().findById(id)
+    const classSection = await arrangement.$relatedQuery('classSection')
+    const relatedGroups = await arrangement.$relatedQuery('groups')
+
+    await Promise.all(relatedGroups.map( group => {
+      return group.$relatedQuery('assignments').delete()
+    }))
+    await Group.query().where('arrangementId', id).delete()
+    await Arrangement.query().deleteById(id)
+    
+    const serializedClassSection = await ClassSectionSerializer.getDetails(classSection)
+
+    return res.status(200).json({classSection: serializedClassSection})
+
+  } catch (error) {
     console.error(error)
     return res.status(500).json({errors: error})
   }

@@ -10,8 +10,8 @@ import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import ClassSectionIndex from "./classPage/ClassSectionIndex";
 import StudentRosterPage from "./studentRosterPage/StudentRosterPage";
-import ArrangementIndex from "./arrangementIndexPage/ArrangementIndex";
 import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
+import LandingPage from "./layout/LandingPage"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -29,14 +29,12 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/">
-          <h2>Hello from react</h2>
-        </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <AuthenticatedRoute exact path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
         <AuthenticatedRoute exact path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
         <AuthenticatedRoute exact path="/classes" component={ClassSectionIndex} user={currentUser}/>
+        <Route exact path="/" component={LandingPage}/>
       </Switch>
     </Router>
   );

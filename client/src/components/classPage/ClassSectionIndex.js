@@ -55,6 +55,7 @@ const ClassSectionIndex = (props) => {
           setErrors(errors)
           return false
         } else {
+          displaySuccess('Failed to create class.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -87,6 +88,7 @@ const ClassSectionIndex = (props) => {
           setErrors(errors)
           return false
         } else {
+          displaySuccess('Failed to update class.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -111,6 +113,7 @@ const ClassSectionIndex = (props) => {
         })
       })
       if(!response.ok) {
+        displaySuccess('Failed to delete class.')
         const errorMessage = `${response.status} (${response.statusText})`
         throw new Error(errorMessage)
       }

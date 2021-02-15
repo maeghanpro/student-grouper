@@ -61,6 +61,7 @@ const StudentRosterPage = (props) => {
           setErrors(errors)
           return false
         } else {
+          displaySuccess('Failed to add student.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -91,6 +92,7 @@ const StudentRosterPage = (props) => {
           setErrors(errors)
           return false
         } else {
+          displaySuccess('Failed to update student.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -115,6 +117,7 @@ const StudentRosterPage = (props) => {
         })
       })
       if(!response.ok) {
+        displaySuccess('Failed to delete student.')
         const errorMessage = `${response.status} (${response.statusText})`
         throw new Error(errorMessage)
       }
