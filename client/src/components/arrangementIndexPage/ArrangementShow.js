@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
 import ArrangementDrawer from './ArrangementDrawer'
+import SuccessAlert from '../Alerts/SuccessAlert'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +23,16 @@ const ArrangementShow = (props) => {
     groups: []
   })
   const [errors, setErrors] = useState({})
+  const [success, setSuccess] = useState(null)
   const { id } = useParams()
   
   const clearErrors = () => {
     setErrors({})
+  }
+
+  const displaySuccess = (message) => {
+    setSuccess(null)
+    setSuccess(<SuccessAlert message={message}/>)
   }
 
   const getClassSectionData = async () => {
@@ -67,6 +74,7 @@ const ArrangementShow = (props) => {
           setErrors(errors)
           return false
         } else {
+          displaySuccess('Failed to create groups.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -93,6 +101,7 @@ const ArrangementShow = (props) => {
       })
 
       if(!response.ok) {
+        displaySuccess('Failed to delete groups.')
         const errorMessage = `${response.status} (${response.statusText})`
         throw new Error(errorMessage)
       }
@@ -105,6 +114,7 @@ const ArrangementShow = (props) => {
       } else {
         setFeaturedArrangement({ groups: []})
       }
+      displaySuccess('Groups deleted!')
     } catch (error) {
       console.error(error)
     }
@@ -116,9 +126,10 @@ const ArrangementShow = (props) => {
     const arrangement = arrangements.find( arrangement => arrangement.id == id)
     setFeaturedArrangement(arrangement)
   }
-  
+
   return (
     <div className={classes.root}>
+      {success}
       <div className="grid-container text-center">
         <GroupsGrid 
           arrangement={featuredArrangement}
