@@ -28,7 +28,7 @@ const TopBar = ({ user}) => {
       </div>
       <div className="top-bar-right">
         <ul className="menu">
-        {user ? <NavMenu topBarClassSections={topBarClassSections}/>: unauthenticatedListItems}</ul>
+        {user ? <NavMenu />: unauthenticatedListItems}</ul>
       </div>
     </div>
   );

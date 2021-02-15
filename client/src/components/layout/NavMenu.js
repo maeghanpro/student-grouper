@@ -42,7 +42,7 @@ const NavMenu = (props) => {
     }
 
     return (
-      <Accordion>
+      <Accordion key={classSection.id}>
         <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
           >
