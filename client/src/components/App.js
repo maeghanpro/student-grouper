@@ -27,7 +27,7 @@ const App = (props) => {
   }, []);
   return (
     <Router>
-      <TopBar user={currentUser} topBarClassSections={topBarClassSections}/>
+      <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/">
           <h2>Hello from react</h2>
