@@ -30,23 +30,23 @@ body {
   height: 15vh;
 }
 
-.top-bar-link {
-  color: #F3F3EE;
-  font-size: 22px;
-  margin: 5.7vh 0px 0px 15px;
-  background-color: #ae9133;
-}
+// .top-bar-link {
+//   color: #F3F3EE;
+//   font-size: 22px;
+//   margin: 5.7vh 0px 0px 15px;
+//   background-color: #ae9133;
+// }
 
-.top-bar-link:hover {
- background-color: #7b6400;
-}
-.top-bar-link:visited {
-  background-color: #ae9133;
-}
+// .top-bar-link:hover {
+//  background-color: #7b6400;
+// }
+// .top-bar-link:visited {
+//   background-color: #ae9133;
+// }
 
-.top-bar-link:visited:hover {
-  background-color: #7b6400;
- }
+// .top-bar-link:visited:hover {
+//   background-color: #7b6400;
+//  }
  
 .signOut {
   margin-right: 15px;
@@ -135,7 +135,7 @@ label.MuiFormLabel-root.Mui-focused{
   color:#271e27;
 }
 
-.input.MuiInputBase-input:focus {
+#new-class-name:focus {
   background-color:#7E93A2;
 }
 
@@ -169,6 +169,9 @@ label.MuiFormLabel-root.Mui-focused{
   font-size: x-large;
 }
 
+#edit-class-name:focus {
+  background-color:#7E93A2;
+}
 .edit-class-form {
   margin-top: 40px;
 }
@@ -239,8 +242,8 @@ tr:nth-child(odd) {
 }
 
 .new-student-form-errors {
-  width: 85%;
-  margin-left: 60px;
+  width: 90%;
+  margin-left: 5%;
 }
 
 .student-form-close-button {
@@ -337,4 +340,9 @@ tr:nth-child(odd) {
 
 .arrangement-name.MuiFormControl-root {
   margin: 10px;
+}
+
+//first arrangement form card
+.first-arrangement-card {
+  background-color: #7E93A2;
 }

@@ -43,7 +43,7 @@ const StudentRosterPage = (props) => {
 
   useEffect(() => {
     getStudents()
-  }, [])
+  }, [id])
 
   const addNewStudent = async (newStudent) => {
     try {

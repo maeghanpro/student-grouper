@@ -15,6 +15,7 @@ import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+
   useEffect(() => {
     getCurrentUser()
       .then((user) => {
@@ -33,9 +34,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
-        <AuthenticatedRoute path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
-        <AuthenticatedRoute path="/classes" component={ClassSectionIndex} user={currentUser}/>
+        <AuthenticatedRoute exact path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
+        <AuthenticatedRoute exact path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
+        <AuthenticatedRoute exact path="/classes" component={ClassSectionIndex} user={currentUser}/>
       </Switch>
     </Router>
   );
