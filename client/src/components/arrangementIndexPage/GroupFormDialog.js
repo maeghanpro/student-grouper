@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import ErrorList from '../Alerts/ErrorList'
 
+
 const GroupFormDialog = ({thisGroup, groups, updateGroups, errors, clearErrors}) => {
   const [group, setGroup] = useState({
     ...thisGroup,
@@ -14,11 +15,16 @@ const GroupFormDialog = ({thisGroup, groups, updateGroups, errors, clearErrors})
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
-    clearErrors()
     setOpen(true)
   }
 
   const handleClose = () => {
+    clearErrors()
+    setGroup({
+      ...thisGroup,
+      studentToMove: '',
+      destination: ''
+    })
     setOpen(false);
   };
 
@@ -29,10 +35,11 @@ const GroupFormDialog = ({thisGroup, groups, updateGroups, errors, clearErrors})
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    updateGroups(group)
-    handleClose()
+    if( await updateGroups(group)) {
+      handleClose()
+    }
   }
 
   const studentMenuItems = thisGroup.students.map( student => {
@@ -47,13 +54,34 @@ const GroupFormDialog = ({thisGroup, groups, updateGroups, errors, clearErrors})
     }
   })
 
+  const destinationSelect = (
+    <FormControl className="group-form-destination" variant="outlined">
+      <InputLabel id="edit-group-destination-label">Destination*</InputLabel>
+      <Select
+        labelId="edit-group-destination-label"
+        id="edit-group-destination"
+        value={group.destination}
+        onChange={handleInputChange}
+        label="Destination*"
+        inputProps={{
+          name: "destination"
+        }}
+      >
+        <MenuItem value="">
+          <em>Select Destination</em>
+        </MenuItem>
+        {groupMenuItems}
+      </Select>
+    </FormControl>
+  )
+
   return (
     <div>
-          <Tooltip title="Edit">
-      <IconButton className="edit-group-icon" aria-label="edit" color="inherit" onClick={handleClick}>
-        <EditIcon />
-      </IconButton>
-    </Tooltip>
+      <Tooltip title="Edit">
+        <IconButton className="edit-group-icon" aria-label="edit" color="inherit" onClick={handleClick}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
       <Dialog maxWidth='lg' className="group-form-dialog" open={open} onClose={handleClose} aria-labelledby="edit-group-form" disableBackdropClick>
         <Tooltip title="Close">
           <IconButton className="group-form-close-button" size="medium" aria-label="close" color="inherit" onClick={handleClose}>
@@ -83,24 +111,7 @@ const GroupFormDialog = ({thisGroup, groups, updateGroups, errors, clearErrors})
                 {studentMenuItems}
               </Select>
             </FormControl>
-            <FormControl className="group-form-destination" variant="outlined">
-              <InputLabel id="edit-group-destination-label">Destination*</InputLabel>
-              <Select
-                labelId="edit-group-destination-label"
-                id="edit-group-destination"
-                value={group.destination}
-                onChange={handleInputChange}
-                label="Destination*"
-                inputProps={{
-                  name: "destination"
-                }}
-              >
-                <MenuItem value="">
-                  <em>Select Destination</em>
-                </MenuItem>
-                {groupMenuItems}
-              </Select>
-            </FormControl>
+            {group.studentToMove != ""? destinationSelect: undefined}
           </form>
         </DialogContent>
         <DialogActions>
