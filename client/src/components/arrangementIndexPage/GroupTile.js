@@ -4,14 +4,16 @@ import { withStyles} from '@material-ui/core/styles';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
-const GroupTile = ({group}) => {
-  
+import GroupFormDialog from './GroupFormDialog'
+
+const GroupTile = ({group, editable, groups, updateGroups, errors, clearErrors}) => {
+
   const LightTooltip = withStyles(() => ({
     tooltip: {
       backgroundColor: '#f3f3ee',
       color: 'rgba(0, 0, 0, 0.87)',
       fontSize: 15,
-      maxWidth: 180
+      height: 'inherit'
     },
   }))(Tooltip);
 
@@ -88,15 +90,27 @@ const GroupTile = ({group}) => {
       </LightTooltip>
     )
   })
+
+  let groupForm
+  if (editable) {
+    groupForm = <GroupFormDialog
+      thisGroup={group}
+      groups={groups}
+      updateGroups={updateGroups}
+      errors={errors}
+      clearErrors={clearErrors}
+    />
+  }
   return (
-    <Card xs={12} className="group-card" style={style} raised>
-        <CardContent>
-          <Typography variant="h4">{group.name}</Typography>
-          <List>
-          {students}
-          </List>
-        </CardContent>
-      </Card>
+    <Card className="group-card" style={style} raised>
+    {groupForm}
+      <CardContent>
+        <Typography variant="h4">{group.name}</Typography>
+        <List>
+        {students}
+        </List>
+      </CardContent>
+    </Card>
   )
 }
 

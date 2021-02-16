@@ -6,6 +6,7 @@ import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
 import ArrangementDrawer from './ArrangementDrawer'
 import SuccessAlert from '../Alerts/SuccessAlert'
+import ArrangementFormDialog from './ArrangementFormDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,6 +121,41 @@ const ArrangementShow = (props) => {
     }
   }
 
+  const updateGroups = async (payload) => {
+    try {
+      const response = await fetch(`/api/v1/arrangements/${payload.arrangementId}/groups`, {
+        method: 'PATCH',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(payload)
+      })
+
+      if(!response.ok) {
+        if(response.status === 422) {
+          const body = await response.json()
+          const errors = translateServerErrors(body.errors)
+          setErrors(errors)
+          return false
+        } else {
+          displaySuccess('Failed to update group(s).')
+          const errorMessage = `${response.status} (${response.statusText})`
+          throw new Error(errorMessage)
+        }
+      } else {
+        const body = await response.json()
+        setArrangements(body.arrangements)
+        setFeaturedArrangement(body.featuredArrangement)
+        displaySuccess('Group(s) updated')
+        setErrors({})
+        return true
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleArrangementClick = (event) => {
     let id = event.currentTarget.className.split(' ')[1]
     id = parseInt(id)
@@ -138,8 +174,15 @@ const ArrangementShow = (props) => {
           errors={errors}
           clearErrors={clearErrors}
           deleteArrangement={deleteArrangement}
+          updateGroups={updateGroups}
         />
       </div>
+      <ArrangementFormDialog 
+            groupSizeOptions={classSection.groupSizeOptions}
+            addArrangement={addArrangement}
+            errors={errors}
+            clearErrors={clearErrors}
+          />
       <ArrangementDrawer 
         arrangements={arrangements}
         handleArrangementClick={handleArrangementClick}

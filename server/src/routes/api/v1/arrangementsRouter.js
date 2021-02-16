@@ -70,4 +70,48 @@ arrangementsRouter.delete('/:id', async (req, res) => {
   }
 })
 
+arrangementsRouter.patch('/:id/groups', async (req, res) => {
+  const {id} = req.params
+  const body = cleanUserInput(req.body)
+  try {
+    await Group.query().findById(body.id).patch({name: body.name})
+    if (body.studentToMove) {
+      if (body.destination) {
+        console.log(`studentId: ${body.studentToMove} groupId: ${body.id}`)
+        const assignment = await Assignment.query()
+          .where('studentId', body.studentToMove)
+          .andWhere('groupId', body.id)
+        console.log(assignment[0].id)
+        await Assignment.query().findById(assignment[0].id).patch({groupId: body.destination})
+      } else {
+        throw new ValidationError({
+          type: 'ModelValidation', 
+          data: {
+            destination: [{
+              message: 'is a required property',
+              keyword: 'required',
+              params: null
+            }]
+          }
+        })
+      }
+    }
+
+    const arrangement = await Arrangement.query().findById(id)
+    const featuredArrangement = await ArrangementSerializer.getDetails(arrangement)
+    const arrangements = await Arrangement.query().where('classSectionId', arrangement.classSectionId)
+    const serializedArrangements = await Promise.all(arrangements.map(arrangement => {
+      return ArrangementSerializer.getDetails(arrangement)
+    }))
+
+    return res.status(200).json({featuredArrangement, arrangements: serializedArrangements})
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({errors: error.data})
+    }
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
+
 export default arrangementsRouter

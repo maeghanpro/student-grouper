@@ -39,6 +39,7 @@ classSectionsRouter.post('/', async (req, res) => {
     return res.status(201).json({classSections: serializedClassSections})
   } catch (error) {
     if (error instanceof ValidationError) {
+      console.log(error.data.name.params)
       return res.status(422).json({errors: error.data})
     }
     console.error(error)
