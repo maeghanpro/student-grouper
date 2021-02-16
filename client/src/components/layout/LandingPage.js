@@ -6,11 +6,6 @@ import backgroundLogo from '../../../public/logo_transparent_background_shape.pn
 const LandingPage = (props) => {
   return (
     <div>
-      <div className="landing-header">
-        <Typography align="center" variant="h1" >Welcome</Typography>
-        <Typography align="center" variant="h1">to</Typography>
-        <Typography align="center" variant="h1">Student Grouper</Typography>
-      </div>
       <img className="background-logo" src={backgroundLogo} alt="student grouper logo"/>
     </div>
   )
