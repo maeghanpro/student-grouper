@@ -89,7 +89,7 @@ const GroupTile = ({group}) => {
     )
   })
   return (
-    <Card xs={12} md={'auto'} className="group-card" style={style} raised>
+    <Card xs={12} className="group-card" style={style} raised>
         <CardContent>
           <Typography variant="h4">{group.name}</Typography>
           <List>

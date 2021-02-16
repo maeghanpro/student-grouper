@@ -91,7 +91,7 @@ const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clea
             clearErrors={clearErrors}
           />
         </Grid>
-        <Grid container justify="space-evenly" spacing={3}>
+        <Grid container justify="space-evenly" xs={10} spacing={9}>
           {groupTiles}
         </Grid>
       </Grid>

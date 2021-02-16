@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Drawer, List, ListItemText, ListItem, Typography, Hidden} from '@material-ui/core'
+import {Drawer, List, ListItemText, ListItem, Typography, Hidden, Button} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 const drawerWidth = 240
@@ -37,6 +37,9 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
     setMobileOpen(!mobileOpen);
   };
 
+  const viewButton = <Button size="small" onClick={handleDrawerToggle}>View Groups List</Button>
+  const hideButton =  <Button size="small" onClick={handleDrawerToggle}>Hide Groups List</Button>
+
   const arrangementListItems = arrangements.map(arrangement => {
     let focusStyle
     if (arrangement.id == featuredArrangementId) {
@@ -63,9 +66,12 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
   return (
     <nav className={classes.drawer} aria-label="mailbox folders">
     <Hidden smUp implementation="css">
+      {!mobileOpen ? viewButton: hideButton}
       <Drawer
+        classes={{
+          paper: classes.drawerPaper,
+        }}
         variant="temporary"
-        anchor='right'
         open={mobileOpen}
         onClose={handleDrawerToggle}
         classes={{
@@ -81,6 +87,7 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
           </List>
         </div>
       </Drawer>
+
     </Hidden>
     <Hidden xsDown implementation="css">
       <Drawer

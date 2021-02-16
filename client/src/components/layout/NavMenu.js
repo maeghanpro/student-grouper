@@ -10,7 +10,6 @@ import SignOutButton from "../authentication/SignOutButton"
 const NavMenu = (props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [classSections, setClassSections] = useState([])
-
   const getClassSections = async () => {
     try {
       const response = await fetch('/api/v1/classes')
