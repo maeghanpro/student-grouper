@@ -83,19 +83,19 @@ const GroupsGrid = ({
           <EditIcon />
         </IconButton>
       </Tooltip>
-      <Grid container alignContent="center" justify="center" spacing={1}>
+      <Grid container alignContent="center" justify="center" spacing={2}>
         <Grid item xs={12}>
         <Typography className=" arrangement-header text-center" variant="h2">
           {arrangement.name} 
         </Typography>
         </Grid>
         <Grid xs={12} sm='auto' item>
-        <Typography className="text-center" variant="h5">
+        <Typography className="text-center" id="arrangement-type-header" variant="h5">
           Type: {arrangement.type}                
         </Typography>
         </Grid>
         <Grid xs={12} sm='auto' item>
-        <Typography className="text-center" variant="h5">
+        <Typography className="text-center" id="arrangement-date-header" variant="h5">
           Created {arrangement.createdAt} 
         </Typography>
         </Grid>

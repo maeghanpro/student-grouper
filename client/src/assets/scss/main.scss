@@ -414,6 +414,15 @@ tr:nth-child(odd) {
 #arrangement-fab-icon.MuiFab-primary:hover {
   background-color: $secondary-dark;
 }
+
+#arrangement-type-header {
+  margin: 0px 30px;
+}
+
+#arrangement-date-header {
+  margin: 0px 30px;
+}
+
 // New arrangement form
 .arrangement-form-close-button.MuiButtonBase-root {
   width:45px;
