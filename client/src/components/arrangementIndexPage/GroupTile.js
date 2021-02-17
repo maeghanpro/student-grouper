@@ -6,7 +6,7 @@ import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
 import GroupFormDialog from './GroupFormDialog'
 
-const GroupTile = ({group, editable, groups, updateGroups, errors, clearErrors}) => {
+const GroupTile = ({group, groups, updateGroups, errors, clearErrors}) => {
 
   const LightTooltip = withStyles(() => ({
     tooltip: {
@@ -90,19 +90,15 @@ const GroupTile = ({group, editable, groups, updateGroups, errors, clearErrors})
     )
   })
 
-  let groupForm
-  if (editable) {
-    groupForm = <GroupFormDialog
-      thisGroup={group}
-      groups={groups}
-      updateGroups={updateGroups}
-      errors={errors}
-      clearErrors={clearErrors}
-    />
-  }
   return (
     <Card className="group-card" style={style} raised>
-    {groupForm}
+      <GroupFormDialog
+        thisGroup={group}
+        groups={groups}
+        updateGroups={updateGroups}
+        errors={errors}
+        clearErrors={clearErrors}
+      />
       <CardContent>
         <Typography variant="h4">{group.name}</Typography>
         <List>

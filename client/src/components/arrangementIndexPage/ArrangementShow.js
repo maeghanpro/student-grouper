@@ -138,7 +138,7 @@ const ArrangementShow = (props) => {
           setErrors(errors)
           return false
         } else {
-          displaySuccess('Failed to update group(s).')
+          displaySuccess('Failed to update group.')
           const errorMessage = `${response.status} (${response.statusText})`
           throw new Error(errorMessage)
         }
@@ -146,7 +146,7 @@ const ArrangementShow = (props) => {
         const body = await response.json()
         setArrangements(body.arrangements)
         setFeaturedArrangement(body.featuredArrangement)
-        displaySuccess('Group(s) updated')
+        displaySuccess('Group updated!')
         setErrors({})
         return true
       }

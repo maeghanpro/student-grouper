@@ -26,7 +26,6 @@ const GroupsGrid = ({
       <Grid item key={group.id} style={{minWidth: 250}}>
         <GroupTile 
           group={group}
-          editable={editable}
           groups={arrangement.groups}
           updateGroups={updateGroups}
           errors={errors}
