@@ -12,8 +12,7 @@ const GroupTile = ({group, editable, groups, updateGroups, errors, clearErrors})
     tooltip: {
       backgroundColor: '#f3f3ee',
       color: 'rgba(0, 0, 0, 0.87)',
-      fontSize: 15,
-      height: 'inherit'
+      fontSize: 15
     },
   }))(Tooltip);
 
