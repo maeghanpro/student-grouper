@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import { Grid, Typography, Tooltip, IconButton, Button } from '@material-ui/core'
+import { Grid, Typography, Tooltip, IconButton, Button, Paper } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import ArrangementForm from './ArrangementForm'
 import GroupTile from './GroupTile'
 import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
+import EditArrangementInfo from './EditArrangementInfo'
 
 const GroupsGrid = ({
   arrangement, 
@@ -15,7 +16,8 @@ const GroupsGrid = ({
   errors, 
   clearErrors, 
   deleteArrangement,
-  updateGroups
+  updateGroups,
+  updateArrangement
 }) => {
   const [editable, setEditable] = useState(false)
   const [deleteAlert, setDeleteAlert] = useState(null)
@@ -67,6 +69,40 @@ const GroupsGrid = ({
     deleteArrangement(arrangement.id)
     setShouldDelete(false)
   }
+
+  let header;
+  if (editable) {
+    header = <EditArrangementInfo 
+      thisArrangement={arrangement}
+      updateArrangement={updateArrangement}
+      closeForm={handleEdit}
+    />
+  } else {
+    header = (
+      <>
+        <Grid item xs={12}>
+          <Typography className=" arrangement-header text-center" variant="h2">
+            {arrangement.name} 
+          </Typography>
+        </Grid>
+        <Grid xs={12} sm='auto' item>
+          <Typography className="text-center" id="arrangement-type-header" variant="h5">
+            Type: {arrangement.type}                
+          </Typography>
+        </Grid>
+        <Grid xs={12} sm='auto' item>
+          <Typography className="text-center" id="arrangement-date-header" variant="h5">
+            Created {arrangement.createdAt} 
+          </Typography>
+        </Grid>
+        <Grid xs={12} item>
+          <Paper variant="outlined" id="arrangement-notes-box">
+            {arrangement.notes || `Click edit to add notes about ${arrangement.name}`} 
+          </Paper>  
+        </Grid>
+      </>
+    )
+  }
   return (
     <div>
       {deleteAlert}
@@ -84,26 +120,7 @@ const GroupsGrid = ({
         </IconButton>
       </Tooltip>
       <Grid container alignContent="center" justify="center" spacing={2}>
-        <Grid item xs={12}>
-        <Typography className=" arrangement-header text-center" variant="h2">
-          {arrangement.name} 
-        </Typography>
-        </Grid>
-        <Grid xs={12} sm='auto' item>
-        <Typography className="text-center" id="arrangement-type-header" variant="h5">
-          Type: {arrangement.type}                
-        </Typography>
-        </Grid>
-        <Grid xs={12} sm='auto' item>
-        <Typography className="text-center" id="arrangement-date-header" variant="h5">
-          Created {arrangement.createdAt} 
-        </Typography>
-        </Grid>
-        <Grid xs={12} item>
-        <Typography className="text-center" variant="h5">
-          {arrangement.notes} 
-        </Typography>
-        </Grid>
+        {header}
         <Grid container justify="center" alignItems="stretch" spacing={3}>
           {groupTiles}
         </Grid>

@@ -156,6 +156,32 @@ const ArrangementShow = (props) => {
     }
   }
 
+  const updateArrangement = async (payload) => {
+    try {
+      const response = await fetch(`/api/v1/arrangements/${payload.id}`, {
+        method: 'PATCH',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(payload)
+      })
+
+      if(!response.ok) {
+        displaySuccess('Failed to update groups information.')
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      }
+
+      const body = await response.json()
+      setArrangements(body.arrangements)
+      setFeaturedArrangement(body.featuredArrangement)
+      displaySuccess('Groups information updated!')
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleArrangementClick = (event) => {
     let id = event.currentTarget.className.split(' ')[1]
     id = parseInt(id)
@@ -175,6 +201,7 @@ const ArrangementShow = (props) => {
           clearErrors={clearErrors}
           deleteArrangement={deleteArrangement}
           updateGroups={updateGroups}
+          updateArrangement={updateArrangement}
         />
       </div>
       <ArrangementDrawer 

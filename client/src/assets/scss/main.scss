@@ -1,5 +1,6 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
 @include foundation-everything;
 
 // colors
@@ -422,7 +423,41 @@ tr:nth-child(odd) {
 #arrangement-date-header {
   margin: 0px 30px;
 }
+// notes box
+#arrangement-notes-box {
+  min-height: 70px;
+  max-width: 80%;
+  margin: auto;
+  text-align: left;
+  padding: 10px;
+}
 
+// edit arrangement form 
+.edit-arrangement-form {
+  width: 80%;
+}
+
+.edit-arrangement-name {
+  font-size: 3.75rem;
+  height: fit-content;
+  width: fit-content;
+  font-family: 'Roboto', Helvetica;
+  font-weight: lighter;
+  margin: 0px auto 20px auto;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.edit-arrangement-notes {
+  margin-top: 20px;
+  width: 150%;
+  min-height: 100px;
+  border-radius: 4px;
+}
+
+#edit-arrangement-save-button {
+  margin-bottom: 20px;
+}
 // New arrangement form
 .arrangement-form-close-button.MuiButtonBase-root {
   width:45px;

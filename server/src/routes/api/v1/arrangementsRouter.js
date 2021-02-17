@@ -67,6 +67,25 @@ arrangementsRouter.delete('/:id', async (req, res) => {
   }
 })
 
+arrangementsRouter.patch('/:id', async (req, res) => {
+  const body = cleanUserInput(req.body)
+
+  try {
+    const arrangement = await Arrangement.query().patchAndFetchById(body.id, body)
+    const featuredArrangement = await ArrangementSerializer.getDetails(arrangement)
+    const arrangements = await Arrangement.query().where('classSectionId', arrangement.classSectionId)
+    const serializedArrangements = await Promise.all(arrangements.map(arrangement => {
+      return ArrangementSerializer.getDetails(arrangement)
+    }))
+
+    return res.status(200).json({featuredArrangement, arrangements: serializedArrangements})
+
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({errors: error})
+  }
+})
+
 arrangementsRouter.patch('/:id/groups', async (req, res) => {
   const {id} = req.params
   const body = cleanUserInput(req.body)
