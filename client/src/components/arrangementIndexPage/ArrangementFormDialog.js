@@ -49,7 +49,7 @@ const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearE
   return (
     <div>
     <Tooltip title="Create Groups">
-      <Fab onClick={handleClickOpen} className="class-fab" color="primary" aria-label="create groups">
+      <Fab onClick={handleClickOpen} id="arrangement-fab-icon" color="primary" aria-label="create groups">
         <AddIcon />
       </Fab>
     </Tooltip>

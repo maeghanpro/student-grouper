@@ -403,7 +403,17 @@ tr:nth-child(odd) {
   font-size: large;
 }
 
+#arrangement-fab-icon {
+  float: left;
+  margin: 10px 0px;
+}
 
+#arrangement-fab-icon.MuiFab-primary {
+  background-color: $secondary;
+}
+#arrangement-fab-icon.MuiFab-primary:hover {
+  background-color: $secondary-dark;
+}
 // New arrangement form
 .arrangement-form-close-button.MuiButtonBase-root {
   width:45px;

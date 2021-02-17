@@ -177,16 +177,14 @@ const ArrangementShow = (props) => {
           updateGroups={updateGroups}
         />
       </div>
-      <ArrangementFormDialog 
-            groupSizeOptions={classSection.groupSizeOptions}
-            addArrangement={addArrangement}
-            errors={errors}
-            clearErrors={clearErrors}
-          />
       <ArrangementDrawer 
         arrangements={arrangements}
         handleArrangementClick={handleArrangementClick}
         featuredArrangementId={featuredArrangement.id}
+        groupSizeOptions={classSection.groupSizeOptions}
+        addArrangement={addArrangement}
+        errors={errors}
+        clearErrors={clearErrors}
       />
     </div>
   )
