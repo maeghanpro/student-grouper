@@ -11,6 +11,7 @@ exports.up = async (knex) => {
     table.string('name').notNullable()
     table.string('type').notNullable()
     table.integer('groupSize').notNullable().unsigned()
+    table.string('notes', 2000)
     table.bigInteger('classSectionId').notNullable().unsigned().index().references('classSections.id')
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())

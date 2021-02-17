@@ -14,10 +14,7 @@ arrangementsRouter.post('/', async (req, res) => {
   const body = cleanUserInput(req.body)
   try {
     const arrangement = await Arrangement.query().insertAndFetch(body)
-    const students = await Student.query()
-      .where(student => {
-        student.where('isActive', true).where('classSectionId', body.classSectionId)
-      })
+    const students = await Student.query().where('classSectionId', body.classSectionId)
     const groups = Grouping.generate(students, arrangement)
     const serializedArrangement = ArrangementSerializer.formatValues(arrangement)
  

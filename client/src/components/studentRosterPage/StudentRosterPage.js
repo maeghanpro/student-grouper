@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
-import {Typography, Fab, Tooltip} from '@material-ui/core'
+import {Link} from 'react-router-dom'
+import {Typography, Fab, Tooltip, Button} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import translateServerErrors from '../../services/translateServerErrors'
@@ -156,10 +157,15 @@ const StudentRosterPage = (props) => {
   }
 
   return (
-    <div className="grid-container ">
-      <Typography className="text-center" variant="h1">
+    <div className="grid-container">
+      <div className='grid-y'>
+      <Link to={`/classes/${classSection.id}/groups`}>
+        <Button size='large' id='view-groups-button' >View Groups</Button>
+      </Link>
+      <Typography className="text-center" id='roster-page-header' variant="h1">
         {classSection.name} Roster
       </Typography>
+      </div>
       {success}
       <div className="new-student-form-errors">
         <ErrorList errors={errors}/>

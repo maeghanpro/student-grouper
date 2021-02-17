@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import { Grid, Typography, Tooltip, IconButton } from '@material-ui/core'
+import {Link} from 'react-router-dom'
+import { Grid, Typography, Tooltip, IconButton, Button } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
@@ -69,18 +70,21 @@ const GroupsGrid = ({
   }
   return (
     <div>
-    {deleteAlert}
+      {deleteAlert}
+      <Link to={`/classes/${arrangement.classSectionId}/students`}>
+        <Button id='view-roster-button' size='large'>View Roster</Button>
+      </Link>
       <Tooltip title="Delete">
-        <IconButton className="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
+        <IconButton id="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
           <DeleteIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title="Edit">
-        <IconButton className="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
+        <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
           <EditIcon />
         </IconButton>
       </Tooltip>
-      <Grid container alignContent="center" justify="center" spacing={3}>
+      <Grid container alignContent="center" justify="center" spacing={1}>
         <Grid item xs={12}>
         <Typography className=" arrangement-header text-center" variant="h2">
           {arrangement.name} 
@@ -88,12 +92,17 @@ const GroupsGrid = ({
         </Grid>
         <Grid xs={12} sm='auto' item>
         <Typography className="text-center" variant="h5">
-          {arrangement.type}                
+          Type: {arrangement.type}                
         </Typography>
         </Grid>
         <Grid xs={12} sm='auto' item>
-        <Typography className="text-center" variant="h6">
-          {arrangement.createdAt} 
+        <Typography className="text-center" variant="h5">
+          Created {arrangement.createdAt} 
+        </Typography>
+        </Grid>
+        <Grid xs={12} item>
+        <Typography className="text-center" variant="h5">
+          {arrangement.notes} 
         </Typography>
         </Grid>
         <Grid container justify="center" alignItems="stretch" spacing={3}>
