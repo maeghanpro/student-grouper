@@ -87,7 +87,6 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
           </List>
         </div>
       </Drawer>
-
     </Hidden>
     <Hidden xsDown implementation="css">
       <Drawer
