@@ -17,7 +17,6 @@ class ClassSectionSerializer {
   static async getStudentDetails(classSection) {
     const serializedClassSection = this.getSummary(classSection)
     serializedClassSection.students = await classSection.$relatedQuery('students')
-      .where('isActive', true)
       .orderBy('firstName')
     
     serializedClassSection.students = serializedClassSection.students.map(student => {

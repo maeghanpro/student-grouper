@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
-import {Drawer, List, ListItemText, ListItem, Typography, Hidden, Button} from '@material-ui/core'
+import {Drawer, List, ListItemText, ListItem, Typography, Hidden, Button, Toolbar} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+
+import ArrangementFormDialog from './ArrangementFormDialog'
 
 const drawerWidth = 240
 
@@ -27,7 +29,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
  
-const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangementClick}) => {
+const ArrangementDrawer = ({
+  arrangements, 
+  featuredArrangementId, 
+  handleArrangementClick,
+  groupSizeOptions,
+  addArrangement,
+  errors,
+  clearErrors
+}) => {
   const classes = useStyles()
   const theme = useTheme();
 
@@ -82,6 +92,14 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
         }}
       >
         <div className={classes.drawerContainer}>
+        <Toolbar>
+          <ArrangementFormDialog 
+            groupSizeOptions={groupSizeOptions}
+            addArrangement={addArrangement}
+            errors={errors}
+            clearErrors={clearErrors}
+          />
+          </Toolbar>
           <List>
             {arrangementListItems}
           </List>
@@ -97,6 +115,14 @@ const ArrangementDrawer = ({arrangements, featuredArrangementId, handleArrangeme
         open
       >
         <div className={classes.drawerContainer}>
+        <Toolbar>
+        <ArrangementFormDialog 
+            groupSizeOptions={groupSizeOptions}
+            addArrangement={addArrangement}
+            errors={errors}
+            clearErrors={clearErrors}
+          />
+        </Toolbar>
           <List>
             {arrangementListItems}
           </List>

@@ -12,9 +12,7 @@ studentsRouter.post('/', async (req, res) => {
   try {
     await Student.query().insert(body)
     const students = await Student.query()
-      .where( student => {
-        student.where('isActive', true).where('classSectionId', body.classSectionId)
-      })
+      .where('classSectionId', body.classSectionId)
       .orderBy('firstName')
     const serializedStudents = students.map(student => {
       return StudentSerializer.getSummary(student)
@@ -35,7 +33,6 @@ studentsRouter.patch('/', async (req, res) => {
     const student = await Student.query().patchAndFetchById(body.id, body)
     const classSection = await student.$relatedQuery('classSection')
     const students = await classSection.$relatedQuery('students')
-      .where('isActive', true)
       .orderBy('firstName')
     const serializedStudents = students.map(student => {
       return StudentSerializer.getSummary(student)
@@ -58,7 +55,6 @@ studentsRouter.delete('/:id', async (req, res) => {
     await student.$relatedQuery('assignments').delete()
     await Student.query().deleteById(id)
     const students = await classSection.$relatedQuery('students')
-      .where('isActive', true)
       .orderBy('firstName')
     const serializedStudents = students.map(student => {
       return StudentSerializer.getSummary(student)

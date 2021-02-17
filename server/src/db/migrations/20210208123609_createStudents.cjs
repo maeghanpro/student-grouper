@@ -12,7 +12,6 @@ exports.up = async (knex) => {
     table.string('lastInitial').notNullable()
     table.integer('academicTier').notNullable().unsigned()
     table.integer('socialEmotionalTier').notNullable().notNullable()
-    table.boolean('isActive').notNullable().defaultTo(true)
     table.bigInteger('classSectionId').notNullable().unsigned().index().references('classSections.id')
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
