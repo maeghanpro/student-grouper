@@ -421,3 +421,51 @@ tr:nth-child(odd) {
 .first-arrangement-card {
   background-color: #7E93A2;
 }
+
+// group tile styles
+.edit-group-icon {
+  float: right;
+}
+
+// edit group form
+.group-form-close-button.MuiButtonBase-root {
+  width:45px;
+}
+
+.group-form-destination.MuiFormControl-root {
+  margin: 10px;
+  width: 130px;
+  display: flex;
+}
+
+#edit-group-name:focus {
+  background-color: #F3F3EE;
+}
+
+.group-form-student.MuiFormControl-root {
+  margin: 10px;
+  min-width: 200px;
+}
+
+.group-submit-button.MuiButton-root {
+  background-color: #516573;
+  color:#F3F3EE;
+}
+
+.group-submit-button.MuiButton-root:hover {
+  background-color: #7E93A2;
+  color:#F3F3EE;
+}
+
+.group-form-dialog.MuiDialog-paperScrollPaper {
+  align-content: center;
+  justify-content: center;
+}
+
+#edit-group-form { 
+  text-align: center;
+}
+
+.group-name.MuiFormControl-root {
+  margin: 10px;
+}

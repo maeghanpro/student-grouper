@@ -4,26 +4,39 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import ArrangementForm from './ArrangementForm'
-import ArrangementFormDialog from './ArrangementFormDialog'
 import GroupTile from './GroupTile'
 import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 
-const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clearErrors, deleteArrangement}) => {
+const GroupsGrid = ({
+  arrangement, 
+  groupSizeOptions, 
+  addArrangement, 
+  errors, 
+  clearErrors, 
+  deleteArrangement,
+  updateGroups
+}) => {
   const [editable, setEditable] = useState(false)
   const [deleteAlert, setDeleteAlert] = useState(null)
   const [shouldDelete, setShouldDelete] = useState(false)
 
   const groupTiles = arrangement.groups.map(group => {
     return (
-      <GroupTile 
-        key={group.id}
-        group={group}
-      />
+      <Grid item key={group.id} style={{minWidth: 250}}>
+        <GroupTile 
+          group={group}
+          editable={editable}
+          groups={arrangement.groups}
+          updateGroups={updateGroups}
+          errors={errors}
+          clearErrors={clearErrors}
+        />
+      </Grid>
     )
   })
 
   const handleEdit = () => {
-    setEditable(true)
+    setEditable(!editable)
   } 
 
   const confirmDelete = () => {
@@ -83,15 +96,7 @@ const GroupsGrid = ({arrangement, groupSizeOptions, addArrangement, errors, clea
           {arrangement.createdAt} 
         </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <ArrangementFormDialog 
-            groupSizeOptions={groupSizeOptions}
-            addArrangement={addArrangement}
-            errors={errors}
-            clearErrors={clearErrors}
-          />
-        </Grid>
-        <Grid container justify="space-evenly" spacing={3}>
+        <Grid container justify="center" alignItems="stretch" spacing={3}>
           {groupTiles}
         </Grid>
       </Grid>

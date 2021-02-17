@@ -2,7 +2,7 @@ import StudentSerializer from './StudentSerializer.js'
 
 class GroupSerializer {
   static getSummary(group) {
-    const allowedAttributes = ['id', 'name']
+    const allowedAttributes = ['id', 'name', 'arrangementId']
     const serializedGroup = {}
 
     for (const attribute of allowedAttributes) {
