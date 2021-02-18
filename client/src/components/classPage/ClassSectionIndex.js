@@ -137,6 +137,7 @@ const ClassSectionIndex = (props) => {
 
   const handleCloseFormClick = () => {
     setRevealClassForm(false)
+    setErrors({})
   }
 
   let fab= (
