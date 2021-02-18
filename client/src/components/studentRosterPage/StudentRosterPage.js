@@ -41,7 +41,7 @@ const StudentRosterPage = (props) => {
     } catch (error) {
       console.error(error)
     }
-    // setFetchComplete(true)
+    setFetchComplete(true)
   }
 
   useEffect(() => {
