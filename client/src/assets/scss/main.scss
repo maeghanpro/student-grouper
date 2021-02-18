@@ -399,7 +399,17 @@ tr:nth-child(odd) {
   float: right;
   margin: 30px 10px 0px 0px;
 }
-
+#pdf-arrangement-icon {
+  display: flex;
+  float: right;
+  margin: 30px 10px 0px 0px;
+  color: $font;
+}
+.pdf-download-link {
+  display: flex;
+  float: right;
+  margin: 40px 10px 0px 0px;
+}
 #view-roster-button {
   float: left;
 }
@@ -562,4 +572,9 @@ tr:nth-child(odd) {
 
 .group-name.MuiFormControl-root {
   margin: 10px;
+}
+
+.pdf-view {
+  width: 100%;
+  height: 100%;
 }

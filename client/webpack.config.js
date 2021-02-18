@@ -106,5 +106,19 @@ module.exports = {
         target: "http://localhost:4000",
       }
     ]
-  }
+  },
+  resolve: {
+    fallback: {
+      process: 'process/browser',
+      stream: require.resolve("stream-browserify"),
+      zlib: require.resolve("browserify-zlib")
+    }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };

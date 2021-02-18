@@ -4,14 +4,15 @@ import { Grid, Typography, Tooltip, IconButton, Button, Paper } from '@material-
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
-// import ReactPDF from '@react-pdf/renderer'
+
 
 import ArrangementForm from './ArrangementForm'
 import GroupTile from './GroupTile'
 import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 import EditArrangementInfo from './EditArrangementInfo'
 import StudentViewSwitch from './StudentViewSwitch'
-import StudentViewPdf from '../pdf/StudentViewPdf'
+import DownloadPdf from '../pdf/DownloadPdf'
+
 
 const GroupsGrid = ({
   arrangement, 
@@ -27,6 +28,7 @@ const GroupsGrid = ({
   const [deleteAlert, setDeleteAlert] = useState(null)
   const [shouldDelete, setShouldDelete] = useState(false)
   const [studentView, setStudentView] = useState(false)
+  const [downloadPdf, setDownloadPdf] = useState(undefined)
 
   const updateStudentView = () => {
     setStudentView(!studentView)
@@ -52,9 +54,12 @@ const GroupsGrid = ({
   } 
 
   const handlePdf = () => {
-    // ReactPDF.render(<StudentViewPdf arrangement={arrangement} />, `${arrangement.name}.pdf`)
+    if(!downloadPdf) {
+      setDownloadPdf(<DownloadPdf arrangement={arrangement}/>)
+    } else {
+      setDownloadPdf(undefined)
+    }
   }
-
   const confirmDelete = () => {
     setDeleteAlert(
       <DeleteAlertDialog 
@@ -144,10 +149,11 @@ const GroupsGrid = ({
             </IconButton>
           </Tooltip>
           <Tooltip title="View Pdf">
-            <IconButton id="pdf-arrangement-icon" aria-label="pdf" color="inherit" onClick={handlePdf}>
+            <IconButton id="pdf-arrangement-icon" aria-label="pdf" onClick={handlePdf}>
               <PictureAsPdfIcon />
             </IconButton>
           </Tooltip>
+          {downloadPdf}
         </div>
         <div className='cell'>
           <StudentViewSwitch 
