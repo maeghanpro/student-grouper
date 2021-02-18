@@ -8,6 +8,7 @@ import ArrangementForm from './ArrangementForm'
 import GroupTile from './GroupTile'
 import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 import EditArrangementInfo from './EditArrangementInfo'
+import StudentViewSwitch from './StudentViewSwitch'
 
 const GroupsGrid = ({
   arrangement, 
@@ -22,6 +23,11 @@ const GroupsGrid = ({
   const [editable, setEditable] = useState(false)
   const [deleteAlert, setDeleteAlert] = useState(null)
   const [shouldDelete, setShouldDelete] = useState(false)
+  const [studentView, setStudentView] = useState(false)
+
+  const updateStudentView = () => {
+    setStudentView(!studentView)
+  }
 
   const groupTiles = arrangement.groups.map(group => {
     return (
@@ -32,6 +38,7 @@ const GroupsGrid = ({
           updateGroups={updateGroups}
           errors={errors}
           clearErrors={clearErrors}
+          studentView={studentView}
         />
       </Grid>
     )
@@ -77,6 +84,14 @@ const GroupsGrid = ({
       updateArrangement={updateArrangement}
       closeForm={handleEdit}
     />
+  } else if (studentView) {
+    header = (
+      <Grid item xs={12}>
+        <Typography className=" arrangement-header text-center" variant="h2">
+          {arrangement.name} 
+        </Typography>
+      </Grid>
+    )
   } else {
     header = (
       <>
@@ -96,7 +111,7 @@ const GroupsGrid = ({
           </Typography>
         </Grid>
         <Grid xs={12} item>
-          <Paper variant="outlined" id="arrangement-notes-box">
+          <Paper variant="outlined" style={{whiteSpace: 'pre-wrap'}} id="arrangement-notes-box">
             {arrangement.notes || `Click edit to add notes about ${arrangement.name}`} 
           </Paper>  
         </Grid>
@@ -109,16 +124,25 @@ const GroupsGrid = ({
       <Link to={`/classes/${arrangement.classSectionId}/students`}>
         <Button id='view-roster-button' size='large'>View Roster</Button>
       </Link>
-      <Tooltip title="Delete">
-        <IconButton id="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Edit">
-        <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
-      </Tooltip>
+      <div className='grid-y '>
+        <div className="cell">
+          <Tooltip title="Delete">
+            <IconButton id="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Edit">
+            <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <div className='cell'>
+          <StudentViewSwitch 
+            updateStudentView={updateStudentView}
+          />
+        </div>
+      </div>
       <Grid container alignContent="center" justify="center" spacing={2}>
         {header}
         <Grid container justify="center" alignItems="stretch" spacing={3}>

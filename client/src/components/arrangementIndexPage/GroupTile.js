@@ -6,7 +6,7 @@ import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
 import GroupFormDialog from './GroupFormDialog'
 
-const GroupTile = ({group, groups, updateGroups, errors, clearErrors}) => {
+const GroupTile = ({group, groups, updateGroups, errors, clearErrors, studentView}) => {
 
   const LightTooltip = withStyles(() => ({
     tooltip: {
@@ -31,7 +31,7 @@ const GroupTile = ({group, groups, updateGroups, errors, clearErrors}) => {
         <Typography variant='body2'>Academic Tier: {student.academicTier}</Typography>
         <Typography variant='body2'>Social-Emotional Tier: {student.socialEmotionalTier}</Typography>
       </>
-
+    
     let academicColor
     let socialColor
 
@@ -66,6 +66,13 @@ const GroupTile = ({group, groups, updateGroups, errors, clearErrors}) => {
       }
     }
 
+    const icons = (
+      <ListItemIcon>
+        <EmojiObjectsIcon style={academicColor}/>
+        <PriorityHighIcon style={socialColor}/>
+      </ListItemIcon>
+    )
+
     return (
       <LightTooltip
         key={student.id} 
@@ -78,10 +85,7 @@ const GroupTile = ({group, groups, updateGroups, errors, clearErrors}) => {
         }}
         arrow>
       <ListItem >
-        <ListItemIcon>
-          <EmojiObjectsIcon style={academicColor}/>
-          <PriorityHighIcon style={socialColor}/>
-        </ListItemIcon>
+        {!studentView ? icons : undefined}
         <ListItemText>
           {student.firstName} {student.lastInitial}
         </ListItemText>
