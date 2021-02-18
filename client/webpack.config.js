@@ -25,12 +25,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: isDevelopment ? "[name].css" : "[name].[hash].css",
-      chunkFilename: isDevelopment ? "[id].css" : "[id].[hash].css",
+      chunkFilename: isDevelopment ? "[id].css" : "[id].[hash].css"
     }),
     new HtmlWebpackPlugin({
       title: "Engage",
-      template: path.join(__dirname, "public/index.template.html"),
-    }),
+      template: path.join(__dirname, "public/index.template.html")
+    })
   ],
   module: {
     rules: [
@@ -38,11 +38,11 @@ module.exports = {
         test: /\.(js)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"], cwd: path.resolve(__dirname) },
+        options: { presets: ["@babel/env"], cwd: path.resolve(__dirname) }
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        loader: "file-loader",
+        loader: "file-loader"
       },
       {
         test: /\.module\.s(a|c)ss$/,
@@ -54,16 +54,16 @@ module.exports = {
               modules: true,
               sourceMap: isDevelopment,
               esModule: true,
-              hmr: isDevelopment,
-            },
+              hmr: isDevelopment
+            }
           },
           {
             loader: "sass-loader",
             options: {
-              sourceMap: isDevelopment,
-            },
-          },
-        ],
+              sourceMap: isDevelopment
+            }
+          }
+        ]
       },
       {
         test: /\.s(a|c)ss$/,
@@ -74,12 +74,12 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              sourceMap: isDevelopment,
-            },
-          },
-        ],
-      },
-    ],
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      }
+    ]
   },
   resolve: {
     alias: {
@@ -87,12 +87,12 @@ module.exports = {
       "@Components": path.resolve(__dirname, "src/components/"),
       "@Providers": path.resolve(__dirname, "src/providers/"),
     },
-    extensions: ["*", ".js", ".scss"],
+    extensions: ["*", ".js", ".scss"]
   },
   output: {
     path: path.resolve(__dirname, "../server/public/dist"),
     publicPath: "/dist/",
-    filename: "bundle.js",
+    filename: "bundle.js"
   },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
@@ -104,7 +104,7 @@ module.exports = {
       {
         context: ["/auth", "/api"],
         target: "http://localhost:4000",
-      },
-    ],
-  },
+      }
+    ]
+  }
 };

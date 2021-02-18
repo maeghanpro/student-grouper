@@ -3,12 +3,15 @@ import {Link} from 'react-router-dom'
 import { Grid, Typography, Tooltip, IconButton, Button, Paper } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
+// import ReactPDF from '@react-pdf/renderer'
 
 import ArrangementForm from './ArrangementForm'
 import GroupTile from './GroupTile'
 import DeleteAlertDialog from '../Alerts/DeleteAlertDialog'
 import EditArrangementInfo from './EditArrangementInfo'
 import StudentViewSwitch from './StudentViewSwitch'
+import StudentViewPdf from '../pdf/StudentViewPdf'
 
 const GroupsGrid = ({
   arrangement, 
@@ -47,6 +50,10 @@ const GroupsGrid = ({
   const handleEdit = () => {
     setEditable(!editable)
   } 
+
+  const handlePdf = () => {
+    // ReactPDF.render(<StudentViewPdf arrangement={arrangement} />, `${arrangement.name}.pdf`)
+  }
 
   const confirmDelete = () => {
     setDeleteAlert(
@@ -134,6 +141,11 @@ const GroupsGrid = ({
           <Tooltip title="Edit">
             <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
               <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="View Pdf">
+            <IconButton id="pdf-arrangement-icon" aria-label="pdf" color="inherit" onClick={handlePdf}>
+              <PictureAsPdfIcon />
             </IconButton>
           </Tooltip>
         </div>
