@@ -37,9 +37,6 @@ body {
 
 #circular-progress-icon.MuiCircularProgress-root {
   .MuiCircularProgress-svg {
-    display: flex;
-    justify-content: center;
-    align-content: center;
     color: $primary-dark;
   }
 }
