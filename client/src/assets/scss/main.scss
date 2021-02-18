@@ -35,7 +35,7 @@ body {
   height: 100vh;
 }
 
-#circular-progress-icon.MuiCircularProgress-root {
+.circular-progress-icon.MuiCircularProgress-root {
   .MuiCircularProgress-svg {
     color: $primary-dark;
   }
@@ -252,6 +252,9 @@ label.MuiFormLabel-root.Mui-focused{
 }
 
 // roster page styles
+.student-roster-div {
+  padding-bottom: 75px;
+}
 #roster-page-header {
   max-width: 95%;
 }
@@ -431,6 +434,8 @@ tr:nth-child(odd) {
 // notes box
 #arrangement-notes-box {
   min-height: 70px;
+  max-height: 200px;
+  overflow: scroll;
   max-width: 80%;
   margin: auto;
   text-align: left;
