@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import {Link} from 'react-router-dom'
-import {Typography, Fab, Tooltip, Button} from '@material-ui/core'
+import {Typography, Fab, Tooltip, Button, CircularProgress} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import translateServerErrors from '../../services/translateServerErrors'
@@ -16,6 +16,7 @@ const StudentRosterPage = (props) => {
   const [revealAddStudentForm, setRevealAddStudentForm] = useState(false)
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState(null)
+  const [fetchComplete, setFetchComplete] = useState(false)
   const { id } = useParams() 
 
   const displaySuccess = (message) => {
@@ -40,6 +41,7 @@ const StudentRosterPage = (props) => {
     } catch (error) {
       console.error(error)
     }
+    // setFetchComplete(true)
   }
 
   useEffect(() => {
@@ -77,6 +79,7 @@ const StudentRosterPage = (props) => {
       console.error(error)
     }
   }
+
   const patchStudent = async (student) => {
     try {
       const response = await fetch('/api/v1/students', {
@@ -155,36 +158,39 @@ const StudentRosterPage = (props) => {
   if(revealAddStudentForm) {
     fab = undefined
   }
-
-  return (
-    <div className="grid-container">
-      <div className='grid-y'>
-      <Link to={`/classes/${classSection.id}/groups`}>
-        <Button size='large' id='view-groups-button' >View Groups</Button>
-      </Link>
-      <Typography className="text-center" id='roster-page-header' variant="h1">
-        {classSection.name} Roster
-      </Typography>
+  if (fetchComplete) {
+    return (
+      <div className="grid-container">
+        <div className='grid-y'>
+        <Link to={`/classes/${classSection.id}/groups`}>
+          <Button size='large' id='view-groups-button' >View Groups</Button>
+        </Link>
+        <Typography className="text-center" id='roster-page-header' variant="h1">
+          {classSection.name} Roster
+        </Typography>
+        </div>
+        {success}
+        <div className="new-student-form-errors">
+          <ErrorList errors={errors}/>
+        </div>
+        {fab}
+        <div className="table-container">
+          <StudentsTable 
+            students={students}
+            revealAddStudentForm={revealAddStudentForm}
+            addNewStudent={addNewStudent}
+            classSectionId={classSection.id} 
+            closeForm={handleCloseFormClick}
+            patchStudent={patchStudent}
+            clearErrors={clearErrors}
+            deleteStudent={deleteStudent}
+          />
+        </div>
       </div>
-      {success}
-      <div className="new-student-form-errors">
-        <ErrorList errors={errors}/>
-      </div>
-      {fab}
-      <div className="table-container">
-        <StudentsTable 
-          students={students}
-          revealAddStudentForm={revealAddStudentForm}
-          addNewStudent={addNewStudent}
-          classSectionId={classSection.id} 
-          closeForm={handleCloseFormClick}
-          patchStudent={patchStudent}
-          clearErrors={clearErrors}
-          deleteStudent={deleteStudent}
-        />
-      </div>
-    </div>
-  )
+    )
+  } else {
+    return <CircularProgress id="circular-progress-icon"/>
+  }
 }
 
 export default StudentRosterPage
