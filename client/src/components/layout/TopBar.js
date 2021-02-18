@@ -19,6 +19,13 @@ const TopBar = ({ user}) => {
     </li>,
   ];
 
+  let topBarRightContent = null
+  if (user === null) {
+    topBarRightContent = unauthenticatedListItems
+  } else {
+    topBarRightContent = <NavMenu />
+  }
+
   return (
     <div className="top-bar">
       <div className="top-bar-left">
@@ -28,7 +35,8 @@ const TopBar = ({ user}) => {
       </div>
       <div className="top-bar-right">
         <ul className="menu">
-        {user ? <NavMenu />: unauthenticatedListItems}</ul>
+          {topBarRightContent}
+        </ul>
       </div>
     </div>
   );

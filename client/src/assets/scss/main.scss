@@ -35,6 +35,11 @@ body {
   height: 100vh;
 }
 
+#circular-progress-icon.MuiCircularProgress-root {
+  .MuiCircularProgress-svg {
+    color: $primary-dark;
+  }
+}
 // landing page styles
 .background-logo {
   display: flex;
