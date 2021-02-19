@@ -14,7 +14,7 @@ const ErrorList = ({errors}) => {
       )
     })
     return (
-      <div className='callout alert'>
+      <div className='callout alert form-error-messages'>
         <ul>{listItems}</ul>
       </div>
     )

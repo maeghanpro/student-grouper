@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormError = ({ error = "" }) => {
+const FormError = ({ error }) => {
   if (error !== "") {
     return <span className="form-error is-visible">{error}</span>;
   }

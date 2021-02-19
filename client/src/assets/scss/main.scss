@@ -35,9 +35,45 @@ body {
   height: 100vh;
 }
 
-#circular-progress-icon.MuiCircularProgress-root {
+.circular-progress-icon.MuiCircularProgress-root {
   .MuiCircularProgress-svg {
     color: $primary-dark;
+  }
+}
+
+// sign-in/up styles
+.sign-in-form-header {
+  font-family: 'Roboto';
+  font-weight: lighter;
+}
+
+.sign-in-form-label {
+  font-family: 'Roboto';
+}
+
+.sign-in-form-field {
+  max-width: 500px;
+  border-radius: 4px;
+}
+
+.sign-in-form-button.MuiButtonBase-root {
+  background-color: $primary;
+  color: $background;
+}
+
+.sign-in-form-button.MuiButtonBase-root:hover {
+  background-color: $primary-dark;
+  color: $background;
+}
+// error message styles
+
+.form-error-messages {
+  border-radius: 4px;
+  max-width: fit-content;
+  margin: 0px auto 10px auto;
+  ul {
+    list-style-type: none;
+    margin: 0;
   }
 }
 // landing page styles
@@ -61,19 +97,26 @@ body {
   height: 5rem;
 }
 
-.signIn {
-  font-size: 20px;
-  margin-right: 15px;
+.sign-in-button.MuiButtonBase-root {
+  background-color: $primary;
+  color: $background;
 }
 
-.signUp {
-  font-size: 20px;
-  margin-right: 15px;
+.sign-in-button.MuiButtonBase-root:hover {
+  background-color: $primary-dark;
+  color: $background;
+}
+
+.sign-up-button.MuiButtonBase-root {
   background-color: $secondary;
+  color: $background;
 }
-.signUp:hover {
+
+.sign-up-button.MuiButtonBase-root:hover {
   background-color: $secondary-dark;
+  color: $background;
 }
+
 // nav menu styles
 
 .menu-button.MuiIconButton-root {
@@ -126,7 +169,7 @@ body {
   .signOut:hover {
     color: $secondary-light;
   }
-
+  
   .MuiAccordionSummary-content {
     margin: 0px;
     padding: 0px;
@@ -252,6 +295,9 @@ label.MuiFormLabel-root.Mui-focused{
 }
 
 // roster page styles
+.student-roster-div {
+  padding-bottom: 75px;
+}
 #roster-page-header {
   max-width: 95%;
 }
@@ -396,7 +442,17 @@ tr:nth-child(odd) {
   float: right;
   margin: 30px 10px 0px 0px;
 }
-
+#pdf-arrangement-icon {
+  display: flex;
+  float: right;
+  margin: 30px 10px 0px 0px;
+  color: $font;
+}
+.pdf-download-link {
+  display: flex;
+  float: right;
+  margin: 40px 10px 0px 0px;
+}
 #view-roster-button {
   float: left;
 }
@@ -431,6 +487,8 @@ tr:nth-child(odd) {
 // notes box
 #arrangement-notes-box {
   min-height: 70px;
+  max-height: 200px;
+  overflow: scroll;
   max-width: 80%;
   margin: auto;
   text-align: left;
@@ -557,4 +615,9 @@ tr:nth-child(odd) {
 
 .group-name.MuiFormControl-root {
   margin: 10px;
+}
+
+.pdf-view {
+  width: 100%;
+  height: 100%;
 }

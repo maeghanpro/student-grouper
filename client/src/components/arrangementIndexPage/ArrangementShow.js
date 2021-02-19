@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import translateServerErrors from '../../services/translateServerErrors'
 import GroupsGrid from './GroupsGrid'
 import ArrangementDrawer from './ArrangementDrawer'
 import SuccessAlert from '../Alerts/SuccessAlert'
-import ArrangementFormDialog from './ArrangementFormDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +25,7 @@ const ArrangementShow = (props) => {
   })
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState(null)
+  const [initialFetchComplete, setInitialFetchComplete] = useState(false)
   const { id } = useParams()
   
   const clearErrors = () => {
@@ -52,6 +53,7 @@ const ArrangementShow = (props) => {
     } catch (error) {
       console.error(error)
     }
+    setInitialFetchComplete(true)
   }
 
   useEffect(() => {
@@ -188,33 +190,36 @@ const ArrangementShow = (props) => {
     const arrangement = arrangements.find( arrangement => arrangement.id == id)
     setFeaturedArrangement(arrangement)
   }
-
-  return (
-    <div className={classes.root}>
-      {success}
-      <div className="grid-container text-center">
-        <GroupsGrid 
-          arrangement={featuredArrangement}
+  if (initialFetchComplete) {
+    return (
+      <div className={classes.root}>
+        {success}
+        <div className="grid-container text-center">
+          <GroupsGrid 
+            arrangement={featuredArrangement}
+            groupSizeOptions={classSection.groupSizeOptions}
+            addArrangement={addArrangement}
+            errors={errors}
+            clearErrors={clearErrors}
+            deleteArrangement={deleteArrangement}
+            updateGroups={updateGroups}
+            updateArrangement={updateArrangement}
+          />
+        </div>
+        <ArrangementDrawer 
+          arrangements={arrangements}
+          handleArrangementClick={handleArrangementClick}
+          featuredArrangementId={featuredArrangement.id}
           groupSizeOptions={classSection.groupSizeOptions}
           addArrangement={addArrangement}
           errors={errors}
           clearErrors={clearErrors}
-          deleteArrangement={deleteArrangement}
-          updateGroups={updateGroups}
-          updateArrangement={updateArrangement}
         />
       </div>
-      <ArrangementDrawer 
-        arrangements={arrangements}
-        handleArrangementClick={handleArrangementClick}
-        featuredArrangementId={featuredArrangement.id}
-        groupSizeOptions={classSection.groupSizeOptions}
-        addArrangement={addArrangement}
-        errors={errors}
-        clearErrors={clearErrors}
-      />
-    </div>
-  )
+    )
+  } else {
+    return <CircularProgress className="circular-progress-icon" />
+  }
 }
 
 export default ArrangementShow

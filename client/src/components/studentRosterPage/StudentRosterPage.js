@@ -160,7 +160,7 @@ const StudentRosterPage = (props) => {
   }
   if (fetchComplete) {
     return (
-      <div className="grid-container">
+      <div className="grid-container student-roster-div">
         <div className='grid-y'>
         <Link to={`/classes/${classSection.id}/groups`}>
           <Button size='large' id='view-groups-button' >View Groups</Button>
