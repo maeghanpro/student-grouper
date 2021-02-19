@@ -22,7 +22,8 @@ const GroupsGrid = ({
   clearErrors, 
   deleteArrangement,
   updateGroups,
-  updateArrangement
+  updateArrangement,
+  classSectionName
 }) => {
   const [editable, setEditable] = useState(false)
   const [deleteAlert, setDeleteAlert] = useState(null)
@@ -55,7 +56,12 @@ const GroupsGrid = ({
 
   const handlePdf = () => {
     if(!downloadPdf) {
-      setDownloadPdf(<DownloadPdf arrangement={arrangement}/>)
+      setDownloadPdf(
+        <DownloadPdf 
+          arrangement={arrangement}
+          classSectionName={classSectionName}
+        />
+      )
     } else {
       setDownloadPdf(undefined)
     }
@@ -100,7 +106,7 @@ const GroupsGrid = ({
     header = (
       <Grid item xs={12}>
         <Typography className=" arrangement-header text-center" variant="h2">
-          {arrangement.name} 
+          {classSectionName} {arrangement.name} 
         </Typography>
       </Grid>
     )
@@ -109,7 +115,7 @@ const GroupsGrid = ({
       <>
         <Grid item xs={12}>
           <Typography className=" arrangement-header text-center" variant="h2">
-            {arrangement.name} 
+            {classSectionName} {arrangement.name} 
           </Typography>
         </Grid>
         <Grid xs={12} sm='auto' item>

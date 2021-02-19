@@ -18,6 +18,7 @@ const StudentRosterPage = (props) => {
   const [success, setSuccess] = useState(null)
   const [fetchComplete, setFetchComplete] = useState(false)
   const { id } = useParams() 
+  const tableContainerId = "students-table-container"
 
   const displaySuccess = (message) => {
     setSuccess(null)
@@ -135,7 +136,9 @@ const StudentRosterPage = (props) => {
   }
 
   const handleOpenFormClick = () => {
-    setRevealAddStudentForm(true)        
+    setRevealAddStudentForm(true)
+    document.getElementById(tableContainerId)
+      .scroll({top: 0})        
   }
 
   const handleCloseFormClick = () => {
@@ -175,7 +178,8 @@ const StudentRosterPage = (props) => {
         </div>
         {fab}
         <div className="table-container">
-          <StudentsTable 
+          <StudentsTable
+            tableContainerId={tableContainerId} 
             students={students}
             revealAddStudentForm={revealAddStudentForm}
             addNewStudent={addNewStudent}

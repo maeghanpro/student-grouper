@@ -7,14 +7,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     margin: 50
   },
-  section: {
-    padding: 10
+  header: {
+    textAlign: 'center',
+    fontSize: 20,
+    marginRight: 80,
+    marginBottom: 10
   },
   groupsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginRight: 10,
-    padding: 10
+    marginRight: 50
   },
   groupTile: {
     flexDirection: 'column',
@@ -23,16 +25,17 @@ const styles = StyleSheet.create({
     margin: 20
   }, 
   groupName: {
-    fontSize: 14,
-    marginBottom: 5
+    fontSize: 16,
+    marginBottom: 10
   },
   studentName: {
     fontSize: 12,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginBottom: 5
   }
 });
 
-const StudentViewPdf = ({arrangement}) => {
+const StudentViewPdf = ({arrangement, classSectionName}) => {
   const groups = arrangement.groups.map(group => {
     const students = group.students.map(student => {
       return (
@@ -50,8 +53,8 @@ const StudentViewPdf = ({arrangement}) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Text>{arrangement.name}</Text>
+        <View>
+          <Text style={styles.header}>{classSectionName} {arrangement.name}</Text>
         </View>
         <View style={styles.groupsGrid}>
           {groups}

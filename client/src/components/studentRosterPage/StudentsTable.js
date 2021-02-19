@@ -12,7 +12,8 @@ const StudentsTable = ({
   closeForm, 
   patchStudent, 
   clearErrors,
-  deleteStudent
+  deleteStudent,
+  tableContainerId
 }) => {
 
   let firstRow
@@ -39,7 +40,7 @@ const StudentsTable = ({
   })
 
   return (
-    <TableContainer className="table" component={Paper}>
+    <TableContainer id={tableContainerId} className="table" component={Paper}>
       <Table stickyHeader aria-label="students table">
         <TableHead>
           <TableRow className='table-header-row'>

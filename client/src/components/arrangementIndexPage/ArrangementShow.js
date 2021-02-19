@@ -204,6 +204,7 @@ const ArrangementShow = (props) => {
             deleteArrangement={deleteArrangement}
             updateGroups={updateGroups}
             updateArrangement={updateArrangement}
+            classSectionName={classSection.name}
           />
         </div>
         <ArrangementDrawer 
