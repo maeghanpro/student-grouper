@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -29,9 +29,9 @@ const SignOutButton = () => {
   }
 
   return (
-    <button type="button" className="button signOut" onClick={signOut}>
+    <Button className="signOut" onClick={signOut}>
       Sign Out
-    </button>
+    </Button>
   );
 };
 
