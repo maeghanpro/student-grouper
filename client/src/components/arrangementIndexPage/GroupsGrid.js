@@ -60,6 +60,7 @@ const GroupsGrid = ({
         <DownloadPdf 
           arrangement={arrangement}
           classSectionName={classSectionName}
+          studentView={studentView}
         />
       )
     } else {
@@ -106,7 +107,7 @@ const GroupsGrid = ({
     header = (
       <Grid item xs={12}>
         <Typography className=" arrangement-header text-center" variant="h2">
-          {classSectionName} {arrangement.name} 
+          {classSectionName}: {arrangement.name} 
         </Typography>
       </Grid>
     )
@@ -115,7 +116,10 @@ const GroupsGrid = ({
       <>
         <Grid item xs={12}>
           <Typography className=" arrangement-header text-center" variant="h2">
-            {classSectionName} {arrangement.name} 
+            {classSectionName}
+          </Typography>
+          <Typography className=" arrangement-header text-center" variant="h2">
+            {arrangement.name} 
           </Typography>
         </Grid>
         <Grid xs={12} sm='auto' item>

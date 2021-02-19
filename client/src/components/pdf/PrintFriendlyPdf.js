@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
@@ -13,6 +13,18 @@ const styles = StyleSheet.create({
     marginRight: 80,
     marginBottom: 10
   },
+  subheader: {
+    textAlign: 'center',
+    fontSize: 14,
+    marginRight: 80,
+    marginBottom: 10
+  },
+  notes: {
+    fontSize: 12,
+    padding: 10,
+    border: 1,
+    marginLeft: 40
+  },
   groupsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -20,8 +32,6 @@ const styles = StyleSheet.create({
   },
   groupTile: {
     flexDirection: 'column',
-    border: '2px solid black',
-    borderRadius: 4,
     margin: 20
   }, 
   groupName: {
@@ -35,13 +45,23 @@ const styles = StyleSheet.create({
   }
 });
 
-const StudentViewPdf = ({arrangement, classSectionName}) => {
+const PrintFriendlyPdf = ({arrangement, classSectionName, studentView}) => {
+  const arrangementDetails = (
+    <View>
+      <Text style={styles.subheader}>{`Type: ${arrangement.type}    Created ${arrangement.createdAt}`} </Text>
+      <Text style={styles.notes}>{arrangement.notes}</Text>
+    </View>
+  )
   const groups = arrangement.groups.map(group => {
     const students = group.students.map(student => {
       return (
-        <Text key={student.id} style={styles.studentName}>{student.firstName} {student.lastInitial}</Text>
+        <Text 
+          key={student.id} 
+          style={styles.studentName}
+        >{student.firstName} {student.lastInitial} {!studentView ? `(A${student.academicTier} S${student.socialEmotionalTier})` : undefined}</Text>
       )
-    })
+    }) 
+
     return (
       <View key={group.id} style={styles.groupTile}>
         <Text style={styles.groupName}>{group.name}</Text>
@@ -54,7 +74,9 @@ const StudentViewPdf = ({arrangement, classSectionName}) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View>
-          <Text style={styles.header}>{classSectionName} {arrangement.name}</Text>
+          <Text style={styles.header}>{classSectionName}</Text>
+          <Text style={styles.header}>{arrangement.name}</Text>
+          {!studentView ? arrangementDetails: undefined}
         </View>
         <View style={styles.groupsGrid}>
           {groups}
@@ -64,4 +86,4 @@ const StudentViewPdf = ({arrangement, classSectionName}) => {
   )
 }
 
-export default StudentViewPdf
+export default PrintFriendlyPdf

@@ -1,16 +1,17 @@
 import React from 'react'
 import {PDFDownloadLink} from '@react-pdf/renderer'
 
-import StudentViewPdf from './StudentViewPdf'
+import PrintFriendlyPdf from './PrintFriendlyPdf'
 
-const DownloadPdf = ({arrangement, classSectionName}) => {
+const DownloadPdf = ({arrangement, classSectionName, studentView}) => {
   return (
     <PDFDownloadLink 
       className="pdf-download-link" 
       document={
-        <StudentViewPdf 
+        <PrintFriendlyPdf 
           arrangement={arrangement} 
           classSectionName={classSectionName}
+          studentView={studentView}
         />
       }
       fileName={`${arrangement.name}.pdf`}
