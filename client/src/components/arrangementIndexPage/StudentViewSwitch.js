@@ -25,12 +25,10 @@ const StudentViewSwitch = ({updateStudentView}) => {
   }
 
   return (
-    <FormGroup>
     <FormControlLabel
       control={<StudentSwitch id="student-view-switch" checked={checked} onChange={handleChange} />}
       label="Student View"
     />
-    </FormGroup>
   )
 }
 

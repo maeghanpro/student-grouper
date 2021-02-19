@@ -431,10 +431,21 @@ tr:nth-child(odd) {
 }
 
 // arrangement show page
+
+// buttons
+.switch-div {
+  width: fit-content;
+  margin-left: 190px;
+  align-content: right;
+}
 #delete-arrangement-icon {
   display: flex;
   float: right;
   margin: 30px 30px 0px 0px;
+}
+
+.arrangement-icon-group {
+  float: right;
 }
 
 #edit-arrangement-icon {
@@ -465,6 +476,7 @@ tr:nth-child(odd) {
   font-size: large;
 }
 
+// fab icon
 #arrangement-fab-icon {
   float: left;
   margin: 10px 0px;
@@ -477,6 +489,7 @@ tr:nth-child(odd) {
   background-color: $secondary-dark;
 }
 
+// headings
 #arrangement-type-header {
   margin: 0px 30px;
 }

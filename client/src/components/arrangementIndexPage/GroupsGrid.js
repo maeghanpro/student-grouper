@@ -139,34 +139,42 @@ const GroupsGrid = ({
   return (
     <div>
       {deleteAlert}
+      <div className="cell small-2">
       <Link to={`/classes/${arrangement.classSectionId}/students`}>
         <Button id='view-roster-button' size='large'>View Roster</Button>
       </Link>
-      <div className='grid-y '>
-        <div className="cell">
-          <Tooltip title="Delete">
-            <IconButton id="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Edit">
-            <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="View Pdf">
-            <IconButton id="pdf-arrangement-icon" aria-label="pdf" onClick={handlePdf}>
-              <PictureAsPdfIcon />
-            </IconButton>
-          </Tooltip>
-          {downloadPdf}
-        </div>
-        <div className='cell'>
-          <StudentViewSwitch 
-            updateStudentView={updateStudentView}
-          />
-        </div>
       </div>
+        <div 
+          className="grid-y" 
+          style={{
+            width: 375, 
+            float:'right'
+          }}
+        >
+          <div className='arrangement-icon-group'>
+            <Tooltip title="Delete">
+              <IconButton id="delete-arrangement-icon" aria-label="delete" color="inherit" onClick={confirmDelete}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit">
+              <IconButton id="edit-arrangement-icon" aria-label="edit" color="inherit" onClick={handleEdit}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="View Pdf">
+              <IconButton id="pdf-arrangement-icon" aria-label="pdf" onClick={handlePdf}>
+                <PictureAsPdfIcon />
+              </IconButton>
+            </Tooltip>
+            {downloadPdf}
+          </div>
+          <div className='switch-div'>
+            <StudentViewSwitch 
+              updateStudentView={updateStudentView}
+            />
+          </div>
+        </div>
       <Grid container alignContent="center" justify="center" spacing={2}>
         {header}
         <Grid container justify="center" alignItems="stretch" spacing={3}>
