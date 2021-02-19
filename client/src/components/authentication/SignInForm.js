@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import config from "../../config";
+import Button from "@material-ui/core/Button";
 import FormError from "../layout/FormError";
 
 const SignInForm = () => {
@@ -65,29 +66,35 @@ const SignInForm = () => {
 
   return (
     <div className="grid-container" onSubmit={onSubmit}>
-      <h1>Sign In</h1>
+      <h1 className="sign-in-form-header">Sign In</h1>
       <form>
         <div>
-          <label>
+          <label className="sign-in-form-label">
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input 
+              className="sign-in-form-field" 
+              type="text" 
+              name="email" 
+              value={userPayload.email} 
+              onChange={onInputChange} />
             <FormError error={errors.email} />
           </label>
         </div>
         <div>
-          <label>
+          <label className="sign-in-form-label">
             Password
             <input
               type="password"
               name="password"
               value={userPayload.password}
               onChange={onInputChange}
+              className="sign-in-form-field"
             />
             <FormError error={errors.password} />
           </label>
         </div>
         <div>
-          <input type="submit" className="button" value="Sign In" />
+          <Button variant="contained" type="submit" className="sign-in-form-button">Sign In</Button>
         </div>
       </form>
     </div>

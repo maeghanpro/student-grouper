@@ -40,6 +40,42 @@ body {
     color: $primary-dark;
   }
 }
+
+// sign-in/up styles
+.sign-in-form-header {
+  font-family: 'Roboto';
+  font-weight: lighter;
+}
+
+.sign-in-form-label {
+  font-family: 'Roboto';
+}
+
+.sign-in-form-field {
+  max-width: 500px;
+  border-radius: 4px;
+}
+
+.sign-in-form-button.MuiButtonBase-root {
+  background-color: $primary;
+  color: $background;
+}
+
+.sign-in-form-button.MuiButtonBase-root:hover {
+  background-color: $primary-dark;
+  color: $background;
+}
+// error message styles
+
+.form-error-messages {
+  border-radius: 4px;
+  max-width: fit-content;
+  margin: 0px auto 10px auto;
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
+}
 // landing page styles
 .background-logo {
   display: flex;
@@ -61,19 +97,26 @@ body {
   height: 5rem;
 }
 
-.signIn {
-  font-size: 20px;
-  margin-right: 15px;
+.sign-in-button.MuiButtonBase-root {
+  background-color: $primary;
+  color: $background;
 }
 
-.signUp {
-  font-size: 20px;
-  margin-right: 15px;
+.sign-in-button.MuiButtonBase-root:hover {
+  background-color: $primary-dark;
+  color: $background;
+}
+
+.sign-up-button.MuiButtonBase-root {
   background-color: $secondary;
+  color: $background;
 }
-.signUp:hover {
+
+.sign-up-button.MuiButtonBase-root:hover {
   background-color: $secondary-dark;
+  color: $background;
 }
+
 // nav menu styles
 
 .menu-button.MuiIconButton-root {
