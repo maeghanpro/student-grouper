@@ -35,11 +35,13 @@ const NavMenu = (props) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
+  const NavLink = ({to, children}) => {
+    return <Link onClick={handleClose} to={to}>{children}</Link>
+  }
   const menuItems = classSections.map(classSection => {
     let groupsLink
     if (classSection.students.length >= 2) {
-      groupsLink = <Link to={`/classes/${classSection.id}/groups`}>Groups</Link>
+      groupsLink = <NavLink to={`/classes/${classSection.id}/groups`}>Groups</NavLink>
     }
 
     return (
@@ -55,7 +57,7 @@ const NavMenu = (props) => {
         </AccordionSummary>
         <AccordionDetails>
           <MenuItem>
-            <Link to={`/classes/${classSection.id}/students`}> Students</Link>
+            <NavLink to={`/classes/${classSection.id}/students`}> Students</NavLink>
           </MenuItem>
           <MenuItem>
             {groupsLink}
@@ -92,9 +94,9 @@ const NavMenu = (props) => {
         }}
       > 
         <MenuItem>
-          <Link to="/classes">
+          <NavLink to="/classes">
             All Classes
-          </Link>
+          </NavLink>
         </MenuItem>
         {menuItems}
         <MenuItem>
