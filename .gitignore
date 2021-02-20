@@ -23,4 +23,5 @@ Desktop.ini
 # Coveralls
 **/coverage
 
+server/public/dist
 .env
