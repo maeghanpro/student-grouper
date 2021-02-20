@@ -2,20 +2,50 @@ import shuffle from 'lodash.shuffle'
 import chunk from 'lodash.chunk'
 
 class Grouping {
+  /**
+   * Uses lodash shuffle method and getEvenGroups method
+   * to create multidimensional array of groups with students in a random order
+   * 
+   * @param {Student[]} students array of instances of the Student class
+   * @param {integer} size specified by the user
+   * 
+   * @returns {Array}
+   */
   static random (students, size) {
     const shuffledStudents = shuffle(students)
-    return this.getEvenGroups(size, shuffledStudents)
+    return this.getEvenGroups(shuffledStudents, size)
   }
-
+/**
+   * Uses lodash shuffle method to put students in a random order,
+   * sorts students by specified ratingType value,
+   * then calls getEvenGroups to create the multidimensional array of groups 
+   * 
+   * @param {Student[]} students array of instances of the Student class
+   * @param {integer} size specified by the user
+   * @param {string} ratingType specified by the user
+   * 
+   * @returns {Array}
+   */
   static similar (students, size, ratingType) {
     const shuffledStudents = shuffle(students)
     const orderedStudents = shuffledStudents.sort((studentA, studentB) => {
       return studentA[ratingType] - studentB[ratingType]
     })
 
-    return this.getEvenGroups(size, orderedStudents)
+    return this.getEvenGroups(orderedStudents, size)
   }
 
+  /**
+   * returns multidimensional array where students of each ratingType value 
+   * are evenly distributed across the groups
+   * calls on the shuffleAndOrderStudents method to prep the array for sorting
+   * 
+   * @param {Student[]} students array of instances of the Student class
+   * @param {integer} size specified by the user
+   * @param {string} ratingType specified by the user
+   * 
+   * @returns {Array}
+   */
   static varied (students, size, ratingType) {
     const orderedStudents = this.shuffleAndOrderStudents(students, ratingType)
     const numberOfGroups = Math.ceil(students.length / size)
@@ -38,6 +68,15 @@ class Grouping {
     return groups
   }
 
+  /**
+   * Calls the necessary sorting function based on the user specified 
+   * sorting method.
+   * 
+   * @param {Student[]} students array of instances of the Student class
+   * @param {Object} arrangement instance of the Arrangement class
+   * 
+   * @returns {Array} 
+   */
   static generate (students, arrangement) {
     const typeValues = arrangement.type.split(' ')
     const method = typeValues[0]
@@ -54,7 +93,24 @@ class Grouping {
     }
   }
 
-  static getEvenGroups (size, students) {
+  /**
+   * Uses lodash chunk to create a multidimensional array for a given size.
+   * - When the array of students is evenly divisible by the size or
+   *   if the remainder is size - 1 then the array created by chunk is returned unmodified.
+   * - For the other situations, the function will push more students into the last group
+   *   by popping one from each previous group, until the last group has size - 1 students.
+   * - When the number of groups is less than the size - remainder then the function will not
+   *   return even groups. However, this scenario does not happen in practice because the user 
+   *   is disallowed from specifying a size that cannot generate even groups.
+   * - A size of two for an odd number of students is handled uniquely so that the last group
+   *   has 3 students rather than one.
+   * 
+   * @param {Student[]} students array of instances of the Student class
+   * @param {integer} size specified by the user
+   * 
+   * @returns {Array}
+   */
+  static getEvenGroups (students, size) {
     const groups = chunk(students, size);
     const remainder = students.length % size;
     const lastGroup = groups[groups.length - 1]
@@ -85,7 +141,7 @@ class Grouping {
       return groups
     }
   }
-  
+
   /**
    * Returns an array of shuffled Student objects grouped together by their tiers
    * and used in the varied groups sort function.
@@ -95,6 +151,8 @@ class Grouping {
    * 
    * @param {Student[]} students array of instances of the Student Class
    * @param {string} ratingType 'academicTier' or 'socialEmotionalTier'
+   * 
+   * @returns {Array}
    */
   static shuffleAndOrderStudents (students, ratingType) {
     const tierThree = shuffle(

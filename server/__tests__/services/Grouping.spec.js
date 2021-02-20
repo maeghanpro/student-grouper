@@ -14,7 +14,7 @@ describe('src/services/Grouping.js', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.resetAllMocks();
   });
 
   describe('shuffleAndOrderStudents',() => {
@@ -36,12 +36,12 @@ describe('src/services/Grouping.js', () => {
         { id: 4, rating: 2 },
         { id: 5, rating: 2 }
       ])
-      expect(shuffle.mock.calls.length).toBe(3)
-      expect(shuffle.mock.calls[0][0]).toEqual([{ id: 1, rating: 3 },
+      expect(shuffle).toHaveBeenCalledTimes(3)
+      expect(shuffle).toHaveBeenCalledWith([{ id: 1, rating: 3 },
         { id: 3, rating: 3 }])
-      expect(shuffle.mock.calls[1][0]).toEqual([{ id: 4, rating: 2 },
+      expect(shuffle).toHaveBeenCalledWith([{ id: 4, rating: 2 },
         { id: 5, rating: 2 }])
-      expect(shuffle.mock.calls[2][0]).toEqual([{ id: 2, rating: 1 },
+      expect(shuffle).toHaveBeenCalledWith([{ id: 2, rating: 1 },
         { id: 6, rating: 1 }])
     });
   });
@@ -109,15 +109,14 @@ describe('src/services/Grouping.js', () => {
     })
 
     it ('calls the lodash chunk method', () => {
-      Grouping.getEvenGroups(size, students)
+      Grouping.getEvenGroups(students, size)
 
-      expect(chunk.mock.calls).toHaveLength(1)
-      expect(chunk.mock.calls[0][0]).toEqual(students)
-      expect(chunk.mock.calls[0][1]).toBe(size)
+      expect(chunk).toHaveBeenCalledTimes(1)
+      expect(chunk).toHaveBeenCalledWith(students, size)
     })
     
     it ('case 1: number of students is evenly divisible by group size', () => {
-      expect(Grouping.getEvenGroups(size, students)).toEqual([
+      expect(Grouping.getEvenGroups(students, size)).toEqual([
         [1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15]
       ])
     })
@@ -125,7 +124,7 @@ describe('src/services/Grouping.js', () => {
     it ('case 2: number of students divided by group size has remainder of size - 1', () => {
       size = 4
 
-      expect(Grouping.getEvenGroups(size, students)).toEqual([
+      expect(Grouping.getEvenGroups(students, size)).toEqual([
         [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15]
       ])
     })
@@ -133,7 +132,7 @@ describe('src/services/Grouping.js', () => {
     it ('case 3: number of students divided by group size has remainder less than size - 1, but greater than 0', () => {
       size = 6
       
-      expect(Grouping.getEvenGroups(size, students)).toEqual([
+      expect(Grouping.getEvenGroups(students, size)).toEqual([
         [1, 2, 3, 4, 5], [7, 8, 9, 10, 11], [13, 14, 15, 6, 12]
       ])
     })
@@ -143,14 +142,14 @@ describe('src/services/Grouping.js', () => {
       // in practice this situation cannot happen due to the getGroupSizeOptions function 
       size = 7
 
-      expect(Grouping.getEvenGroups(size, students)).toEqual([
+      expect(Grouping.getEvenGroups(students, size)).toEqual([
         [1, 2, 3, 4, 5, 6], [8, 9, 10, 11, 12, 13], [15, 7, 14]
       ])
     })
 
     it('returns groups of 2 and one group of 3 when user requests pairs with an odd number of students', () => {
       const size = 2
-      const actual = Grouping.getEvenGroups(size, students)
+      const actual = Grouping.getEvenGroups(students, size)
 
       actual.forEach( (group, index) => {
         if (index === actual.length - 1) {
@@ -165,7 +164,7 @@ describe('src/services/Grouping.js', () => {
       const sizeOptions = getGroupSizeOptions(students)
 
       sizeOptions.map(size => {
-        const actual = Grouping.getEvenGroups(size, students)
+        const actual = Grouping.getEvenGroups(students, size)
 
         // asserts that each group is the correct size
         // when user requests pairs, the expected group size will be 2 or 3 tested above
@@ -176,6 +175,162 @@ describe('src/services/Grouping.js', () => {
           }
         })
       })
+    })
+  })
+
+  describe('random', () => {
+    it ('calls shuffle method and getEvenGroups to make random groups of given size', () => {
+      const students = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      const size = 3 
+      
+      expect(Grouping.random(students, size)).toEqual([
+        [1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15]
+      ])
+      expect(shuffle).toHaveBeenCalledTimes(1)
+      expect(shuffle).toHaveBeenCalledWith(students)
+    })
+  })
+
+  describe('similar', () => {
+    it ('calls shuffle method, sorts students by rating value, and calls getEvenGroups to make groups of similar rating value', () => {
+      const students = [
+        { id: 1, rating: 3 },
+        { id: 2, rating: 1 },
+        { id: 3, rating: 3 },
+        { id: 4, rating: 2 },
+        { id: 5, rating: 2 },
+        { id: 6, rating: 1 },
+        { id: 7, rating: 1 },
+        { id: 8, rating: 2 },
+        { id: 9, rating: 2 },
+        { id: 10, rating: 3 },
+        { id: 11, rating: 1 },
+        { id: 12, rating: 2 },
+        { id: 13, rating: 1 },
+        { id: 14, rating: 3 }
+      ]
+      const size = 4
+
+      expect(Grouping.similar(students, size, 'rating')).toEqual([
+        [{ id: 2, rating: 1 }, { id: 6, rating: 1 }, { id: 7, rating: 1 }, { id: 11, rating: 1 }],
+        [{ id: 13, rating: 1 }, { id: 4, rating: 2 }, { id: 5, rating: 2 }, { id: 8, rating: 2 }],
+        [{ id: 9, rating: 2 }, { id: 12, rating: 2 }, { id: 1, rating: 3 }],
+        [{ id: 10, rating: 3 }, { id: 14, rating: 3 }, { id: 3, rating: 3 }]
+      ])
+      expect(shuffle).toHaveBeenCalledTimes(1)
+      expect(shuffle).toHaveBeenCalledWith(students)
+    })
+  })
+
+  describe('generate', () => {
+    let students;
+    let size;
+    beforeEach(() => {
+      students = [
+        { id: 1, rating: 3 },
+        { id: 2, rating: 1 },
+        { id: 3, rating: 3 },
+        { id: 4, rating: 2 },
+        { id: 5, rating: 2 },
+        { id: 6, rating: 1 },
+        { id: 7, rating: 1 },
+        { id: 8, rating: 2 },
+        { id: 9, rating: 2 },
+        { id: 10, rating: 3 },
+        { id: 11, rating: 1 },
+        { id: 12, rating: 2 },
+        { id: 13, rating: 1 },
+        { id: 14, rating: 3 }
+      ]
+
+      size = 4
+    })
+
+    it('case 1: when type is random, the random method is called', () => {
+      const arrangement = { type: 'random', groupSize: size}
+
+      expect(Grouping.generate(students, arrangement)).toEqual([
+        [
+          { id: 1, rating: 3 }, 
+          { id: 2, rating: 1 }, 
+          { id: 3, rating: 3 },
+          { id: 4, rating: 2 }
+        ],
+        [
+          { id: 5, rating: 2 },
+          { id: 6, rating: 1 },
+          { id: 7, rating: 1 },
+          { id: 8, rating: 2 }
+        ],
+        [
+          { id: 9, rating: 2 },
+          { id: 10, rating: 3 },
+          { id: 11, rating: 1 }
+        ],
+        [
+          { id: 13, rating: 1 },
+          { id: 14, rating: 3 },
+          { id: 12, rating: 2 }
+        ]
+      ])
+    })
+
+    it('case 2: when type is similar, the similar method is called', () => {
+      const arrangement = { type: 'similar rating', groupSize: size}
+
+      expect(Grouping.generate(students, arrangement)).toEqual([
+        [
+          { id: 2, rating: 1 }, 
+          { id: 6, rating: 1 }, 
+          { id: 7, rating: 1 }, 
+          { id: 11, rating: 1 }
+        ],
+        [
+          { id: 13, rating: 1 }, 
+          { id: 4, rating: 2 }, 
+          { id: 5, rating: 2 }, 
+          { id: 8, rating: 2 }
+        ],
+        [
+          { id: 9, rating: 2 }, 
+          { id: 12, rating: 2 }, 
+          { id: 1, rating: 3 }
+        ],
+        [
+          { id: 10, rating: 3 }, 
+          { id: 14, rating: 3 }, 
+          { id: 3, rating: 3 }
+        ]
+      ])
+    })
+
+    it('case 3: when type is varied, the varied method is called', () => {
+      const arrangement = { type: 'varied rating', groupSize: size}
+
+      expect(Grouping.generate(students, arrangement)).toEqual([
+        [
+          { id: 1, rating: 3 },
+          { id: 2, rating: 1 },
+          { id: 13, rating: 1 },
+          { id: 9, rating: 2 }
+        ],
+        [
+          { id: 3, rating: 3 },
+          { id: 6, rating: 1 },
+          { id: 4, rating: 2 },
+          { id: 12, rating: 2 }
+        ],
+        [
+          { id: 10, rating: 3 },
+          { id: 7, rating: 1 },
+          { id: 5, rating: 2 },
+        ],
+        [
+          { id: 14, rating: 3 },
+          { id: 11, rating: 1 },
+          { id: 8, rating: 2 }
+        ]
+      ])
     })
   })
 });
