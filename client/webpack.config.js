@@ -30,6 +30,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Engage",
       template: path.join(__dirname, "public/index.template.html")
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
     })
   ],
   module: {
@@ -87,7 +91,12 @@ module.exports = {
       "@Components": path.resolve(__dirname, "src/components/"),
       "@Providers": path.resolve(__dirname, "src/providers/"),
     },
-    extensions: ["*", ".js", ".scss"]
+    extensions: ["*", ".js", ".scss"],
+    fallback: {
+      process: 'process/browser',
+      stream: require.resolve("stream-browserify"),
+      zlib: require.resolve("browserify-zlib")
+    }
   },
   output: {
     path: path.resolve(__dirname, "../server/public/dist"),
@@ -106,20 +115,5 @@ module.exports = {
         target: "http://localhost:4000",
       }
     ]
-  },
-  resolve: {
-    fallback: {
-      process: 'process/browser',
-      stream: require.resolve("stream-browserify"),
-      zlib: require.resolve("browserify-zlib")
-    }
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-        process: 'process/browser',
-        Buffer: ['buffer', 'Buffer'],
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new MiniCssExtractPlugin()
-  ]
+  }
 };
