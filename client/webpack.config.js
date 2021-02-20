@@ -119,6 +119,7 @@ module.exports = {
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin()
   ]
 };
