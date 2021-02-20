@@ -49,7 +49,7 @@ const PrintFriendlyPdf = ({arrangement, classSectionName, studentView}) => {
   const arrangementDetails = (
     <View>
       <Text style={styles.subheader}>{`Type: ${arrangement.type}    Created ${arrangement.createdAt}`} </Text>
-      <Text style={styles.notes}>{arrangement.notes}</Text>
+      {arrangement.notes? <Text style={styles.notes}>{arrangement.notes}</Text> : null}
     </View>
   )
   const groups = arrangement.groups.map(group => {
