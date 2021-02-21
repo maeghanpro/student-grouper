@@ -134,7 +134,11 @@ const StudentRosterPage = (props) => {
       console.error(error)
     }
   }
-
+  const groupsPageLink = (
+    <Link to={`/classes/${classSection.id}/groups`}>
+      <Button size='large' id='view-groups-button' >View Groups</Button>
+    </Link>
+  )
   const handleOpenFormClick = () => {
     setRevealAddStudentForm(true)
     document.getElementById(tableContainerId)
@@ -165,9 +169,7 @@ const StudentRosterPage = (props) => {
     return (
       <div className="grid-container student-roster-div">
         <div className='grid-y'>
-        <Link to={`/classes/${classSection.id}/groups`}>
-          <Button size='large' id='view-groups-button' >View Groups</Button>
-        </Link>
+          {students.length > 1 ? groupsPageLink : null}
         <Typography className="text-center" id='roster-page-header' variant="h1">
           {classSection.name} Roster
         </Typography>

@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SignOutButton from "../authentication/SignOutButton"
 
 
-const NavMenu = (props) => {
+const NavMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [classSections, setClassSections] = useState([])
   
@@ -38,6 +38,7 @@ const NavMenu = (props) => {
   const NavLink = ({to, children}) => {
     return <Link onClick={handleClose} to={to}>{children}</Link>
   }
+
   const menuItems = classSections.map(classSection => {
     let groupsLink
     if (classSection.students.length >= 2) {
