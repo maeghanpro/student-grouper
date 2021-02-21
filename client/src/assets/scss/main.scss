@@ -65,6 +65,11 @@ body {
   background-color: $primary-dark;
   color: $background;
 }
+
+.signIn-signUp-form {
+  max-width: 500px;
+  margin: auto;
+}
 // error message styles
 
 .form-error-messages {
@@ -77,16 +82,30 @@ body {
   }
 }
 // landing page styles
-.background-logo {
+.landing-page {
+  position: relative; 
+  width: 100%;
   display: flex;
-  z-index: -1;
-  background-color: $background;
-  opacity: 50%;
-  width: 50%;
-  height: 50%;
-  margin:auto;
+  align-items: center;
+  justify-content: center;
 }
 
+.landing-page::before {
+  content: '';
+  background-image: url('../../../public/images/logo_transparent_background_shape.png');
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.5;
+}
+
+.landing-class-card.MuiGrid-root{
+  display: flex;
+  float: left;
+}
 // top-bar styles
 .top-bar {
   z-index: 2000;
