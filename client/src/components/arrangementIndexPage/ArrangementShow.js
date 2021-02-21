@@ -58,7 +58,7 @@ const ArrangementShow = (props) => {
 
   useEffect(() => {
     getClassSectionData()
-  }, [])
+  }, [id])
 
   const addArrangement = async (arrangement) => {
     try {
