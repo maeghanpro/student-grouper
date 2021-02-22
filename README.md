@@ -3,6 +3,7 @@
 ### Author: Maeghan Provencher
 
 Live Site: http://student-grouper-app.herokuapp.com/
+
 Demo Video: https://vimeo.com/515105204
 
 ### Description
