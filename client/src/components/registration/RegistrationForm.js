@@ -87,12 +87,12 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container" onSubmit={onSubmit}>
+    <div className="grid-container signIn-signUp-form" onSubmit={onSubmit}>
       <h1 className="sign-in-form-header">Register</h1>
       <form>
         <div>
           <label className="sign-in-form-label">
-            Email
+            Email*
             <input 
               type="text" 
               className="sign-in-form-field" 
@@ -105,7 +105,7 @@ const RegistrationForm = () => {
         </div>
         <div>
           <label className="sign-in-form-label">
-            Password
+            Password*
             <input
               className="sign-in-form-field" 
               type="password"
@@ -118,7 +118,7 @@ const RegistrationForm = () => {
         </div>
         <div>
           <label className="sign-in-form-label">
-            Password Confirmation
+            Password Confirmation*
             <input
               className="sign-in-form-field" 
               type="password"

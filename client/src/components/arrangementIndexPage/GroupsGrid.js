@@ -53,7 +53,9 @@ const GroupsGrid = ({
   const handleEdit = () => {
     setEditable(!editable)
   } 
-
+  const closePdf = () => {
+    setDownloadPdf(undefined)
+  }
   const handlePdf = () => {
     if(!downloadPdf) {
       setDownloadPdf(
@@ -61,6 +63,7 @@ const GroupsGrid = ({
           arrangement={arrangement}
           classSectionName={classSectionName}
           studentView={studentView}
+          closePdf={closePdf}
         />
       )
     } else {

@@ -65,12 +65,12 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="grid-container" onSubmit={onSubmit}>
+    <div className="grid-container signIn-signUp-form" onSubmit={onSubmit}>
       <h1 className="sign-in-form-header">Sign In</h1>
       <form>
         <div>
           <label className="sign-in-form-label">
-            Email
+            Email*
             <input 
               className="sign-in-form-field" 
               type="text" 
@@ -82,7 +82,7 @@ const SignInForm = () => {
         </div>
         <div>
           <label className="sign-in-form-label">
-            Password
+            Password*
             <input
               type="password"
               name="password"
