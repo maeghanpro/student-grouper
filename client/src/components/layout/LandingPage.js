@@ -1,36 +1,42 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
-import {Typography, Card, CardMedia, Box, Button} from '@material-ui/core'
+import React from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Typography,
+  Card,
+  CardMedia,
+  Box,
+  Button
+} from "@material-ui/core";
 
-import classesImage from '../../../public/images/classes.png'
-import studentsImage from  '../../../public/images/students.png'
-import groupsImage from '../../../public/images/groups.png'
-import createGroupsImage from '../../../public/images/createGroups.png'
-import moveStudentImage from '../../../public/images/moveStudent.png'
-import studentViewImage from '../../../public/images/studentView.png'
-import teacherViewImage from '../../../public/images/teacherView.png'
-import teacherPdfImage from '../../../public/images/teacherPdf.png'
-import studentPdfImage from '../../../public/images/studentPdf.png'
+import classesImage from "../../../public/images/classes.png";
+import studentsImage from "../../../public/images/students.png";
+import groupsImage from "../../../public/images/groups.png";
+import createGroupsImage from "../../../public/images/createGroups.png";
+import moveStudentImage from "../../../public/images/moveStudent.png";
+import studentViewImage from "../../../public/images/studentView.png";
+import teacherViewImage from "../../../public/images/teacherView.png";
+import teacherPdfImage from "../../../public/images/teacherPdf.png";
+import studentPdfImage from "../../../public/images/studentPdf.png";
 
 const useStyles = makeStyles({
   root1: {
     width: 615,
     maxHeight: 260,
-    position: 'relative',
-    backgroundColor: '#F3F3EE'
+    position: "relative",
+    backgroundColor: "#F3F3EE",
   },
   root2: {
     width: 615,
     maxHeight: 350,
-    position: 'relative',
-    backgroundColor: '#F3F3EE'
+    position: "relative",
+    backgroundColor: "#F3F3EE",
   },
   root3: {
     width: 900,
     maxHeight: 430,
-    backgroundColor: '#F3F3EE',
-    position: 'relative',
+    backgroundColor: "#F3F3EE",
+    position: "relative",
   },
   root4: {
     width: 510,

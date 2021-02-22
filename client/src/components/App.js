@@ -11,9 +11,9 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import ClassSectionIndex from "./classPage/ClassSectionIndex";
 import StudentRosterPage from "./studentRosterPage/StudentRosterPage";
 import ArrangementShow from "./arrangementIndexPage/ArrangementShow";
-import LandingPage from "./layout/LandingPage"
+import LandingPage from "./layout/LandingPage";
 
-const App = (props) => {
+const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -31,10 +31,25 @@ const App = (props) => {
       <Switch>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute exact path="/classes/:id/students" component={StudentRosterPage} user={currentUser}/>
-        <AuthenticatedRoute exact path="/classes/:id/groups" component={ArrangementShow} user={currentUser}/>
-        <AuthenticatedRoute exact path="/classes" component={ClassSectionIndex} user={currentUser}/>
-        <Route exact path="/" component={LandingPage}/>
+        <AuthenticatedRoute
+          exact
+          path="/classes/:id/students"
+          component={StudentRosterPage}
+          user={currentUser}
+        />
+        <AuthenticatedRoute
+          exact
+          path="/classes/:id/groups"
+          component={ArrangementShow}
+          user={currentUser}
+        />
+        <AuthenticatedRoute
+          exact
+          path="/classes"
+          component={ClassSectionIndex}
+          user={currentUser}
+        />
+        <Route exact path="/" component={LandingPage} />
       </Switch>
     </Router>
   );
