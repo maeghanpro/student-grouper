@@ -1,70 +1,115 @@
-import React, {useState} from 'react'
-import { TextField, Button, IconButton, FormControl, Select, MenuItem, InputLabel, Dialog, DialogActions, DialogTitle, DialogContent, Fab, Tooltip} from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close'
+import React, { useState } from "react";
+import {
+  TextField,
+  Button,
+  IconButton,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  Fab,
+  Tooltip,
+} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import CloseIcon from "@material-ui/icons/Close";
 
-import ErrorList from '../Alerts/ErrorList'
-const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearErrors}) => {
+import ErrorList from "../Alerts/ErrorList";
+
+const ArrangementFormDialog = ({
+ groupSizeOptions, addArrangement, errors, clearErrors 
+}) => {
   const [newArrangement, setNewArrangement] = useState({
     name: "",
     type: "",
-    groupSize: ""
-  })
-  const [open, setOpen] = useState(false)
+    groupSize: "",
+  });
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
-  }
+  };
 
   const handleClose = () => {
-    clearErrors()
+    clearErrors();
     setNewArrangement({
       name: "",
       type: "",
-      groupSize: ""
-    })
+      groupSize: "",
+    });
     setOpen(false);
   };
 
   const handleInputChange = (event) => {
     setNewArrangement({
       ...newArrangement,
-      [event.target.name]: event.target.value
-    })
-  }
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    if ( await addArrangement(newArrangement)) {
-      handleClose()
+    event.preventDefault();
+    if (await addArrangement(newArrangement)) {
+      handleClose();
     }
-  }
-  
-  const groupSizeMenuItems = groupSizeOptions.map( size => {
-    return (
-      <MenuItem key={size} value={size}>{size}</MenuItem>
-    )
-  })
+  };
+
+  const groupSizeMenuItems = groupSizeOptions.map((size) => (
+    <MenuItem key={size} value={size}>
+      {size}
+    </MenuItem>
+  ));
 
   return (
     <div>
-    <Tooltip title="Create Groups">
-      <Fab onClick={handleClickOpen} id="arrangement-fab-icon" color="primary" aria-label="create groups">
-        <AddIcon />
-      </Fab>
-    </Tooltip>
-      <Dialog maxWidth='lg' className="arrangement-form-dialog" open={open} onClose={handleClose} aria-labelledby="create-new-groups-form" disableBackdropClick>
+      <Tooltip title="Create Groups">
+        <Fab
+          onClick={handleClickOpen}
+          id="arrangement-fab-icon"
+          color="primary"
+          aria-label="create groups"
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
+      <Dialog
+        maxWidth="lg"
+        className="arrangement-form-dialog"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="create-new-groups-form"
+        disableBackdropClick
+      >
         <Tooltip title="Close">
-          <IconButton className="arrangement-form-close-button" size="medium" aria-label="close" color="inherit" onClick={handleClose}>
+          <IconButton
+            className="arrangement-form-close-button"
+            size="medium"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
             <CloseIcon fontSize="small" />
           </IconButton>
         </Tooltip>
-        <DialogTitle id="create-new-groups-form" variant='h4'>Create New Groups</DialogTitle>
+        <DialogTitle id="create-new-groups-form" variant="h4">
+          Create New Groups
+        </DialogTitle>
         <DialogContent className="arrangement-form-content">
-          <ErrorList errors={errors}/>
+          <ErrorList errors={errors} />
           <form onSubmit={handleSubmit} className="arrangement-form">
-            <TextField className="arrangement-name" onChange={handleInputChange} name="name" value={newArrangement.name} label="Name*" id="new-arrangement-name" variant="outlined"/>
-            <FormControl variant="outlined" className="arrangement-form-type" >
+            <TextField
+              className="arrangement-name"
+              onChange={handleInputChange}
+              name="name"
+              value={newArrangement.name}
+              label="Name*"
+              id="new-arrangement-name"
+              variant="outlined"
+            />
+            <FormControl variant="outlined" className="arrangement-form-type">
               <InputLabel id="new-arrangement-type-label">Type*</InputLabel>
               <Select
                 labelId="new-arrangement-type-label"
@@ -73,17 +118,17 @@ const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearE
                 onChange={handleInputChange}
                 label="Type*"
                 inputProps={{
-                  name: "type"
+                  name: "type",
                 }}
               >
                 <MenuItem value="">
                   <em>Select Type</em>
                 </MenuItem>
-                <MenuItem value={"random"}>Random</MenuItem>
-                <MenuItem value={"similar academicTier"}>Similar Academically</MenuItem>
-                <MenuItem value={"similar socialEmotionalTier"}>Similar Socially</MenuItem>
-                <MenuItem value={"varied academicTier"}>Varied Academically</MenuItem>
-                <MenuItem value={"varied socialEmotionalTier"}>Varied Socially</MenuItem>
+                <MenuItem value="random">Random</MenuItem>
+                <MenuItem value="similar academicTier">Similar Academically</MenuItem>
+                <MenuItem value="similar socialEmotionalTier">Similar Socially</MenuItem>
+                <MenuItem value="varied academicTier">Varied Academically</MenuItem>
+                <MenuItem value="varied socialEmotionalTier">Varied Socially</MenuItem>
               </Select>
             </FormControl>
             <FormControl className="arrangement-form-size" variant="outlined">
@@ -95,7 +140,7 @@ const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearE
                 onChange={handleInputChange}
                 label="Group Size*"
                 inputProps={{
-                  name: "groupSize"
+                  name: "groupSize",
                 }}
               >
                 <MenuItem value="">
@@ -107,18 +152,19 @@ const ArrangementFormDialog = ({groupSizeOptions, addArrangement, errors, clearE
           </form>
         </DialogContent>
         <DialogActions>
-        <Button
-          variant="contained"
-          size="medium"
-          onClick={handleSubmit}
-          type="submit"
-          className="arrangement-submit-button"
-        >
-        Submit</Button>
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={handleSubmit}
+            type="submit"
+            className="arrangement-submit-button"
+          >
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-export default ArrangementFormDialog
+export default ArrangementFormDialog;

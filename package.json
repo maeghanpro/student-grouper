@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build:client": "yarn workspace student-grouper-client build",
+    "lint": "eslint --ext .js,.cjs server client",
     "dev": "yarn workspace student-grouper-server dev",
     "dev:debug": "yarn workspace student-grouper-server dev:debug",
     "heroku-postbuild": "yarn workspace student-grouper-client build",

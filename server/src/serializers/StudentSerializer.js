@@ -1,14 +1,20 @@
 class StudentSerializer {
   static getSummary(student) {
-    const allowedAttributes = ['id', 'firstName', 'lastInitial', 'academicTier', 'socialEmotionalTier']
-    const serializedStudent = {}
+    const allowedAttributes = [
+      "id",
+      "firstName",
+      "lastInitial",
+      "academicTier",
+      "socialEmotionalTier",
+    ];
+    const serializedStudent = {};
 
     for (const attribute of allowedAttributes) {
-      serializedStudent[attribute] = student[attribute]
+      serializedStudent[attribute] = student[attribute];
     }
 
-    return serializedStudent
-  } 
+    return serializedStudent;
+  }
 }
 
-export default StudentSerializer
+export default StudentSerializer;

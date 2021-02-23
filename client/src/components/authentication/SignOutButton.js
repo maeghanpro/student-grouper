@@ -16,11 +16,10 @@ const SignOutButton = () => {
           setShouldRedirect(true);
           return { status: "ok" };
         });
-      } else {
-        const errorMessage = `${resp.status} (${resp.statusText})`;
-        const error = new Error(errorMessage);
-        throw error;
       }
+      const errorMessage = `${resp.status} (${resp.statusText})`;
+      const error = new Error(errorMessage);
+      throw error;
     });
   };
 

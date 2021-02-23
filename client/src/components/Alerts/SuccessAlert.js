@@ -1,23 +1,23 @@
-import React, {useState} from 'react'
-import {Snackbar, IconButton} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import React, { useState } from "react";
+import { Snackbar, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
-const SuccessAlert = ({message}) => {
-  const [open, setOpen] = useState(true)
+const SuccessAlert = ({ message }) => {
+  const [open, setOpen] = useState(true);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
-  }
+  };
 
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: "bottom",
+        horizontal: "right",
       }}
       open={open}
       autoHideDuration={6000}
@@ -29,7 +29,7 @@ const SuccessAlert = ({message}) => {
         </IconButton>
       }
     />
-  )
-}
+  );
+};
 
-export default SuccessAlert
+export default SuccessAlert;

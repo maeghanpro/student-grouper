@@ -46,18 +46,18 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMappings() {
-    const { ClassSection } = require('./index.js')
+    const { ClassSection } = require("./index.js");
 
     return {
       classSections: {
         relation: Model.HasManyRelation,
         modelClass: ClassSection,
         join: {
-          from: 'users.id',
-          to: 'classSections.userId'
-        }
-      }
-    }
+          from: "users.id",
+          to: "classSections.userId",
+        },
+      },
+    };
   }
 }
 

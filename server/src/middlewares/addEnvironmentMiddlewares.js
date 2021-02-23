@@ -1,6 +1,6 @@
 import addDevelopmentMiddlewares from "./environments/addDevelopmentMiddlewares.js";
 
-const addEnvironmentMiddlewares = app => {
+const addEnvironmentMiddlewares = (app) => {
   addDevelopmentMiddlewares(app);
 };
 

@@ -1,57 +1,57 @@
-const Model = require('./Model.js')
+const Model = require("./Model.js");
 
 class ClassSection extends Model {
   static get tableName() {
-    return 'classSections'
+    return "classSections";
   }
 
   static get jsonSchema() {
     return {
-      type: 'object',
-      required: ['name', 'color'],
+      type: "object",
+      required: ["name", "color"],
       properties: {
         name: {
-          type: 'string',
+          type: "string",
           minLength: 1,
-          maxLength: 10
+          maxLength: 10,
         },
         color: {
-          type: 'string'
-        }
-      }
-    }
+          type: "string",
+        },
+      },
+    };
   }
 
   static get relationMappings() {
-    const { User, Student, Arrangement} = require('./index.js')
+    const { User, Student, Arrangement } = require("./index.js");
 
     return {
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'classSections.userId',
-          to: 'users.id'
-        }
+          from: "classSections.userId",
+          to: "users.id",
+        },
       },
       students: {
         relation: Model.HasManyRelation,
         modelClass: Student,
         join: {
-          from: 'classSections.id',
-          to: 'students.classSectionId'
-        }
+          from: "classSections.id",
+          to: "students.classSectionId",
+        },
       },
       arrangements: {
         relation: Model.HasManyRelation,
         modelClass: Arrangement,
         join: {
-          from: 'classSections.id',
-          to: 'arrangements.classSectionId'
-        }
-      }
-    }
+          from: "classSections.id",
+          to: "arrangements.classSectionId",
+        },
+      },
+    };
   }
 }
 
-module.exports = ClassSection
+module.exports = ClassSection;

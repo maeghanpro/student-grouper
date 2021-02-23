@@ -3,45 +3,42 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import logo from "../../../public/logo.png";
 
-import NavMenu from "./NavMenu"
+import NavMenu from "./NavMenu";
 
-const TopBar = ({ user}) => {
-
+const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
     <li key="sign-in">
-      <Link to="/user-sessions/new" >
-        <Button className= "sign-in-button" variant="contained">
+      <Link to="/user-sessions/new">
+        <Button className="sign-in-button" variant="contained">
           Sign In
-        </Button> 
+        </Button>
       </Link>
     </li>,
     <li key="sign-up">
       <Link to="/users/new">
-      <Button className= "sign-up-button" variant="contained">
+        <Button className="sign-up-button" variant="contained">
           Sign Up
-        </Button> 
+        </Button>
       </Link>
     </li>,
   ];
 
-  let topBarRightContent = null
+  let topBarRightContent = null;
   if (user === null) {
-    topBarRightContent = unauthenticatedListItems
+    topBarRightContent = unauthenticatedListItems;
   } else {
-    topBarRightContent = <NavMenu />
+    topBarRightContent = <NavMenu />;
   }
 
   return (
     <div className="top-bar">
       <div className="top-bar-left">
         <Link to="/">
-         <img className="logo" src={logo} alt="Logo"/>
+          <img className="logo" src={logo} alt="Logo" />
         </Link>
       </div>
       <div className="top-bar-right">
-        <ul className="menu">
-          {topBarRightContent}
-        </ul>
+        <ul className="menu">{topBarRightContent}</ul>
       </div>
     </div>
   );

@@ -1,18 +1,18 @@
-import _ from 'lodash'
+import _ from "lodash";
 
-let translateServerErrors = errors => {
-  let serializedErrors = {}
+const translateServerErrors = (errors) => {
+  let serializedErrors = {};
 
-  Object.keys(errors).forEach(key => {
+  Object.keys(errors).forEach((key) => {
     const messages = errors[key].map((error) => {
-      const field = _.startCase(key)
+      const field = _.startCase(key);
       serializedErrors = {
         ...serializedErrors,
-        [field]: error.message
-      }
-    })
-  })
-  return serializedErrors
-}
+        [field]: error.message,
+      };
+    });
+  });
+  return serializedErrors;
+};
 
-export default translateServerErrors
+export default translateServerErrors;

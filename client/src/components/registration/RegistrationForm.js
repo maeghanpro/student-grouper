@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import FormError from "../layout/FormError";
 import Button from "@material-ui/core/Button";
+import FormError from "../layout/FormError";
 import config from "../../config";
 
 const RegistrationForm = () => {
@@ -38,13 +38,11 @@ const RegistrationForm = () => {
         ...newErrors,
         passwordConfirmation: "is required",
       };
-    } else {
-      if (passwordConfirmation !== password) {
-        newErrors = {
-          ...newErrors,
-          passwordConfirmation: "does not match password",
-        };
-      }
+    } else if (passwordConfirmation !== password) {
+      newErrors = {
+        ...newErrors,
+        passwordConfirmation: "does not match password",
+      };
     }
 
     setErrors(newErrors);
@@ -53,7 +51,7 @@ const RegistrationForm = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     validateInput(userPayload);
-    debugger
+    debugger;
     if (Object.keys(errors).length === 0) {
       fetch("/api/v1/users", {
         method: "post",
@@ -93,12 +91,12 @@ const RegistrationForm = () => {
         <div>
           <label className="sign-in-form-label">
             Email*
-            <input 
-              type="text" 
-              className="sign-in-form-field" 
-              name="email" 
-              value={userPayload.email} 
-              onChange={onInputChange} 
+            <input
+              type="text"
+              className="sign-in-form-field"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
             />
             <FormError error={errors.email} />
           </label>
@@ -107,7 +105,7 @@ const RegistrationForm = () => {
           <label className="sign-in-form-label">
             Password*
             <input
-              className="sign-in-form-field" 
+              className="sign-in-form-field"
               type="password"
               name="password"
               value={userPayload.password}
@@ -120,7 +118,7 @@ const RegistrationForm = () => {
           <label className="sign-in-form-label">
             Password Confirmation*
             <input
-              className="sign-in-form-field" 
+              className="sign-in-form-field"
               type="password"
               name="passwordConfirmation"
               value={userPayload.passwordConfirmation}
@@ -130,7 +128,9 @@ const RegistrationForm = () => {
           </label>
         </div>
         <div>
-        <Button variant="contained" type="submit" className="sign-in-form-button">Register</Button>
+          <Button variant="contained" type="submit" className="sign-in-form-button">
+            Register
+          </Button>
         </div>
       </form>
     </div>

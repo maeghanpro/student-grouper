@@ -1,54 +1,54 @@
-const Model = require('./Model.js')
+const Model = require("./Model.js");
 
 class Group extends Model {
   static get tableName() {
-    return 'groups'
+    return "groups";
   }
 
   static get jsonSchema() {
     return {
-      type: 'object',
-      required: ['name'],
+      type: "object",
+      required: ["name"],
       properties: {
-        name: {type: 'string'}
-      }
-    }
+        name: { type: "string" },
+      },
+    };
   }
 
   static get relationMappings() {
-    const { Assignment, Arrangement, Student } = require('./index.js')
+    const { Assignment, Arrangement, Student } = require("./index.js");
 
     return {
       assignments: {
         relation: Model.HasManyRelation,
         modelClass: Assignment,
         join: {
-          from: 'groups.id',
-          to: 'assignments.groupId'
-        }
+          from: "groups.id",
+          to: "assignments.groupId",
+        },
       },
       arrangement: {
         relation: Model.BelongsToOneRelation,
         modelClass: Arrangement,
         join: {
-          from: 'groups.arrangementId',
-          to: 'arrangements.id'
-        }
+          from: "groups.arrangementId",
+          to: "arrangements.id",
+        },
       },
       students: {
         relation: Model.ManyToManyRelation,
         modelClass: Student,
         join: {
-          from: 'groups.id',
+          from: "groups.id",
           through: {
-            from: 'assignments.groupId',
-            to: 'assignments.studentId'
+            from: "assignments.groupId",
+            to: "assignments.studentId",
           },
-          to: 'students.id'
-        }
-      }
-    }
+          to: "students.id",
+        },
+      },
+    };
   }
 }
 
-module.exports = Group
+module.exports = Group;

@@ -1,12 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
 
+import RedBox from "redbox-react";
 import App from "./components/App";
 import config from "./config";
-import RedBox from "redbox-react";
 
 document.addEventListener("DOMContentLoaded", () => {
-  let reactElement = document.getElementById("app");
+  const reactElement = document.getElementById("app");
 
   if (reactElement) {
     if (config.env === "development") {

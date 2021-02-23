@@ -8,15 +8,13 @@ const AuthenticationCheck = ({ component: Component, user }) => {
   return <Redirect to="/user-sessions/new" />;
 };
 
-const AuthenticatedRoute = ({ component, user, ...rest }) => {
-  return (
-    <Route
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...rest}
-    >
-      <AuthenticationCheck user={user} component={component} />
-    </Route>
-  );
-};
+const AuthenticatedRoute = ({ component, user, ...rest }) => (
+  <Route
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...rest}
+  >
+    <AuthenticationCheck user={user} component={component} />
+  </Route>
+);
 
 export default AuthenticatedRoute;

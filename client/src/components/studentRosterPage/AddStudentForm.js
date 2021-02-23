@@ -1,40 +1,69 @@
-import React, {useState} from 'react'
-import {TableCell, TableRow, TextField, Button, MenuItem, FormControl, Select, InputLabel, IconButton, Tooltip} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import React, { useState } from "react";
+import {
+  TableCell,
+  TableRow,
+  TextField,
+  Button,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
-const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
+const AddStudentForm = ({ addNewStudent, classSectionId, closeForm }) => {
   const [newStudent, setNewStudent] = useState({
     firstName: "",
     lastInitial: "",
     academicTier: "",
-    socialEmotionalTier: ""
-  })
+    socialEmotionalTier: "",
+  });
 
   const handleInputChange = (event) => {
     setNewStudent({
       ...newStudent,
-      [event.target.name]: event.target.value
-    })
-  }
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (await addNewStudent({...newStudent, classSectionId})) {
+    event.preventDefault();
+    if (await addNewStudent({ ...newStudent, classSectionId })) {
       setNewStudent({
         firstName: "",
         lastInitial: "",
         academicTier: "",
-        socialEmotionalTier: ""
-      })
-      closeForm()
-    } 
-  }
+        socialEmotionalTier: "",
+      });
+      closeForm();
+    }
+  };
 
   return (
     <TableRow>
       <TableCell>
-          <TextField className="firstName-field" onChange={handleInputChange} name="firstName" value={newStudent.firstName} placeholder="First Name" label="First Name*" id="new-student-firstName" variant="outlined"/>
-          <TextField className="lastInitial-field" onChange={handleInputChange} name="lastInitial" value={newStudent.lastInitial} placeholder="Last Initial" label="Last Initial*" id="new-student-lastInitial" variant="outlined"/>
+        <TextField
+          className="firstName-field"
+          onChange={handleInputChange}
+          name="firstName"
+          value={newStudent.firstName}
+          placeholder="First Name"
+          label="First Name*"
+          id="new-student-firstName"
+          variant="outlined"
+        />
+        <TextField
+          className="lastInitial-field"
+          onChange={handleInputChange}
+          name="lastInitial"
+          value={newStudent.lastInitial}
+          placeholder="Last Initial"
+          label="Last Initial*"
+          id="new-student-lastInitial"
+          variant="outlined"
+        />
       </TableCell>
       <TableCell align="center">
         <FormControl variant="outlined">
@@ -46,7 +75,7 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
             onChange={handleInputChange}
             label="Academic Tier*"
             inputProps={{
-              name: "academicTier"
+              name: "academicTier",
             }}
           >
             <MenuItem value="">
@@ -68,7 +97,7 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
             onChange={handleInputChange}
             label="Social-Emotional Tier*"
             inputProps={{
-              name: "socialEmotionalTier"
+              name: "socialEmotionalTier",
             }}
           >
             <MenuItem value="">
@@ -82,14 +111,28 @@ const AddStudentForm = ({addNewStudent, classSectionId, closeForm}) => {
       </TableCell>
       <TableCell>
         <Tooltip title="Close">
-          <IconButton className="student-form-close-button" size="medium" aria-label="close" color="inherit" onClick={closeForm}>
+          <IconButton
+            className="student-form-close-button"
+            size="medium"
+            aria-label="close"
+            color="inherit"
+            onClick={closeForm}
+          >
             <CloseIcon fontSize="small" />
           </IconButton>
         </Tooltip>
-        <Button id="submit-new-student-button" variant="contained" size="medium" onClick={handleSubmit} type='submit'>Submit</Button>
+        <Button
+          id="submit-new-student-button"
+          variant="contained"
+          size="medium"
+          onClick={handleSubmit}
+          type="submit"
+        >
+          Submit
+        </Button>
       </TableCell>
     </TableRow>
-  )
-}
+  );
+};
 
-export default AddStudentForm
+export default AddStudentForm;

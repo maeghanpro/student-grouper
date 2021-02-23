@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import config from "../../config";
 import Button from "@material-ui/core/Button";
+import config from "../../config";
 import FormError from "../layout/FormError";
 
 const SignInForm = () => {
@@ -71,12 +71,13 @@ const SignInForm = () => {
         <div>
           <label className="sign-in-form-label">
             Email*
-            <input 
-              className="sign-in-form-field" 
-              type="text" 
-              name="email" 
-              value={userPayload.email} 
-              onChange={onInputChange} />
+            <input
+              className="sign-in-form-field"
+              type="text"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
+            />
             <FormError error={errors.email} />
           </label>
         </div>
@@ -94,7 +95,9 @@ const SignInForm = () => {
           </label>
         </div>
         <div>
-          <Button variant="contained" type="submit" className="sign-in-form-button">Sign In</Button>
+          <Button variant="contained" type="submit" className="sign-in-form-button">
+            Sign In
+          </Button>
         </div>
       </form>
     </div>

@@ -3,22 +3,20 @@ import passport from "passport";
 
 const sessionRouter = new express.Router();
 
-sessionRouter.post("/", (req, res, next) => {
-  return passport.authenticate("local", (err, user) => {
+sessionRouter.post("/", (req, res, next) =>
+  passport.authenticate("local", (err, user) => {
     if (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     }
 
     if (user) {
-      return req.login(user, () => {
-        return res.status(201).json(user);
-      });
+      return req.login(user, () => res.status(201).json(user));
     }
 
     return res.status(401).json(undefined);
-  })(req, res, next);
-});
+  })(req, res, next)
+);
 
 sessionRouter.get("/current", async (req, res) => {
   if (req.user) {

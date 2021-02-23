@@ -1,32 +1,32 @@
-const Model = require('./Model.js')
+const Model = require("./Model.js");
 
 class Assignment extends Model {
   static get tableName() {
-    return 'assignments'
+    return "assignments";
   }
 
   static get relationMappings() {
-    const { Group, Student} = require('./index.js')
+    const { Group, Student } = require("./index.js");
 
     return {
       group: {
         relation: Model.BelongsToOneRelation,
         modelClass: Group,
         join: {
-          from: 'assignments.groupId',
-          to: 'groups.id'
-        }
+          from: "assignments.groupId",
+          to: "groups.id",
+        },
       },
       student: {
         relation: Model.BelongsToOneRelation,
         modelClass: Student,
         join: {
-          from: 'assignments.studentId',
-          to: 'students.id'
-        }
-      }
-    }
+          from: "assignments.studentId",
+          to: "students.id",
+        },
+      },
+    };
   }
 }
 
-module.exports = Assignment
+module.exports = Assignment;

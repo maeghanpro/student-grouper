@@ -1,73 +1,73 @@
-const Model = require('./Model')
+const Model = require("./Model");
 
 class Student extends Model {
   static get tableName() {
-    return 'students'
+    return "students";
   }
 
   static get jsonSchema() {
     return {
-      type: 'object',
-      required: ['firstName', 'lastInitial', 'academicTier', 'socialEmotionalTier'],
+      type: "object",
+      required: ["firstName", "lastInitial", "academicTier", "socialEmotionalTier"],
       properties: {
         firstName: {
-          type: 'string',
+          type: "string",
           minLength: 1,
           maxLength: 20,
         },
         lastInitial: {
-          type: 'string',
+          type: "string",
           minLength: 1,
-          maxLength: 4
+          maxLength: 4,
         },
         academicTier: {
-          type: ['integer', 'string'],
+          type: ["integer", "string"],
           minimum: 1,
-          maximum: 3
+          maximum: 3,
         },
         socialEmotionalTier: {
-          type: ['integer', 'string'],
+          type: ["integer", "string"],
           minimum: 1,
-          maximum: 3
-        }
-      }
-    }
+          maximum: 3,
+        },
+      },
+    };
   }
 
   static get relationMappings() {
-    const { ClassSection, Assignment, Group } = require('./index')
+    const { ClassSection, Assignment, Group } = require("./index");
 
     return {
       classSection: {
         relation: Model.BelongsToOneRelation,
         modelClass: ClassSection,
         join: {
-          from: 'students.classSectionId',
-          to: 'classSections.id'
-        }
+          from: "students.classSectionId",
+          to: "classSections.id",
+        },
       },
       assignments: {
         relation: Model.HasManyRelation,
         modelClass: Assignment,
         join: {
-          from: 'students.id',
-          to: 'assignments.studentId'
-        }
+          from: "students.id",
+          to: "assignments.studentId",
+        },
       },
       groups: {
         relation: Model.ManyToManyRelation,
         modelClass: Group,
         join: {
-          from: 'students.id',
+          from: "students.id",
           through: {
-            from: 'assignments.studentId',
-            to: 'assignments.groupId'
+            from: "assignments.studentId",
+            to: "assignments.groupId",
           },
-          to: 'groups.id'
-        }
-      }
-    }
+          to: "groups.id",
+        },
+      },
+    };
   }
 }
 
-module.exports = Student
+module.exports = Student;

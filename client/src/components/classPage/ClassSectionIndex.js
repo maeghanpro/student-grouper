@@ -1,183 +1,183 @@
-import React, { useState, useEffect } from 'react'
-import { Typography, Grid, Fab, Tooltip} from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import React, { useState, useEffect } from "react";
+import { Typography, Grid, Fab, Tooltip } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
-import translateServerErrors from '../../services/translateServerErrors'
-import ClassSectionTile from './ClassSectionTile'
-import NewClassForm from './NewClassForm'
-import SuccessAlert from '../Alerts/SuccessAlert'
+import translateServerErrors from "../../services/translateServerErrors";
+import ClassSectionTile from "./ClassSectionTile";
+import NewClassForm from "./NewClassForm";
+import SuccessAlert from "../Alerts/SuccessAlert";
 
 const ClassSectionIndex = (props) => {
-  const [classSections, setClassSections] = useState([])
-  const [revealClassForm, setRevealClassForm] =useState(false)
-  const [errors, setErrors] = useState({})
-  const [success, setSuccess] = useState(null)
+  const [classSections, setClassSections] = useState([]);
+  const [revealClassForm, setRevealClassForm] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(null);
 
   const displaySuccess = (message) => {
-    setSuccess(null)
-    setSuccess(<SuccessAlert message={message}/>)
-  }
+    setSuccess(null);
+    setSuccess(<SuccessAlert message={message} />);
+  };
 
   const getClassSections = async () => {
     try {
-      const response = await fetch('/api/v1/classes')
+      const response = await fetch("/api/v1/classes");
 
       if (!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
+        const errorMessage = `${response.status} (${response.statusText})`;
+        throw new Error(errorMessage);
       }
 
-      const body = await response.json()
-      if(body.classSections.length === 0) {
-        setRevealClassForm(true)
+      const body = await response.json();
+      if (body.classSections.length === 0) {
+        setRevealClassForm(true);
       }
-      setClassSections(body.classSections)
-
+      setClassSections(body.classSections);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const addNewClassSection = async (newClassSection) => {
     try {
-      const response = await fetch('/api/v1/classes', {
-        method: 'POST',
+      const response = await fetch("/api/v1/classes", {
+        method: "POST",
         headers: new Headers({
-          'Content-type': 'application/json'
+          "Content-type": "application/json",
         }),
-        body: JSON.stringify(newClassSection)
-      })
+        body: JSON.stringify(newClassSection),
+      });
 
-      if(!response.ok) {
-        if(response.status === 422) {
-          const body = await response.json()
-          const errors = translateServerErrors(body.errors)
-          setErrors(errors)
-          return false
-        } else {
-          displaySuccess('Failed to create class.')
-          const errorMessage = `${response.status} (${response.statusText})`
-          throw new Error(errorMessage)
+      if (!response.ok) {
+        if (response.status === 422) {
+          const body = await response.json();
+          const errors = translateServerErrors(body.errors);
+          setErrors(errors);
+          return false;
         }
+        displaySuccess("Failed to create class.");
+        const errorMessage = `${response.status} (${response.statusText})`;
+        throw new Error(errorMessage);
       } else {
-        const body = await response.json()
-        setClassSections(body.classSections)
-        displaySuccess('New class created!')
-        setErrors({})
-        return true
+        const body = await response.json();
+        setClassSections(body.classSections);
+        displaySuccess("New class created!");
+        setErrors({});
+        return true;
       }
-
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const patchClassSection = async (classSection) => {
     try {
-      const response = await fetch('/api/v1/classes', {
-        method: 'PATCH',
+      const response = await fetch("/api/v1/classes", {
+        method: "PATCH",
         headers: new Headers({
-          'content-type': 'application/json'
+          "content-type": "application/json",
         }),
-        body: JSON.stringify(classSection)
-      })
-      if(!response.ok) {
-        if(response.status === 422) {
-          const body = await response.json()
-          const errors = translateServerErrors(body.errors)
-          setErrors(errors)
-          return false
-        } else {
-          displaySuccess('Failed to update class.')
-          const errorMessage = `${response.status} (${response.statusText})`
-          throw new Error(errorMessage)
+        body: JSON.stringify(classSection),
+      });
+      if (!response.ok) {
+        if (response.status === 422) {
+          const body = await response.json();
+          const errors = translateServerErrors(body.errors);
+          setErrors(errors);
+          return false;
         }
+        displaySuccess("Failed to update class.");
+        const errorMessage = `${response.status} (${response.statusText})`;
+        throw new Error(errorMessage);
       } else {
-        const body = await response.json()
-        setClassSections(body.classSections)
-        displaySuccess('Class updated!')
-        setErrors({})
-        return true
+        const body = await response.json();
+        setClassSections(body.classSections);
+        displaySuccess("Class updated!");
+        setErrors({});
+        return true;
       }
     } catch (error) {
-      console.error(`Error in fetch ${error.message}`)
+      console.error(`Error in fetch ${error.message}`);
     }
-  }
+  };
 
   const deleteClass = async (classSectionId) => {
     try {
       const response = await fetch(`/api/v1/classes/${classSectionId}`, {
-        method: 'DELETE',
-        headers: new Headers ({
-          "Content-Type": "application/json"
-        })
-      })
-      if(!response.ok) {
-        displaySuccess('Failed to delete class.')
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      });
+      if (!response.ok) {
+        displaySuccess("Failed to delete class.");
+        const errorMessage = `${response.status} (${response.statusText})`;
+        throw new Error(errorMessage);
       }
 
-      const body = await response.json()
-      setClassSections(body.classSections)
-      displaySuccess('Class deleted!')
+      const body = await response.json();
+      setClassSections(body.classSections);
+      displaySuccess("Class deleted!");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getClassSections()
-  }, [])
-
+    getClassSections();
+  }, []);
 
   const handleOpenFormClick = () => {
-    setRevealClassForm(true)        
-  }
+    setRevealClassForm(true);
+  };
 
   const handleCloseFormClick = () => {
-    setRevealClassForm(false)
-    setErrors({})
-  }
+    setRevealClassForm(false);
+    setErrors({});
+  };
 
-  let fab= (
+  let fab = (
     <Tooltip title="Add Class">
-      <Fab onClick={handleOpenFormClick} className="class-fab" color="primary" aria-label="add new class">
+      <Fab
+        onClick={handleOpenFormClick}
+        className="class-fab"
+        color="primary"
+        aria-label="add new class"
+      >
         <AddIcon />
       </Fab>
     </Tooltip>
-  )
-  
+  );
+
   let newClassForm;
   if (revealClassForm) {
     newClassForm = (
       <Grid item xs={12} sm={6} md={4}>
-        <NewClassForm 
+        <NewClassForm
           addNewClassSection={addNewClassSection}
           errors={errors}
           closeForm={handleCloseFormClick}
         />
       </Grid>
-    )
-    fab = undefined
+    );
+    fab = undefined;
   }
-  
-  const classSectionTiles = classSections.map((classSection, index) => {
-    return (
-      <Grid item xs={12} sm={6} md={4} key={classSection.id} >
-        <ClassSectionTile 
-          classSection={classSection}
-          patchClassSection={patchClassSection}
-          errors={errors}
-          deleteClass={deleteClass}
-        />
-      </Grid>
-    )
-  })
-  
+
+  const classSectionTiles = classSections.map((classSection, index) => (
+    <Grid item xs={12} sm={6} md={4} key={classSection.id}>
+      <ClassSectionTile
+        classSection={classSection}
+        patchClassSection={patchClassSection}
+        errors={errors}
+        deleteClass={deleteClass}
+      />
+    </Grid>
+  ));
+
   return (
     <div className="grid-container class-index-container">
-      <Typography className="class-index-header text-center" variant="h1">Classes</Typography>
+      <Typography className="class-index-header text-center" variant="h1">
+        Classes
+      </Typography>
       {fab}
       {success}
       <Grid container alignContent="center" spacing={3}>
@@ -187,7 +187,7 @@ const ClassSectionIndex = (props) => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default ClassSectionIndex
+export default ClassSectionIndex;
