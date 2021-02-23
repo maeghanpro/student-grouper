@@ -3,9 +3,10 @@ import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     margin: 50,
+  },
+  heading: {
+    textAlign: "center",
   },
   header: {
     textAlign: "center",
@@ -23,7 +24,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     padding: 10,
     border: 1,
-    marginLeft: 40,
+    textAlign: "left",
+    maxWidth: "83%",
   },
   groupsGrid: {
     flexDirection: "row",
@@ -76,7 +78,7 @@ const PrintFriendlyPdf = ({ arrangement, classSectionName, studentView }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View>
+        <View style={styles.heading}>
           <Text style={styles.header}>{classSectionName}</Text>
           <Text style={styles.header}>{arrangement.name}</Text>
           {!studentView ? arrangementDetails : undefined}
