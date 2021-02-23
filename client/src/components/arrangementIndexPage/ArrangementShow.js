@@ -49,6 +49,8 @@ const ArrangementShow = (props) => {
       setArrangements(body.classSection.arrangements);
       if (body.classSection.arrangements.length > 0) {
         setFeaturedArrangement(body.classSection.arrangements[0]);
+      } else {
+        setFeaturedArrangement({ groups: [] });
       }
     } catch (error) {
       console.error(error);
