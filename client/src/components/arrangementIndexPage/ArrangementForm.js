@@ -11,13 +11,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { DonutLarge } from "@material-ui/icons";
 import ErrorList from "../Alerts/ErrorList";
 
 const primary = "#7E93A2";
 const secondary = "#F3F3EE";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card: {
     backgroundColor: primary,
     color: secondary,
