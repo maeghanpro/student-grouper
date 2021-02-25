@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
- Button, Grid, Paper, Typography 
+ Button, Grid, Typography
 } from "@material-ui/core";
 
 const EditArrangementInfo = ({ thisArrangement, updateArrangement, closeForm }) => {

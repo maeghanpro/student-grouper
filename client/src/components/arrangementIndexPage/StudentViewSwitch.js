@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { FormControlLabel, FormGroup, Switch } from "@material-ui/core";
+import { FormControlLabel, Switch } from "@material-ui/core";
 
 const StudentSwitch = withStyles({
   switchBase: {
@@ -19,7 +19,7 @@ const StudentSwitch = withStyles({
 const StudentViewSwitch = ({ updateStudentView }) => {
   const [checked, setChecked] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = () => {
     setChecked(!checked);
     updateStudentView();
   };

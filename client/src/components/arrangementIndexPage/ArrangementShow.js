@@ -8,13 +8,13 @@ import GroupsGrid from "./GroupsGrid";
 import ArrangementDrawer from "./ArrangementDrawer";
 import SuccessAlert from "../Alerts/SuccessAlert";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
   },
 }));
 
-const ArrangementShow = (props) => {
+const ArrangementShow = () => {
   const classes = useStyles();
   const [classSection, setClassSection] = useState({
     groupSizeOptions: [],
@@ -91,7 +91,7 @@ const ArrangementShow = (props) => {
         return true;
       }
     } catch (error) {
-      console.error(error);
+      return console.error(error);
     }
   };
 
@@ -153,7 +153,7 @@ const ArrangementShow = (props) => {
         return true;
       }
     } catch (error) {
-      console.error(error);
+      return console.error(error);
     }
   };
 
