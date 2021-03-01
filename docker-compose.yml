@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: "postgres:13.2-alpine"
+    ports: 
+      - "5432:5432"
+    environment: 
+      - POSTGRES_DB=db
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  student-grouper:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres:5432/student-grouper_development
+    depends_on: 
+      - postgres

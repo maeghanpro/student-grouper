@@ -99,11 +99,9 @@ arrangementsRouter.patch("/:id/groups", async (req, res) => {
     await Group.query().findById(body.id).patch({ name: body.name });
     if (body.studentToMove) {
       if (body.destination) {
-        console.log(`studentId: ${body.studentToMove} groupId: ${body.id}`);
         const assignment = await Assignment.query()
           .where("studentId", body.studentToMove)
           .andWhere("groupId", body.id);
-        console.log(assignment[0].id);
         await Assignment.query().findById(assignment[0].id).patch({ groupId: body.destination });
       } else {
         throw new ValidationError({
