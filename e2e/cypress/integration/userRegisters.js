@@ -8,12 +8,9 @@ describe("As a user visiting the registration page", () => {
   before(() => {
     cy.task("db:truncate", "User");
   });
-  
+
   it.only("If I provide a valid email, password, and password confirmation, I will be signed in", () => {
     visitRegistrationPage();
-    Cypress.Cookies.defaults({
-      preserve: ["student-grouper-session", "student-grouper-session.sig"]
-    })
     cy.get("form").within(() => {
       cy.findByLabelText("Email*").type("user@example.com");
 
