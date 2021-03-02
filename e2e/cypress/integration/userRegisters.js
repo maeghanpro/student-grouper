@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("As a user visiting the sign in page", () => {
+describe("As a user visiting the registration page", () => {
   const visitRegistrationPage = () => {
     cy.visit("/users/new");
   };
@@ -12,23 +12,23 @@ describe("As a user visiting the sign in page", () => {
   it("If I provide a valid email, password, and password confirmation, I will be signed in", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
-      cy.findByLabelText("Email").type("user@example.com");
+      cy.findByLabelText("Email*").type("user@example.com");
 
-      cy.findByLabelText("Password").type("password");
-      cy.findByLabelText("Password Confirmation").type("password");
+      cy.findByLabelText("Password*").type("password");
+      cy.findByLabelText("Password Confirmation*").type("password")
 
-      cy.root().submit();
+      cy.root().submit().debug;
 
-      cy.url().should("eq", `${Cypress.config().baseUrl}/`);
+      cy.url().should("eq", `${Cypress.config().baseUrl}/classes`);
     });
-    cy.contains("Sign Out");
+    cy.contains("Menu");
   });
 
   it("If I provide an invalid email and password, I will remain on the same page", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
-      cy.findByLabelText("Email").type("just@a.joke");
-      cy.findByLabelText("Password").type("password");
+      cy.findByLabelText("Email*").type("just@a.joke");
+      cy.findByLabelText("Password*").type("password");
       cy.root().submit();
 
       cy.url().should("eq", `${Cypress.config().baseUrl}/users/new`);
@@ -38,10 +38,10 @@ describe("As a user visiting the sign in page", () => {
   it("If passwords don't match, I will remain on the same page", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
-      cy.findByLabelText("Email").type("user@example.com");
+      cy.findByLabelText("Email*").type("user@example.com");
 
-      cy.findByLabelText("Password").type("password");
-      cy.findByLabelText("Password Confirmation").type("passwordNotAMatch");
+      cy.findByLabelText("Password*").type("password");
+      cy.findByLabelText("Password Confirmation*").type("passwordNotAMatch");
 
       cy.root().submit();
       cy.url().should("eq", `${Cypress.config().baseUrl}/users/new`);
@@ -51,7 +51,7 @@ describe("As a user visiting the sign in page", () => {
   it("I will see an error message when no email is provided", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
-      cy.findByLabelText("Password").type("migratedata");
+      cy.findByLabelText("Password*").type("migratedata");
       cy.root().submit();
 
       cy.contains("is invalid");

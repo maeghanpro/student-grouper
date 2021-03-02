@@ -1,4 +1,4 @@
-const truncateModel = require("../../../server/test/utils/truncateModel.cjs");
+const truncateModel = require("../../../server/__tests__/utils/truncateModel.cjs");
 const connection = require("../../../server/src/boot/model.cjs");
 const modelList = require("../../../server/src/models");
 
