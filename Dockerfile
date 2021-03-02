@@ -10,6 +10,9 @@ COPY server server
 RUN yarn install
 RUN yarn build:client
 
+RUN yarn install --production --ignore-scripts --prefer-offline
+RUN rm -rf client
+
 EXPOSE 3000
 
 CMD yarn start
