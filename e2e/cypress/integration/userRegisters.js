@@ -9,7 +9,7 @@ describe("As a user visiting the registration page", () => {
     cy.task("db:truncate", "User");
   });
 
-  it.only("If I provide a valid email, password, and password confirmation, I will be signed in", () => {
+  it("If I provide a valid email, password, and password confirmation, I will be signed in", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
       cy.findByLabelText("Email*").type("user@example.com");
@@ -21,7 +21,7 @@ describe("As a user visiting the registration page", () => {
 
       cy.url().should("eq", `${Cypress.config().baseUrl}/classes`);
     });
-    cy.contains("SIGN OUT");
+    cy.contains("Menu");
   });
 
   it("If I provide an invalid email and password, I will remain on the same page", () => {

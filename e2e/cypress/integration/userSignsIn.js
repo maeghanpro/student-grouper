@@ -24,7 +24,7 @@ describe("As a user visiting the sign in page", () => {
 
       cy.url().should("eq", `${Cypress.config().baseUrl}/classes`);
     });
-    cy.contains("Sign Out");
+    cy.contains("Menu");
   });
 
   it("If I provide an invalid email and password, I will remain on the same page", () => {
