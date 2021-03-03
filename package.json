@@ -11,6 +11,7 @@
     "lint": "eslint --ext .js,.cjs server client",
     "dev": "yarn workspace student-grouper-server dev",
     "dev:debug": "yarn workspace student-grouper-server dev:debug",
+    "docker": "docker-compose build && docker-compose up",
     "heroku-postbuild": "yarn workspace student-grouper-client build",
     "start": "yarn workspace student-grouper-server start",
     "dev:cypress": "yarn workspace student-grouper-server dev:e2e",

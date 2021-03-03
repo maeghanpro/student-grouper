@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  db:
+    image: "postgres:13.2-alpine"
+    ports: 
+      - "5432:5432"
+    environment: 
+      - POSTGRES_DB=db
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=student-grouper_development
+  student-grouper:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/student-grouper_development
+      - SESSION_SECRET=473b9092-1778-42b8-a091-230a04b54f07
+    depends_on: 
+      - db
+    volumes:
+      - ./client:/app/client
+      - ./server:/app/server
+    command: 
+      - "sh"
+      - -c
+      - |
+        yarn install \
+        && yarn workspace student-grouper-server migrate:latest \
+        && yarn workspace student-grouper-server db:seed \
+        && yarn workspace student-grouper-server dev

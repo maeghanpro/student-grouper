@@ -64,7 +64,7 @@ const PrintFriendlyPdf = ({ arrangement, classSectionName, studentView }) => {
         style={styles.studentName}
       >
         {student.firstName} {student.lastInitial}
-        {!studentView ? `(A${student.academicTier} S${student.socialEmotionalTier})` : null}
+        {!studentView ? ` (A${student.academicTier} S${student.socialEmotionalTier})` : null}
       </Text>
     );
     return (
