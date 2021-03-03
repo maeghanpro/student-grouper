@@ -30,6 +30,6 @@ $ yarn run docker
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at (https://github.com/maeghanpro/student-grouper). Use the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/) workflow to contribute.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/maeghanpro/student-grouper](https://github.com/maeghanpro/student-grouper). Use the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/) workflow to contribute.
 
 Contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) code of conduct.
