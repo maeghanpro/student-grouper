@@ -51,16 +51,44 @@ describe("students CRUD", () => {
       cy.root().submit();
     });
 
-    cy.get(".class-card")
-      .find(".class-card-button")
-      .first()
-      .click();
+    cy.get(".class-card").find(".class-card-button").first().click();
   });
 
   it("view student in the table", () => {
+    cy.get("tbody").first().find("th").should("contain", "Maeghan P.");
+  });
+
+  it("create a new student", () => {
+    cy.get(".student-fab").click();
+
     cy.get("tbody")
       .first()
+      .within(() => {
+        cy.findByLabelText("First Name*").type("Craig");
+
+        cy.findByLabelText("Last Initial*").type("B.");
+
+        cy.get("#new-student-academicTier").click();
+
+        cy.focused().siblings("li").contains("1 - No support").click();
+
+        cy.get("#new-student-socialEmotionalTier").click();
+
+        cy.focused().siblings("li").contains("2 - Some support").click();
+
+        cy.get("#submit-new-student-button").click();
+      });
+
+    cy.get("tbody")
       .find("th")
-      .should("contain", "Maeghan P.")
-  })
+      .contains("Craig B.")
+      .siblings("td")
+      .each(($el, index) => {
+        if (index === 0) {
+          expect($el).to.contain("1");
+        } else if (index === 1) {
+          expect($el).to.contain("2");
+        }
+      });
+  });
 });
