@@ -125,4 +125,12 @@ describe("students CRUD", () => {
         }
       });
   });
+
+  it("delete a student", () => {
+    cy.get("tbody").find(".delete-student-icon").first().click();
+
+    cy.get(".dialog-proceed-button").click();
+
+    cy.get("tbody").find("th").contains("Maeghan P.").should("not.exist");
+  });
 });
