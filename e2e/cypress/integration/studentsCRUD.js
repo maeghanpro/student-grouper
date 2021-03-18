@@ -91,4 +91,38 @@ describe("students CRUD", () => {
         }
       });
   });
+
+  it("update a student", () => {
+    cy.get("tbody").find(".edit-student-icon").first().click();
+
+    cy.get("tbody")
+      .first()
+      .within(() => {
+        cy.findByLabelText("First Name*").clear().type("Molly");
+
+        cy.findByLabelText("Last Initial*").clear().type("P.");
+
+        cy.get("#edit-student-academicTier").click();
+
+        cy.focused().siblings("li").contains("2 - Some support").click();
+
+        cy.get("#edit-student-socialEmotionalTier").click();
+
+        cy.focused().siblings("li").contains("1 - No support").click();
+
+        cy.get("#save-student-button").click();
+      });
+
+    cy.get("tbody")
+      .find("th")
+      .contains("Molly P.")
+      .siblings("td")
+      .each(($el, index) => {
+        if (index === 0) {
+          expect($el).to.contain("2");
+        } else if (index === 1) {
+          expect($el).to.contain("1");
+        }
+      });
+  });
 });
